@@ -233,7 +233,7 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .site-hero.site-sm-hero {
-  min-height: 900px;
+  min-height: 950px;
   height: 50vh;
 }
 
@@ -1988,17 +1988,28 @@ blockquote p {
   background: #fff !important;
   -webkit-box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.2);
-  margin-top: -900px;
+  margin-top: -950px;
 }
 
-@media (max-width:991.98px){
+@media (max-width:1199.98px){
 	.site-hero.site-sm-hero{
-		min-height: 1200px;
+		min-height: 1000px;
 		height: 50vh;
 	}
 	
 	.form-wrap{
-		margin-top: -1200px;
+		margin-top: -1000px;
+	}
+}
+
+@media (max-width:991.98px){
+	.site-hero.site-sm-hero{
+		min-height: 1300px;
+		height: 50vh;
+	}
+	
+	.form-wrap{
+		margin-top: -1300px;
 	}
 }
 
@@ -2203,21 +2214,11 @@ select.minimal {
   }
   
   .msg{
-	  margin: 10px 0 0 5px; line-height:15px;
+	  margin: 7px 0 0 5px; line-height:15px;
   }
   
-  .confirmPsw{
-	  margin: -80px 0 0 282px;
+  .errorMsg{
+	  color:red; display:none;
   }
   
-  @media (max-width: 1199.98px) {
-	  .confirmPsw{
-		margin: -80px 0 0 230px;
-	  }
-  }
-  
-  @media (max-width: 991.98px) {
-	  .confirmPsw{
-		margin: 0 0 15px 0;
-	  }
   }

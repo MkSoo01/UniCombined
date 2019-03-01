@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$_SESSION['servername'] = "localhost";
 	$_SESSION['username'] = "root";
 	$_SESSION['password'] = "";
@@ -19,8 +20,7 @@
 	$conn->query($createApplicantTb);
 	$conn->close();
 ?>
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Free Education Template by Colorlib</title>
@@ -41,6 +41,7 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
+
   <body>
     
     <header role="banner">
@@ -101,7 +102,6 @@
       </nav>
     </header>
     <!-- END header -->
-
     <section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
       <div class="container">
         <div class="row align-items-center justify-content-center site-hero-sm-inner">
@@ -123,27 +123,27 @@
           <div class="col-md-7">
             <div class="form-wrap">
               <h2 class="mb-4">Create your UniCombined account</h2>
-              <form action="#" method="post" onsubmit="return signUp()">
+              <form action="<?php $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return signUp()">
                 <div class="row">
                   <div class="col-md-12 form-group">
-                    <input type="text" id="username" placeholder="Username*" class="form-control">
+                    <input type="text" id="username" name="username" placeholder="Username*" class="form-control">
 					<p class="msg errorMsg">&#10007;<small> Please enter username</small></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-6 form-group">
-                    <input type="password" id="psw" placeholder="Password*" class="form-control">
+                    <input type="password" id="psw" name="psw" placeholder="Password*" class="form-control">
 					<p class="msg"><small>Use 6 or more characters with a mix of letters and numbers</small></p>
                   </div>
 				  
 				  <div class="col-lg-6 form-group confirmPsw">
-                    <input type="password" id="confirmPsw" placeholder="Confirm Password*" class="form-control">
+                    <input type="password" id="confirmPsw" name="confirmPsw" placeholder="Confirm Password*" class="form-control">
 					<p class="msg errorMsg">&#10007;<small> Please enter confirm password</small></p>
                   </div>
                 </div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-                      <select name="" id="idType" class="form-control minimal" onchange="idTypeSelect()">
+                      <select id="idType" name="idType" class="form-control minimal" onchange="idTypeSelect()">
                         <option value="">ID Type*</option>
                         <option value="Identity Card">Identity Card</option>
                         <option value="Passport">Passport</option>
@@ -151,39 +151,39 @@
 					  <p class="msg errorMsg">&#10007;<small> Please enter ID type</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type=="text" id="idNo" placeholder="ID Number*" class = "form-control">
+						<input type=="text" id="idNo" name="idNo" placeholder="ID Number*" class = "form-control">
 						<p class="msg errorMsg">&#10007;<small> Please enter ID number</small></p>
 					</div>
                 </div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<input type="text" id="name" placeholder="Full name as ID*" class = "form-control">
+						<input type="text" id="name" name = "name" placeholder="Full name as ID*" class = "form-control">
 						<p class="msg errorMsg">&#10007;<small> Please enter full name</small></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-						<input type="text" id="nationality" placeholder="Nationality*" class = "form-control">
+						<input type="text" id="nationality" name="nationality" placeholder="Nationality*" class = "form-control">
 						<p class="msg errorMsg">&#10007;<small> Please enter nationality</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="date" id="date" placeholder="DOB*" class = "form-control" onchange="dateSelect()">
+						<input type="date" id="date" name="date" placeholder="DOB*" class = "form-control" onchange="dateSelect()">
 						<p class="msg errorMsg">&#10007;<small> Please enter date of birth</small></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-						<input type="text" id="email" placeholder="Email Address*" class = "form-control">
+						<input type="text" id="email" name="email" placeholder="Email Address*" class = "form-control">
 						<p class="msg"><small>Use the format example@email.com</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="text" id="mobileNo" placeholder="Mobile Number*" class = "form-control">
+						<input type="text" id="mobileNo" name="mobileNo" placeholder="Mobile Number*" class = "form-control">
 						<p class="msg"><small>Use the format XXX-XXXXXXX</small></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<textarea type="text" id="address" placeholder="Address*" class = "form-control" rows="2"></textarea>
+						<textarea type="text" id="address" name="address" placeholder="Address*" class = "form-control" rows="2"></textarea>
 						<p class="msg errorMsg">&#10007;<small> Please enter Address</small></p>
 					</div>
 				</div>
@@ -204,6 +204,46 @@
 
 
     </section>
+	<?php
+	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$useDb = "USE unicombined";
+	$conn->query($useDb);
+	$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
+	$findUsername->bind_param("s", $_POST["username"]);
+	$findUsername->execute();
+	$findUsername->store_result();
+	if($findUsername->num_rows > 0){
+		echo "<p>This is it This is it</p>";
+		$inputBox = array("username", "psw", "confirmPsw", "idType", "idNo", 
+		"name", "nationality", "date", "email", "mobileNo", "address");
+		$echoStr = "";
+		foreach ($inputBox as $value){
+			$echoStr = $echoStr."document.getElementById(\"".$value."\").value = \"".$_POST[$value]."\";";
+		}
+		$echoStr = "<script>".$echoStr."
+		var username = document.getElementById(\"username\");
+		var errorMsg = document.getElementsByTagName(\"p\");
+		errorMsg[1].innerHTML = \"&#10007<small> That username is taken. Try another</small>\"; 
+		errorMsg[1].style.display = \"block\";
+		username.style.border = \"1px solid red\";
+		username.focus();
+		</script>";
+		echo $echoStr;
+	}else{
+		$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
+		$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
+		$insertUser->execute();
+		$insertUser->close();
+		$insertApplicant = $conn->prepare("INSERT INTO applicant(applicantID, IDtype, IDnum, dateOfBirth, nationality, address) VALUES(?,?,?,?,?,?);");
+		$insertApplicant->bind_param("ssssss",$_POST["username"],$_POST["idType"],$_POST["idNo"],$_POST["date"],$_POST["nationality"],$_POST["address"]);
+		$insertApplicant->execute();
+		$insertApplicant->close();
+	}
+	$conn->close();
+?>
     <footer class="site-footer border-top">
       <div class="container">
         <div class="row mb-5">
@@ -298,39 +338,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-<?php
-	$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
-	$findUsername->bind_param("s", $_POST["username"]);
-	$findUsername->execute();
-	$findUsername->store_result();
-	if($findUsername->num_rows > 0){
-		$inputBox = array("username", "psw", "confirmPsw", "idType", "idNo", 
-		"name", "nationality", "date", "email", "mobileNo", "address");
-		$userInput = array($_POST["username"], 
-		$echoStr = "<script>";
-		foreach ($inputBox as $value){
-			$echoStr += "document.getElementById(\"" + $value + "\").value = " + $_POST[$value] + ";";
-		}
-		$echoStr += "
-		var username = document.getElementById(\"username\");
-		var errorMsg = document.getElementsByTagName(\"p\");
-		errorMsg[1].innerHTML = \"&#10007<small> That username is taken try another</small>\"; 
-		errorMsg[1].style.display = \"block\";
-		username.style.border = \"1px solid red\";
-		username.focus();
-		</script>";
-		echo $echoStr;
-	}else{
-		$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
-		$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
-		$insertUser->execute();
-		$insertUser->close();
-		$insertApplicant = $conn->prepare("INSERT INTO applicant(applicantID, IDtype, IDnum, dateOfBirth, nationality, address) VALUES(?,?,?,?,?,?);");
-		$insertApplicant->bind_param("sssss",$_POST["username"],$_POST["idType"],$_POST["idNo"],$_POST["date"],$_POST["nationality"],$_POST["address"]);
-		$insertApplicant->execute();
-		$insertApplicant->close();
-	}
-?>
 	<script src="js/student-sign-up.js"></script> 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>

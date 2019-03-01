@@ -90,7 +90,7 @@ email.onkeyup = function(){
 		errorMsg[9].innerHTML = "<small>Use the format example@email.com</small>";
 		errorMsg[9].style.color = "grey";
 		email.style.border = "1px solid lightgrey";
-		nvalidEmail = false;
+		invalidEmail = false;
 	}
 }
 
@@ -131,7 +131,6 @@ function dateSelect(){
 		dateOfBirth.style.border = "1px solid lightgrey";
 	}
 }
-			
 //sign up function will be called when the sign up button clicked
 function signUp(){
 	//check if the username is blank, if it is, display error message
@@ -211,9 +210,12 @@ function signUp(){
 		invalidAddress = false;
 	//alert("a"+ invalidUsername + "" + invalidPsw + "" + invalidCPsw + "" + invalidIDtype + "" + invalidIDno + "" + invalidName + "" +
 	//invalidNationality + "" + invalidDOB + "" + invalidEmail + "" + invalidPhoneNo + "" + invalidAddress);
-	if( invalidUsername || invalidPsw || invalidCPsw || invalidIDtype || invalidIDno || invalidName || 
-	invalidNationality || invalidDOB || invalidEmail || invalidPhoneNo || invalidAddress){
-		document.getElementsByTagName("h2")[0].scrollIntoView();
-		return false;
+	invalid = [invalidUsername, invalidPsw, invalidCPsw, invalidIDtype, invalidIDno, invalidName, invalidNationality,
+	invalidDOB, invalidEmail, invalidPhoneNo, invalidAddress];
+	for ( i = 0 ; i < invalid.length; i++){
+		if (invalid[i]){
+			document.getElementsByClassName("form-control")[i].focus();
+			return false;
+		}
 	}
 }

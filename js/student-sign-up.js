@@ -29,7 +29,10 @@ password.onkeyup = function(){
 	invalidPsw = !regexPsw.test(password.value) || !regexPsw2.test(password.value) ||
 	!regexPsw3.test(password.value)
 	if (invalidPsw){
-		errorMsg[2].innerHTML = "&#10007<small> Password must at least 6 characters with a mix of letters and numbers</small>";
+		if (password.value.length<6)
+			errorMsg[2].innerHTML = "&#10007<small> Please use 6 characters or more for password</small>";
+		else
+			errorMsg[2].innerHTML = "&#10007<small> Choose a stronger password with a mix of letters and numbers</small>";
 		errorMsg[2].style.color="red";
 		password.style.border = "1px solid red";
 		invalidPsw = true;
@@ -45,7 +48,7 @@ password.onkeyup = function(){
 confirmPsw.onkeyup = function(){
 	invalidCPsw = password.value != confirmPsw.value;
 	if (invalidCPsw){
-		errorMsg[3].innerHTML = "&#10007;<small> Confirm password not consistent with password</small>";
+		errorMsg[3].innerHTML = "&#10007;<small> Those password didn't match. Try again</small>";
 		errorMsg[3].style.display = "block";
 		confirmPsw.style.border = "1px solid red";
 		invalidCPsw = true;

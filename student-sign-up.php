@@ -18,7 +18,6 @@
 	IDnum VARCHAR(50), dateOfBirth DATE, nationality VARCHAR(25), address VARCHAR (150), 
 	Foreign key(applicantID) references user(username));";
 	$conn->query($createApplicantTb);
-	$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -204,43 +203,42 @@
 
 
     </section>
-	<?php
-	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+<?php
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
 	$findUsername->bind_param("s", $_POST["username"]);
 	$findUsername->execute();
 	$findUsername->store_result();
-	if($findUsername->num_rows > 0){
-		echo "<p>This is it This is it</p>";
-		$inputBox = array("username", "psw", "confirmPsw", "idType", "idNo", 
-		"name", "nationality", "date", "email", "mobileNo", "address");
-		$echoStr = "";
-		foreach ($inputBox as $value){
-			$echoStr = $echoStr."document.getElementById(\"".$value."\").value = \"".$_POST[$value]."\";";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if($findUsername->num_rows > 0){
+			$inputBox = array("username", "psw", "confirmPsw", "idType", "idNo", 
+			"name", "nationality", "date", "email", "mobileNo", "address");
+			$echoStr = "";
+			foreach ($inputBox as $value){
+				$echoStr = $echoStr."document.getElementById(\"".$value."\").value = \"".$_POST[$value]."\";";
+			}
+			$echoStr = "<script>".$echoStr."
+			var username = document.getElementById(\"username\");
+			var errorMsg = document.getElementsByTagName(\"p\");
+			errorMsg[1].innerHTML = \"&#10007<small> That username is taken. Try another</small>\"; 
+			errorMsg[1].style.display = \"block\";
+			username.style.border = \"1px solid red\";
+			username.focus();
+			</script>";
+			echo $echoStr;
+		}else{
+			$_SESSION['UserName'] = $_POST["username"];
+			$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
+			$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
+			$insertUser->execute();
+			$insertUser->close();
+			$insertApplicant = $conn->prepare("INSERT INTO applicant(applicantID, IDtype, IDnum, dateOfBirth, nationality, address) VALUES(?,?,?,?,?,?);");
+			$insertApplicant->bind_param("ssssss",$_POST["username"],$_POST["idType"],$_POST["idNo"],$_POST["date"],$_POST["nationality"],$_POST["address"]);
+			$insertApplicant->execute();
+			$insertApplicant->close();
+			echo "<script>window.open(\"student-qualification.php\",\"_self\");</script>";
 		}
-		$echoStr = "<script>".$echoStr."
-		var username = document.getElementById(\"username\");
-		var errorMsg = document.getElementsByTagName(\"p\");
-		errorMsg[1].innerHTML = \"&#10007<small> That username is taken. Try another</small>\"; 
-		errorMsg[1].style.display = \"block\";
-		username.style.border = \"1px solid red\";
-		username.focus();
-		</script>";
-		echo $echoStr;
-	}else{
-		$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
-		$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
-		$insertUser->execute();
-		$insertUser->close();
-		$insertApplicant = $conn->prepare("INSERT INTO applicant(applicantID, IDtype, IDnum, dateOfBirth, nationality, address) VALUES(?,?,?,?,?,?);");
-		$insertApplicant->bind_param("ssssss",$_POST["username"],$_POST["idType"],$_POST["idNo"],$_POST["date"],$_POST["nationality"],$_POST["address"]);
-		$insertApplicant->execute();
-		$insertApplicant->close();
 	}
 	$conn->close();
 ?>

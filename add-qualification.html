@@ -101,35 +101,37 @@
           <div class="col-md-7">
             <div class="form-wrap">
               <h2 class="mb-4">New Qualification</h2>
-              <form action="#" method="post" onsubmit="return signUp()">
+              <form action="#" method="post" onsubmit="return addQuali()">
 
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<textarea type="text" id="qualiname" placeholder="Qualification Name*" class="form-control" rows="2"></textarea>
-						<p class="msg errorMsg">&#10007;<small> Please enter Address</small></p>
+						<textarea type="text" id="qualiName" placeholder="Qualification Name*" class="form-control" rows="2"></textarea>
+						<p class="msg errorMsg">&#10007;<small> Please enter a qualification name</small></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-						<input type="number" id="email" placeholder="Minimum Score*" class = "form-control">
+						<input type="number" id="minScore" placeholder="Minimum Score*" class = "form-control">
+						<p class="msg errorMsg">&#10007;<small> Please enter minimum score</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="number" id="mobileNo" placeholder="Maximum Score*" class = "form-control">
+						<input type="number" id="maxScore" placeholder="Maximum Score*" class = "form-control">
+						<p class="msg errorMsg">&#10007;<small> Please enter a maximum score</small></p>
 					</div>
 				</div>
                <div class="row">
 					<div class="col-md-6 form-group">
-                      <select name="" id="idType" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="calculationType" class="form-control minimal" onchange="idTypeSelect()">
                         <option value="">Type of Calculation*</option>
                         <option value="averagebestsubj">Average of best subjects</option>
                         <option value="averagesubj">Average of subjects</option>
 						<option value="totalbestsubj">Total of best subjects</option>
                         <option value="totalsubj">Total of subjects</option>
                       </select>
-					  <p class="msg errorMsg">&#10007;<small> Please enter ID type</small></p>
+					  <p class="msg errorMsg">&#10007;<small> Please select a type of calculation</small></p>
 					</div>
 					<div class="col-md-6 form-group">
-                      <select name="" id="idType" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="numOfSubject" class="form-control minimal" onchange="idTypeSelect()">
                         <option value="">Number of Subjects*</option>
                         <option value="three">3</option>
                         <option value="four">4</option>
@@ -137,20 +139,20 @@
                         <option value="six">6</option>
                         <option value="seven">7</option>
                       </select>
-					  <p class="msg errorMsg">&#10007;<small> Please enter ID type</small></p>
+					  <p class="msg errorMsg">&#10007;<small> Please select number of subjects</small></p>
 					</div>
                 </div>
 				<font size="5"><b>Grading System</b></font>
                 <div class="row">
 					<div class="col-md-12 form-group">
-                      <select name="" id="idType" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="numOfGrade" class="form-control minimal" onchange="idTypeSelect()">
                         <option value="">Number of Grades*</option>
-                        <option value="One">1</option>
-                        <option value="Two">2</option>
-						<option value="Three">3</option>
-                        <option value="Four">4</option>
+                        <option value="one">1</option>
+                        <option value="two">2</option>
+						<option value="three">3</option>
+                        <option value="four">4</option>
                       </select>
-					  <p class="msg errorMsg">&#10007;<small> Please enter ID type</small></p>
+					  <p class="msg errorMsg">&#10007;<small> Please select number of grades</small></p>
 					</div>
                 </div>
 
@@ -263,7 +265,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<script src="js/student-sign-up.js"></script> 
+	<script src="js/add-qualification.js"></script> 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>

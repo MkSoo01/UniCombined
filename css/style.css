@@ -34,7 +34,7 @@ header {
   box-shadow: 0 5px 80px -10px rgba(0, 0, 0, 0.5);
 }
 
-header .navbar-brand {
+.navbar-brand {
   text-transform: uppercase;
   letter-spacing: .2em;
   font-weight: 400;
@@ -1741,7 +1741,20 @@ blockquote p {
   top: -2px;
   color: #ccc;
 }
-
+.wrapper{
+	display:flex;
+	width: 100%;
+}
+#sidebar {
+	width: 250px;
+	position:fixed;
+	top:0;
+	left:0;
+	height: 100vh;
+	z-index: 999;
+	background:white;
+	transition: all 0.3s;
+}
 .block-24 {
   background: #fff;
   -webkit-box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.2);
@@ -1785,6 +1798,11 @@ blockquote p {
 .block-24 ul li a:hover, .block-24 ul li a:focus {
   color: #11cbd7;
   border-left: 4px solid #11cbd7;
+}
+
+.block-24 ul li a.active{
+	color: #11cbd7;
+	border-left: 4px solid #11cbd7;
 }
 
 .block-25 {

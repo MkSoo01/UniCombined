@@ -16,7 +16,7 @@ qualiName.onkeyup = function(){
 
 //validate password to have at least 8 characters with 1 number, 1 uppercase & 1 lowercase
 //else error message appear
-minScore.onkeyup = function(){
+function minScoreSelect(){
 	if (minScore.value != ""){
 		errorMsg[2].style.display = "none";
 		minScore.style.border = "1px solid lightgrey";
@@ -25,7 +25,7 @@ minScore.onkeyup = function(){
 		errorMsg[2].innerHTML = "&#10007<small> Minimum score should not smaller than 0</small>";
 }
 			
-maxScore.onkeyup = function(){
+function maxScoreSelect(){
 	if (maxScore.value != ""){
 		errorMsg[3].style.display = "none";
 		maxScore.style.border = "1px solid lightgrey";

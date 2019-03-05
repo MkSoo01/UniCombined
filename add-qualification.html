@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/add-qualification-popup.css">
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
@@ -111,17 +113,17 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-						<input type="number" id="minScore" placeholder="Minimum Score*" class = "form-control">
+						<input type="number" id="minScore" placeholder="Minimum Score*" class = "form-control" onchange="minScoreSelect()">
 						<p class="msg errorMsg">&#10007;<small> Please enter minimum score</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="number" id="maxScore" placeholder="Maximum Score*" class = "form-control">
+						<input type="number" id="maxScore" placeholder="Maximum Score*" class = "form-control" onchange="maxScoreSelect()">
 						<p class="msg errorMsg">&#10007;<small> Please enter a maximum score</small></p>
 					</div>
 				</div>
                <div class="row">
 					<div class="col-md-6 form-group">
-                      <select name="" id="calculationType" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="calculationType" class="form-control minimal" onchange="calculationTypeSelect()">
                         <option value="">Type of Calculation*</option>
                         <option value="averagebestsubj">Average of best subjects</option>
                         <option value="averagesubj">Average of subjects</option>
@@ -131,7 +133,7 @@
 					  <p class="msg errorMsg">&#10007;<small> Please select a type of calculation</small></p>
 					</div>
 					<div class="col-md-6 form-group">
-                      <select name="" id="numOfSubject" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="numOfSubject" class="form-control minimal" onchange="numOfSubjectSelect()">
                         <option value="">Number of Subjects*</option>
                         <option value="three">3</option>
                         <option value="four">4</option>
@@ -145,7 +147,7 @@
 				<font size="5"><b>Grading System</b></font>
                 <div class="row">
 					<div class="col-md-12 form-group">
-                      <select name="" id="numOfGrade" class="form-control minimal" onchange="idTypeSelect()">
+                      <select name="" id="numOfGrade" class="form-control minimal" onchange="numOfGradeSelect()">
                         <option value="">Number of Grades*</option>
                         <option value="one">1</option>
                         <option value="two">2</option>
@@ -154,21 +156,19 @@
                       </select>
 					  <p class="msg errorMsg">&#10007;<small> Please select number of grades</small></p>
 					</div>
-                </div>
-
+                </div>				
 				<p><small>* required</small></p>
                 <div class="row">
 				  <div class="col-md-6" form-group style="text-align:right">
 					<input type="submit" value="Next" class="btn btn-primary px-5 py-2">
 				  </div>
-                </div>
+                </div>		
               </form>
             </div>
           </div>
         </div>
       </div>
-
-
+	
     </section>
     
     <footer class="site-footer border-top">

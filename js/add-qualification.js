@@ -5,7 +5,7 @@ var calculationType = document.getElementById("calculationType");
 var numOfSubject = document.getElementById("numOfSubject");
 var numOfGrade = document.getElementById("numOfGrade");
 var errorMsg = document.getElementsByTagName("p");
-var qualiName = minScore = maxScore = calculationType = numOfSubject = numOfGrade = false;
+var invalidQualiName = invalidMinScore = invalidMaxScore = invalidCalculationType = invalidNumOfSubject = invaildNumOfGrade = false;
 			
 qualiName.onkeyup = function(){
 	if (qualiName.value != ""){
@@ -13,7 +13,7 @@ qualiName.onkeyup = function(){
 		qualiName.style.border = "1px solid lightgrey";
 	}
 }
-			
+
 //validate password to have at least 8 characters with 1 number, 1 uppercase & 1 lowercase
 //else error message appear
 minScore.onkeyup = function(){
@@ -101,9 +101,7 @@ function addQuali(){
 		invalidNumOfGrade = true;
 	}else
 		invalidNumOfGrade = false;
-	
-	//alert("a"+ invalidUsername + "" + invalidPsw + "" + invalidCPsw + "" + invalidIDtype + "" + invalidIDno + "" + invalidName + "" +
-	//invalidNationality + "" + invalidDOB + "" + invalidEmail + "" + invalidPhoneNo + "" + invalidAddress);
+	alert("a"+ invalidQualiName + "" + invalidMinScore + "" + invalidMaxScore + "" + invalidCalculationType + "" + invalidNumOfSubject + "" + invalidNumOfGrade + "");
 	invalid = [invalidQualiName, invalidMinScore, invalidMaxScore, invalidCalculationType, invalidNumOfSubject, invalidNumOfGrade];
 	for ( i = 0 ; i < invalid.length; i++){
 		if (invalid[i]){

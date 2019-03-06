@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Free Education Template by Colorlib</title>
+    <title>UniCombined</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -145,18 +145,39 @@
 					</div>
                 </div>
 				<font size="5"><b>Grading System</b></font>
-                <div class="row">
-					<div class="col-md-12 form-group">
-                      <select name="" id="numOfGrade" class="form-control minimal" onchange="numOfGradeSelect()">
-                        <option value="">Number of Grades*</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-						<option value="three">3</option>
-                        <option value="four">4</option>
-                      </select>
-					  <p class="msg errorMsg">&#10007;<small> Please select number of grades</small></p>
+								<div class="row">
+					<label class="ml-3">Enter all the subjects and the respective grade/score below</label>
+					<div class="col-lg-6 form-group">
+						<input type="text" name="subject[]" placeholder="Subject*" class = "subject form-control">
+						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
 					</div>
-                </div>				
+					<div class="col-lg-6 form-group">
+						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "grade form-control">
+						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 form-group">
+						<input type="text" name="subject[]" placeholder="Subject*" class = "form-control subject">
+						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
+					</div>
+					<div class="col-lg-6 form-group">
+						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
+						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 form-group">
+						<input type="text" name="subject[]" placeholder="Subject*" class = "form-control subject">
+						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
+					</div>
+					<div class="col-lg-6 form-group">
+						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
+						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+					</div>
+				</div>
+				<p class="msg errorMsg mb-2 p-1" style="text-transform: uppercase;"></p>
+				<input type="button" value="&#43; Add subject" class="btn px-2 py-2 mb-4" onclick="addSubject()">
 				<p><small>* required</small></p>
                 <div class="row">
 				  <div class="col-md-6" form-group style="text-align:right">

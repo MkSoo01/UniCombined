@@ -3,10 +3,9 @@ var minScore = document.getElementById("minScore");
 var maxScore = document.getElementById("maxScore");
 var calculationType = document.getElementById("calculationType");
 var numOfSubject = document.getElementById("numOfSubject");
-var numOfGrade = document.getElementById("numOfGrade");
 var errorMsg = document.getElementsByTagName("p");
-var invalidQualiName = invalidMinScore = invalidMaxScore = invalidCalculationType = invalidNumOfSubject = invaildNumOfGrade = false;
-			
+var invalidQualiName = invalidMinScore = invalidMaxScore = invalidCalculationType = invalidNumOfSubject = invaildNumOfGrade = false;			
+
 qualiName.onkeyup = function(){
 	if (qualiName.value != ""){
 		errorMsg[1].style.display = "none";
@@ -14,8 +13,6 @@ qualiName.onkeyup = function(){
 	}
 }
 
-//validate password to have at least 8 characters with 1 number, 1 uppercase & 1 lowercase
-//else error message appear
 function minScoreSelect(){
 	if (minScore.value != ""){
 		errorMsg[2].style.display = "none";
@@ -46,16 +43,10 @@ function numOfSubjectSelect(){
 	}
 }
 
-function numOfGradeSelect(){
-	if (numOfGrade.value != ""){
-		errorMsg[6].style.display = "none";
-		numOfGrade.style.border = "1px solid lightgrey";
-	}
-}
 
 //sign up function will be called when the sign up button clicked
 function addQuali(){
-	//check if the username is blank, if it is, display error message
+	//check if the qualification name is blank
 	if (qualiName.value == ""){
 		errorMsg[1].style.display = "block";
 		qualiName.style.border = "1px solid red";
@@ -63,7 +54,7 @@ function addQuali(){
 	}else
 		invalidQualiName = false;
 	
-	//check if the confirmation password is blank, if it is, display error message
+	//check if the minimum score is blank
 	if (minScore.value == ""){
 		errorMsg[2].style.display = "block";
 		minScore.style.border = "1px solid red";
@@ -71,6 +62,7 @@ function addQuali(){
 	}else
 		invalidMinScore = false;
 	
+	//check if the maximum score is blank
 	if (maxScore.value == ""){
 		errorMsg[3].style.display = "block";
 		maxScore.style.border = "1px solid red";
@@ -78,7 +70,7 @@ function addQuali(){
 	}else
 		invalidMaxScore = false;
 	
-	//check if the id type is chosen
+	//check if the calculation type is chosen
 	if (calculationType.value == ""){
 		errorMsg[4].style.display = "block";
 		calculationType.style.border = "1px solid red";
@@ -86,7 +78,7 @@ function addQuali(){
 	}else
 		invalidCalculationType = false;
 	
-	//check if the id number is blank
+	//check if the number of subject is blank
 	if (numOfSubject.value == ""){
 		errorMsg[5].style.display = "block";
 		numOfSubject.style.border = "1px solid red";
@@ -94,14 +86,8 @@ function addQuali(){
 	}else
 		invalidCalculationType = false;
 
-	//check if the full name is blank
-	if (numOfGrade.value == ""){
-		errorMsg[6].style.display = "block";
-		numOfGrade.style.border = "1px solid red";
-		invalidNumOfGrade = true;
-	}else
-		invalidNumOfGrade = false;
-	alert("a"+ invalidQualiName + "" + invalidMinScore + "" + invalidMaxScore + "" + invalidCalculationType + "" + invalidNumOfSubject + "" + invalidNumOfGrade + "");
+	
+	//alert("a"+ invalidQualiName + "" + invalidMinScore + "" + invalidMaxScore + "" + invalidCalculationType + "" + invalidNumOfSubject + "" + invalidNumOfGrade + "");
 	invalid = [invalidQualiName, invalidMinScore, invalidMaxScore, invalidCalculationType, invalidNumOfSubject, invalidNumOfGrade];
 	for ( i = 0 ; i < invalid.length; i++){
 		if (invalid[i]){

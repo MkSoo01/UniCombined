@@ -56,6 +56,7 @@ function signUp(){
 			errorMsg[(i+1)*2].style.display = "block";
 			subject[i].style.border = "1px solid red";
 			invalidSubject = true;
+			invalidSubject = true;
 			if (focusNum == -1)
 				focusNum = focusNum + ((i+1)*2);
 		}

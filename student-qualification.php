@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>

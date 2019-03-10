@@ -133,18 +133,6 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter description</small></p>
 					</div>
 				</div>
-                <div class="row">
-					<div class="col-md-12 form-group">
-                      <select name="" id="adminNo" class="form-control minimal" onchange="idTypeSelect()">
-                        <option value="">Number of Admin*</option>
-                        <option value="One">1</option>
-                        <option value="Two">2</option>
-						<option value="Three Card">3</option>
-                        <option value="Four">4</option>
-                      </select>
-					  <p class="msg errorMsg">&#10007;<small> Please select number of admin</small></p>
-					</div>
-                </div>
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<label>Select an university image to upload*:</label>

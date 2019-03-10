@@ -1,3 +1,17 @@
+<?php
+	session_start();
+	$_SESSION['servername'] = "localhost";
+	$_SESSION['username'] = "root";
+	$_SESSION['password'] = "";
+	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$useDb = "USE unicombined";
+	$conn->query($useDb);
+	$getAllQf = "SELECT qualificationName, resultCalcDesc from qualification;";
+	$allQf = $conn->query($getAllQf);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,7 +53,15 @@
                 <a class="nav-link" href="blog.html">All University</a>
               </li>
             </ul>
-            
+            <ul class="navbar-nav absolute-right">
+			  <?php
+					if (isset($_SESSION["loggedin"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
+						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
+					}
+			  ?>
+            </ul>
           </div>
         </div>
       </nav>
@@ -84,6 +106,15 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php
+										while($row = $allQf->fetch_assoc()){
+											echo "<tr>
+											<td>".$row["qualificationName"]."</td>
+											<td>".$row["resultCalcDesc"]."</td>
+											</tr>";
+										}
+										$conn->close();
+									?>
 									<tr>
 										<td>STPM</td>
 										<td>Average of best 3 subjects</td>

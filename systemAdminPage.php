@@ -39,7 +39,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -47,7 +47,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
 			<ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="blog.html">All University</a>
@@ -91,9 +91,9 @@
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
 					<div class="row" style="text-align:right">
-						<button style="margin:10px;" onclick="window.location.href='add-qualification.html'" class="btn btn-primary px-5 py-2 mb-4">Add Qualification</button>
+						<button style="margin:10px;" onclick="window.location.href='add-qualification.php'" class="btn btn-primary px-5 py-2 mb-4">Add Qualification</button>
 						
-						<button style="margin:10px;" onclick="window.location.href='add-university.html'" class="btn btn-primary px-5 py-2 mb-4">Add University</button>
+						<button style="margin:10px;" onclick="window.location.href='add-university.php'" class="btn btn-primary px-5 py-2 mb-4">Add University</button>
 					</div>
 					<div class="row">
 						<div class="table-responsive">
@@ -115,18 +115,6 @@
 										}
 										$conn->close();
 									?>
-									<tr>
-										<td>STPM</td>
-										<td>Average of best 3 subjects</td>
-									</tr>
-									<tr>
-										<td>Unified Examination Certificate (UEC)</td>
-										<td>Total of best 5 subjects</td>
-									</tr>
-									<tr>
-										<td>Bachelor of Information Technology</td>
-										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fl lkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -147,7 +135,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -165,7 +153,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>

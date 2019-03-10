@@ -73,7 +73,7 @@
             </ul>
             <ul class="navbar-nav absolute-right">
 			  <li>
-                <a href="login.html">Login</a> / <a href="register.html">Register</a>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -90,7 +90,7 @@
   
             <div class="mb-5 element-animate">
               <h1 class="mb-2">Log in</h1>
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
+              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
             </div>
             
           </div>
@@ -104,8 +104,8 @@
         <div class="row justify-content-center">
           <div class="col-md-7">
             <div class="form-wrap">
-              <h2 class="mb-4">University Admin Login</h2>
-              <form action="signInProcess.php?loginType=universityAdmin" method="post" onsubmit="return signIn()">
+              <h2 class="mb-4">Student Login</h2>
+              <form action="signInProcess.php?loginType=student" method="post" onsubmit="return signIn()">
                 <div class="row mb-2">
                   <div class="col-md-12 form-group">
                     <input type="text" id="username" name="username" placeholder="Username" class="form-control py-2">
@@ -123,6 +123,9 @@
                   <div class="col-md-6 form-group">
                     <input type="submit" value="Login" class="btn btn-primary px-5 py-2">
                   </div>
+				  <div class="col-md-6" style="text-align:right">
+					<a href="student-sign-up.php"><b>Sign up instead</b></a>
+				  </div>
                 </div>
               </form>
             </div>

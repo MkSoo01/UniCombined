@@ -33,7 +33,6 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -42,7 +41,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">University</a>
+          <a class="navbar-brand absolute" href="index.php">University</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -50,7 +49,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
@@ -103,7 +102,7 @@
           <div class="col-md-7 text-center">
   
             <div class="mb-5 element-animate">
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
+              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Student qualification</span></p>
             </div>
             
           </div>
@@ -175,9 +174,6 @@
                   <div class="col-md-6 form-group">
                     <input type="submit" value="Create Account" class="btn btn-primary px-3 py-2">
                   </div>
-				  <div class="col-md-6" style="text-align:right">
-					<a href="#"><b>Sign in instead</b></a>
-				  </div>
                 </div>
               </form>
             </div>
@@ -197,7 +193,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -215,7 +211,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>
@@ -223,7 +219,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  

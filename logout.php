@@ -5,6 +5,6 @@ session_start();
 session_destroy();
  
 // Redirect to login page
-header("location: signIn.php");
+header("location: index.php");
 exit;
 ?>

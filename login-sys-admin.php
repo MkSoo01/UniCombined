@@ -38,42 +38,19 @@
               <li class="nav-item">
                 <a class="nav-link active" href="index.php">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="courses.html">HTML</a>
-                  <a class="dropdown-item" href="courses.html">WordPress</a>
-                  <a class="dropdown-item" href="courses.html">Laravel</a>
-                  <a class="dropdown-item" href="courses.html">JavaScript</a>
-                  <a class="dropdown-item" href="courses.html">Python</a>
-                </div>
-
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown05">
-                  <a class="dropdown-item" href="#">HTML</a>
-                  <a class="dropdown-item" href="#">WordPress</a>
-                  <a class="dropdown-item" href="#">Laravel</a>
-                  <a class="dropdown-item" href="#">JavaScript</a>
-                  <a class="dropdown-item" href="#">Python</a>
-                </div>
-
+              <li class="nav-item">
+                <a class="nav-link" href="blog.html">Programme</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog</a>
+                <a class="nav-link" href="about.html">University</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="contact.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-			  <li>
-                <a href="login.html">Login</a> / <a href="register.html">Register</a>
+              <li>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -90,7 +67,7 @@
   
             <div class="mb-5 element-animate">
               <h1 class="mb-2">Log in</h1>
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
+              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Admin Log in</span></p>
             </div>
             
           </div>
@@ -104,8 +81,8 @@
         <div class="row justify-content-center">
           <div class="col-md-7">
             <div class="form-wrap">
-              <h2 class="mb-4">University Admin Login</h2>
-              <form action="signInProcess.php?loginType=universityAdmin" method="post" onsubmit="return signIn()">
+              <h2 class="mb-4">System Admin Login</h2>
+              <form action="signInProcess.php?loginType=systemAdmin" method="post" onsubmit="return signIn()">
                 <div class="row mb-2">
                   <div class="col-md-12 form-group">
                     <input type="text" id="username" name="username" placeholder="Username" class="form-control py-2">
@@ -210,7 +187,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-    <?php
+	<?php
 	
 		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true){
 			echo "<script>var inputBox = document.getElementsByTagName(\"input\");
@@ -225,7 +202,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		unset($_SESSION["loggedin"]);
 	?>
 	<script src="js/login.js"></script>
-	<script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

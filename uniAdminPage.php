@@ -1,8 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['servername'] = "localhost";
-	$_SESSION['username'] = "root";
-	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
@@ -18,7 +15,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>UniCombined</title>
+    <title>Free Education Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -30,9 +27,8 @@
 
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-	
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-	<link rel="icon" href="icons/icon.png"/>
+
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -42,7 +38,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -50,7 +46,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
 			<ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="blog.html">All Programme</a>
@@ -98,7 +94,7 @@
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
 					<div class="row" style="text-align:right">
-						<button class="btn btn-primary px-5 py-2 mb-4">Add Programme</button>
+						<a href="recordProgramme.php"><button class="btn btn-primary px-5 py-2 mb-4">Add Programme</button></a>
 					</div>
 					<div class="row">
 						<div class="table-responsive">
@@ -122,21 +118,6 @@
 										$getAllProg->close();
 										$conn->close();
 									?>
-									<tr>
-										<td>Bachelor of Information Technology</td>
-										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fl lkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
-										<td>30/05/2019</td>
-									</tr>
-									<tr>
-										<td>Bachelor of Information Technology</td>
-										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fllkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
-										<td>30/05/2019</td>
-									</tr>
-									<tr>
-										<td>Bachelor of Information Technology</td>
-										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fl lkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
-										<td>30/05/2019</td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -147,7 +128,7 @@
     </section>
     <footer class="site-footer border-top">
       <div class="container">
-         <div class="row mb-5">
+        <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h3>UniCombined</h3>
             <p>A website where you can find various top and trusted universities in just one search.</p>
@@ -157,7 +138,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -175,7 +156,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>
@@ -183,7 +164,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  

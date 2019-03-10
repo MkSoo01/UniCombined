@@ -53,7 +53,6 @@ confirmPsw.onkeyup = function(){
 		confirmPsw.style.border = "1px solid red";
 		invalidCPsw = true;
 	}else {
-		errorMsg[3].innerHTML = "&#10007;<small> Please enter confirm password</small>";
 		errorMsg[3].style.display = "none";
 		confirmPsw.style.border = "1px solid lightgrey";
 		invalidCPsw = false;
@@ -134,6 +133,7 @@ function dateSelect(){
 		dateOfBirth.style.border = "1px solid lightgrey";
 	}
 }
+
 //sign up function will be called when the sign up button clicked
 function signUp(){
 	//check if the username is blank, if it is, display error message
@@ -153,6 +153,7 @@ function signUp(){
 	}
 	//check if the confirmation password is blank, if it is, display error message
 	if (confirmPsw.value == ""){
+		errorMsg[3].innerHTML = "&#10007;<small> Please enter confirm password</small>";
 		errorMsg[3].style.display = "block";
 		confirmPsw.style.border = "1px solid red";
 		invalidCPsw = true;

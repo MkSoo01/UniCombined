@@ -1,8 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['servername'] = "localhost";
-	$_SESSION['username'] = "root";
-	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -10,7 +7,7 @@
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$createQfTb = "CREATE TABLE Qualification (qualificationName VARCHAR(50) PRIMARY KEY, 
-	maxScore INT, minScore INT, resultCalcDesc VARCHAR(50), resultCalcFormula varchar(20));";
+	minScore INT, maxScore INT, resultCalcDesc VARCHAR(50), resultCalcFormula varchar(50));";
 	$conn->query($createQfTb);
 	$createGradeTb = "CREATE TABLE GradingSystem (qualification VARCHAR(50), 
 	grade VARCHAR(5), gradePoint DOUBLE, PRIMARY KEY(qualification, grade), 
@@ -47,7 +44,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -55,7 +52,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
@@ -111,7 +108,7 @@
           <div class="col-md-7 text-center">
   
             <div class="mb-5 element-animate">
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
+              <p class="bcrumb"><a href="systemAdminPage.php">Admin home</a> <span class="sep ion-android-arrow-dropright px-2"></span> <span class="current">Add Qualification</span></p>
             </div>
             
           </div>
@@ -173,10 +170,10 @@
 				<input type="button" value="&#43; Add grade" class="btn px-4 py-2 mb-4" onclick="addGrade()">
 				<p><small>* required</small></p>
                 <div class="row">
-				  <div class="col-md-6" form-group>
-					<input type="submit" value="Next" class="btn btn-primary px-5 py-2">
+				  <div class="col-md-6 form-group">
+					<input type="submit" value="Submit" class="btn btn-primary px-5 py-2">
 				  </div>
-                </div>		
+                </div>	
               </form>
             </div>
           </div>
@@ -197,7 +194,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -215,7 +212,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>
@@ -223,7 +220,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  
@@ -263,8 +260,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- END footer -->
     <?php
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$insertQf = $conn->prepare("INSERT INTO Qualification(qualificationName, maxScore, minScore, resultCalcDesc, resultCalcFormula) VALUES(?,?,?,?,?);");
-			$insertQf->bind_param("sssss",$_POST["qfName"],$_POST["maxScore"],$_POST["minScore"],$_POST["calcDesc"], $formula);
+			$insertQf = $conn->prepare("INSERT INTO Qualification(qualificationName, minScore, maxScore, resultCalcDesc, resultCalcFormula) VALUES(?,?,?,?,?);");
+			$insertQf->bind_param("sssss",$_POST["qfName"],$_POST["minScore"],$_POST["maxScore"],$_POST["calcDesc"], $formula);
 			$formula = "";
 			for ($k = 0; $k < (integer)$_POST["subjectNum"]; $k++){
 				$formula = $formula."Subj".($k+1)."+";
@@ -275,7 +272,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			}
 			$insertQf->execute();
 			$insertQf->close();
-			if (count($_POST["grade"]) > 0){
+			if (isset($_POST["grade"]) && count($_POST["grade"]) > 0){
 				$insertGrade = $conn->prepare("INSERT INTO GradingSystem(qualification, grade, gradePoint) VALUES(?,?,?);");
 				$insertGrade->bind_param("sss",$_POST["qfName"],$grade,$gradePoint);
 				for ($i = 0; $i<count($_POST["grade"]); $i++){
@@ -286,6 +283,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				}
 				$insertGrade->close();
 			}
+			echo "<script>var btn = document.getElementsByClassName(\"btn\")[1]; btn.value = \"Success Added\";
+			btn.focus();
+			window.onclick = function(event) { btn.value = \"Submit\";}</script>";
 		}
 		$conn->close();
 	?>

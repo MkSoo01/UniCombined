@@ -33,7 +33,6 @@ function qSelect(){
 }
 
 function selectDate(){
-	alert(""+closingDate.value);
 	if (closingDate.value != ""){
 		errorMsg[2].style.display = "none";
 		closingDate.style.border = "1px solid lightgrey";

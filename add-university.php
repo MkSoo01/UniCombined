@@ -1,8 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['servername'] = "localhost";
-	$_SESSION['username'] = "root";
-	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -41,7 +38,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -49,7 +46,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
@@ -105,7 +102,7 @@
           <div class="col-md-7 text-center">
   
             <div class="mb-5 element-animate">
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
+              <p class="bcrumb"><a href="systemAdminPage.php">Admin Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Add University</span></p>
             </div>
             
           </div>
@@ -160,59 +157,49 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <h3>University</h3>
-            <p>Perferendis eum illum voluptatibus dolore tempora consequatur minus asperiores temporibus.</p>
+            <h3>UniCombined</h3>
+            <p>A website where you can find various top and trusted universities in just one search.</p>
           </div>
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h3 class="heading">Quick Link</h3>
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Courses</a></li>
-                  <li><a href="#">Pages</a></li>
+                  <li><a href="index.php">Home</a></li>
+                  <li><a href="#">Programme</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Support</a></li>
-                  <li><a href="#">Contact</a></li>
-                  <li><a href="#">Privacy</a></li>
+                  <li><a href="#">University</a></li>
+                  <li><a href="#">Qualification</a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <h3 class="heading">Blog</h3>
+            <h3 class="heading">Permission Sign In</h3>
+            <div class="block-21 d-flex mb-4">
+			<div class="text">
+                <h3 class="heading mb-0">System Admin Login</h3>
+                <div class="meta">
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
+                </div>
+            </div>  
+			</div>
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0"><a href="#">Consectetur Adipisicing Elit</a></h3>
+                <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-                  <div><a href="#"><span class="ion-android-calendar"></span> May 29, 2018</a></div>
-                  <div><a href="#"><span class="ion-android-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="ion-chatbubble"></span> 19</a></div>
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0"><a href="#">Dolore Tempora Consequatur</a></h3>
+                <h3 class="heading mb-0">University Admin Register</a></h3>
                 <div class="meta">
-                  <div><a href="#"><span class="ion-android-calendar"></span> May 29, 2018</a></div>
-                  <div><a href="#"><span class="ion-android-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="ion-chatbubble"></span> 19</a></div>
-                </div>
-              </div>
-            </div>  
-            <div class="block-21 d-flex mb-4">
-              <div class="text">
-                <h3 class="heading mb-0"><a href="#">Perferendis eum illum</a></h3>
-                <div class="meta">
-                  <div><a href="#"><span class="ion-android-calendar"></span> May 29, 2018</a></div>
-                  <div><a href="#"><span class="ion-android-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="ion-chatbubble"></span> 19</a></div>
+					<small>Please contact our admin via email</small></a>
                 </div>
               </div>
             </div>  
@@ -221,9 +208,10 @@
             <h3 class="heading">Contact Information</h3>
             <div class="block-23">
               <ul>
-                <li><span class="icon ion-android-pin"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                <li><a href="#"><span class="icon ion-ios-telephone"></span><span class="text">+2 392 3929 210</span></a></li>
-                <li><a href="#"><span class="icon ion-android-mail"></span><span class="text">info@yourdomain.com</span></a></li>
+                <li><span class="icon ion-android-pin"></span><span class="text">15, Jalan Sri Semantan 1, Damansara Heights, 50490 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</span></li>
+                <li><span class="icon ion-ios-telephone"></span><span class="text">+60 14-338 7456 &nbsp; +60 16-3072716</span></li>
+                <li><span class="icon ion-android-mail"></span><a href="mailto:kingdom_325@hotmail.com"><span class="text">kingdom_325@hotmail.com</span></a>
+				<a href="mailto:khimsoo01@gmail.com"><span class="text">khimsoo01@gmail.com</span></a></li>
                 <li><span class="icon ion-android-time"></span><span class="text">Monday &mdash; Friday 8:00am - 5:00pm</span></li>
               </ul>
             </div>
@@ -235,7 +223,7 @@
             <p class="float-md-left"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-				<div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
           </div>
         </div>
       </div>
@@ -249,6 +237,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$insertUni->bind_param("sss",$_POST["uniName"],$_POST["description"],$uploadedImg);
 			$insertUni->execute();
 			$insertUni->close();
+			echo "<script>var btn = document.getElementsByClassName(\"btn\")[0]; btn.value = \"Success Added\";
+			btn.focus();
+			window.onclick = function(event) { btn.value = \"Submit\";}</script>";
 		}
 		$conn->close();
 	?>

@@ -40,7 +40,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -48,7 +48,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="show-programme.html">Programme</a>
@@ -62,7 +62,7 @@
             </ul>
             <ul class="navbar-nav absolute-right">
               <li>
-                <a href="login-student.html">Login</a> / <a href="student-sign-up.php">Register</a>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -284,7 +284,7 @@
 					<img src=".$row["pictureURL"]." alt=\"uniImage\" class=\"img-fluid\">
 					</figure>
 					<div class = \"text\">
-					<h2 class=\"heading\"><a href=\"#\">".$row["universityName"]."</a></h2>
+					<h2 class=\"heading\"><a href='show-programme.php?university=\"".$row["universityName"]."\"'>".$row["universityName"]."</a></h2>
 					<p class=\"mb-4\">".$row["description"]."</p>
 					</div>
 					</div>
@@ -311,7 +311,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="index.html">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -329,7 +329,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>
@@ -337,7 +337,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  

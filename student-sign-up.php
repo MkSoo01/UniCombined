@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UniCombined</title>
+    <title>Free Education Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -48,7 +47,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">University</a>
+          <a class="navbar-brand absolute" href="index.php">University</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -56,7 +55,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
@@ -93,7 +92,7 @@
             </ul>
             <ul class="navbar-nav absolute-right">
               <li>
-                <a href="login.html">Login</a> / <a href="register.html">Register</a>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -193,7 +192,7 @@
                     <input type="submit" value="Next" class="btn btn-primary px-5 py-2">
                   </div>
 				  <div class="col-md-6" style="text-align:right">
-					<a href="#"><b>Sign in instead</b></a>
+					<a href="loginStudent.php"><b>Sign in instead</b></a>
 				  </div>
                 </div>
               </form>
@@ -205,8 +204,6 @@
 
     </section>
 <?php
-	$useDb = "USE unicombined";
-	$conn->query($useDb);
 	$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
 	$findUsername->bind_param("s", $_POST["username"]);
 	$findUsername->execute();
@@ -238,7 +235,8 @@
 			$insertApplicant->bind_param("ssssss",$_POST["username"],$_POST["idType"],$_POST["idNo"],$_POST["date"],$_POST["nationality"],$_POST["address"]);
 			$insertApplicant->execute();
 			$insertApplicant->close();
-			echo "<script>window.open(\"student-qualification.php\",\"_self\");</script>";
+			echo "<script>window.open(\"student-qualification.php\",\"_parent\");</script>";
+			exit;
 		}
 	}
 	$conn->close();
@@ -255,7 +253,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="#">Programme</a></li>
                 </ul>
               </div>
@@ -273,7 +271,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>
@@ -281,7 +279,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  
@@ -313,7 +311,7 @@
             <p class="float-md-left"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-			<div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+				<div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
           </div>
         </div>
       </div>

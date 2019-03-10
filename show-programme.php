@@ -1,5 +1,19 @@
 <?php
 	session_start();
+	$_SESSION['servername'] = "localhost";
+	$_SESSION['username'] = "root";
+	$_SESSION['password'] = "";
+	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$useDb = "USE unicombined";
+	$getUniProg = $conn->prepare("SELECT University.universityID FROM University, UniversityAdmin WHERE 
+		University.universityID = UniversityAdmin.universityID AND adminID = ?");
+	$getUniID->bind_param("s",$_SESSION["UserName"]);
+	$getUniID->execute();
+	$getUniID->bind_result($uniID);
+	$getUniID->fetch();
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,6 +32,7 @@
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
@@ -28,7 +43,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.php">University</a>
+          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,42 +53,19 @@
               <li class="nav-item">
                 <a class="nav-link active" href="index.php">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="courses.html">HTML</a>
-                  <a class="dropdown-item" href="courses.html">WordPress</a>
-                  <a class="dropdown-item" href="courses.html">Laravel</a>
-                  <a class="dropdown-item" href="courses.html">JavaScript</a>
-                  <a class="dropdown-item" href="courses.html">Python</a>
-                </div>
-
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown05">
-                  <a class="dropdown-item" href="#">HTML</a>
-                  <a class="dropdown-item" href="#">WordPress</a>
-                  <a class="dropdown-item" href="#">Laravel</a>
-                  <a class="dropdown-item" href="#">JavaScript</a>
-                  <a class="dropdown-item" href="#">Python</a>
-                </div>
-
+              <li class="nav-item">
+                <a class="nav-link" href="show-programme.php">Programme</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog</a>
+                <a class="nav-link" href="show-university.html">University</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-			  <li>
-                <a href="login.html">Login</a> / <a href="register.html">Register</a>
+              <li>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -83,54 +75,74 @@
     </header>
     <!-- END header -->
 
-    <section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
-      <div class="container">
-        <div class="row align-items-center justify-content-center site-hero-sm-inner">
-          <div class="col-md-7 text-center">
-  
-            <div class="mb-5 element-animate">
-              <h1 class="mb-2">Log in</h1>
-              <p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END section -->
-    
     <section class="site-section">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7">
-            <div class="form-wrap">
-              <h2 class="mb-4">University Admin Login</h2>
-              <form action="signInProcess.php?loginType=universityAdmin" method="post" onsubmit="return signIn()">
-                <div class="row mb-2">
-                  <div class="col-md-12 form-group">
-                    <input type="text" id="username" name="username" placeholder="Username" class="form-control py-2">
-					<p class="msg errorMsg">&#10007;<small> Please enter username</small></p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control py-2">
-					<p class="msg errorMsg">&#10007;<small> Please enter password</small></p>
-                  </div>
-                </div>
-                <p class = "msg errorMsg p-1" style="text-transform: uppercase;">&#10007;<small> Invalid username or password ! Please try again</small></p>
-                <div class="row mt-4">
-                  <div class="col-md-6 form-group">
-                    <input type="submit" value="Login" class="btn btn-primary px-5 py-2">
-                  </div>
-                </div>
-              </form>
+        <!--<div class="row">
+          <!--
+          <div class="wrapper">
+            <div class="block-24 mb-5">
+				
+				<nav id="sidebar">
+					<h3 class="navbar-brand absolute mt-3 ml-4 mb-5">UniCombined</h3>
+					<button class="btn btn-primary px-5 py-2 ml-3 mb-3">Add Programme</button>
+					<ul>
+						<li><a href="#" class="pt-1 pb-1 active">All Programme </a></li>
+						<li><a href="#" class="pt-1 pb-1">All Application </a></li>
+					</ul>
+				</nav>
             </div>
           </div>
-        </div>
-      </div>
+          <!-- END Sidebar -->
+        <!--</div>-->
+
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<div class="mb-3 p-5">
+					
+					<div class="row">
+						<!-- The form -->
+						<div class="col-md-12 mb-5">
+						<form class="search" action="action_page.php">
+							<input type="text" placeholder="Search Programme..." name="searchProgramme" class="form-control" style="border:none;">
+							<button type="submit"><i class="fa fa-search"></i></button>
+						</form>
+						</div>
+					</div>
+					<h2 class="mb-4">Programme</h2>
+					<div class="row">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr style="font-weight:500">
+										<td>Programme Name</td>
+										<td>University Name</td>
+										<td>Closing Date</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Bachelor of Information Technology (HONS)</td>
+										<td>HELP University</td>
+										<td>30/05/2019</td>
+									</tr>
+									<tr>
+										<td>Unified Examination Certificate (UEC)</td>
+										<td>Total of best 5 subjects</td>
+										<td>A1 – 1 point A2 – 2 points B3 – 3 points B4 – 4 points B5 – 5 points B6 – 6 points</td>
+									</tr>
+									<tr>
+										<td>Bachelor of Information Technology</td>
+										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fl lkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
+										<td>30/05/2019</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </section>
-    
     <footer class="site-footer border-top">
       <div class="container">
         <div class="row mb-5">
@@ -201,7 +213,7 @@
             <p class="float-md-left"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+				<div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
           </div>
         </div>
       </div>
@@ -210,22 +222,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-    <?php
-	
-		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true){
-			echo "<script>var inputBox = document.getElementsByTagName(\"input\");
-			var errorMsg = document.getElementsByClassName(\"errorMsg\");
-			inputBox[0].style.border = \"1px solid red\";
-			inputBox[1].style.border = \"1px solid red\";
-			errorMsg[2].style.display = \"block\";
-			errorMsg[2].style.background = \"red\";
-			errorMsg[2].style.color = \"white\";
-			inputBox[0].focus();</script>";
-		}
-		unset($_SESSION["loggedin"]);
-	?>
-	<script src="js/login.js"></script>
-	<script src="js/jquery-3.2.1.min.js"></script>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

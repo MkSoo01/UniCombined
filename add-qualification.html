@@ -102,23 +102,23 @@
 
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<textarea type="text" id="qualiName" placeholder="Qualification Name*" class="form-control" rows="2"></textarea>
+						<textarea type="text" id="qualiName" name="qfName" placeholder="Qualification Name*" class="form-control" rows="2"></textarea>
 						<p class="msg errorMsg">&#10007;<small> Please enter a qualification name</small></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6 form-group">
-						<input type="number" id="minScore" placeholder="Minimum Score*" class = "form-control" onchange="minScoreSelect()">
+						<input type="number" id="minScore" name="minScore" placeholder="Minimum Score*" class = "form-control" onchange="minScoreSelect()">
 						<p class="msg errorMsg">&#10007;<small> Please enter minimum score</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="number" id="maxScore" placeholder="Maximum Score*" class = "form-control" onchange="maxScoreSelect()">
+						<input type="number" id="maxScore" name="maxScore" placeholder="Maximum Score*" class = "form-control" onchange="maxScoreSelect()">
 						<p class="msg errorMsg">&#10007;<small> Please enter a maximum score</small></p>
 					</div>
 				</div>
                <div class="row">
 					<div class="col-md-6 form-group">
-                      <select name="" id="calculationType" class="form-control minimal" onchange="calculationTypeSelect()">
+                      <select id="calculationType" name="calcDesc" class="form-control minimal" onchange="calculationTypeSelect()">
                         <option value="">Type of Calculation*</option>
                         <option value="averagebestsubj">Average of best subjects</option>
                         <option value="averagesubj">Average of subjects</option>
@@ -128,8 +128,8 @@
 					  <p class="msg errorMsg">&#10007;<small> Please select a type of calculation</small></p>
 					</div>
 					<div class="col-md-6 form-group">
-                      <select name="" id="numOfSubject" class="form-control minimal" onchange="numOfSubjectSelect()">
-                        <option value="">Number of Subjects*</option>
+                      <select id="numOfSubject" name="subjectNum" class="form-control minimal" onchange="numOfSubjectSelect()">
+                        <option value="">Number of Subjects</option>
                         <option value="three">3</option>
                         <option value="four">4</option>
 						<option value="five">5</option>
@@ -141,8 +141,8 @@
                 </div>
 				<font size="5"><b>Grading System</b></font>
 				<p>Click on the button below to add grade. (eg: A = (4.00))</p>
-				<input type="button" value="&#43; Add grade" class="btn px-2 py-2 mb-4" onclick="addGrade()">
 				<p class="msg errorMsg mb-2 p-1" style="text-transform: uppercase;"></p>
+				<input type="button" value="&#43; Add grade" class="btn px-4 py-2 mb-4" onclick="addGrade()">
 				<p><small>* required</small></p>
                 <div class="row">
 				  <div class="col-md-6" form-group>
@@ -233,7 +233,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       </div>
     </footer>
     <!-- END footer -->
-    
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
 	<script src="js/add-qualification.js"></script> 

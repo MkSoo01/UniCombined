@@ -1,24 +1,26 @@
 <?php
 	session_start();
+	$_SESSION['servername'] = "localhost";
+	$_SESSION['username'] = "root";
+	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createQfObtainedTb = "CREATE TABLE qualificationObtained (applicantID VARCHAR(50), 
-	qualification VARCHAR(40), overallScore DOUBLE, PRIMARY KEY(applicantID, qualification),
-	FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID), FOREIGN KEY(qualification) REFERENCES 
-	Qualification(qualificationName));";
-	$conn->query($createQfObtainedTb);
-	$createResultTb = "CREATE TABLE result (applicantID VARCHAR(50), subjectName VARCHAR(50), 
-	score DOUBLE, PRIMARY KEY(applicantID, subjectName), FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID));";
-	$conn->query($createResultTb);
+	$createQfTb = "CREATE TABLE Qualification (qualificationName VARCHAR(50) PRIMARY KEY, 
+	maxScore INT, minScore INT, resultCalcDesc VARCHAR(50), resultCalcFormula varchar(20));";
+	$conn->query($createQfTb);
+	$createGradeTb = "CREATE TABLE GradingSystem (qualification VARCHAR(50), 
+	grade VARCHAR(5), gradePoint DOUBLE, PRIMARY KEY(qualification, grade), 
+	FOREIGN KEY(qualification) REFERENCES qualification(qualificationName));";
+	$conn->query($createGradeTb);
 ?>
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Free Education Template by Colorlib</title>
+    <title>UniCombined</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,17 +34,20 @@
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/add-qualification-popup.css">
 
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    
     <header role="banner">
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">University</a>
+          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -84,13 +89,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact</a>
               </li>
+            </ul>     
+			<ul class="navbar-nav absolute-right">
+			  <?php
+					if (isset($_SESSION["loggedin"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
+						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
+					}
+			  ?>
             </ul>
-            <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="login.html">Login</a> / <a href="register.html">Register</a>
-              </li>
-            </ul>
-            
           </div>
         </div>
       </nav>
@@ -117,75 +125,67 @@
         <div class="row justify-content-center">
           <div class="col-md-7">
             <div class="form-wrap">
-              <h5><?php echo $_SESSION['UserName']; ?>, welcome to UniCombined</h5>
-			  <h2 class="mb-4">Academic Qualification</h2>
-              <form action="<?php $_SERVER['PHP_SELF'];?>" method="post" onsubmit="return signUp()">
+              <h2 class="mb-4">New Qualification</h2>
+              <form action="<?php $_SERVER['PHP_SELF'];?>" method="post" onsubmit="return addQuali()">
+
 				<div class="row">
 					<div class="col-md-12 form-group">
-                      <select name="qualificationType" id="qualificationType" class="form-control minimal" onchange="qSelect()">
-                        <option value="">Qualification Obtained*</option>
-						<?php 
-							$getQualification = "SELECT qualificationName FROM qualification;";
-							$result = $conn->query($getQualification);
-							if (isset($result->num_rows) &&  $result->num_rows>0){
-								while($row = $result->fetch_assoc()){
-									echo "<option value = \"".$row['qualificationName']."\">".$row['qualificationName']."</option>";
-								}
-							}
-						?>
+						<textarea type="text" id="qualiName" name="qfName" placeholder="Qualification Name*" class="form-control" rows="2"></textarea>
+						<p class="msg errorMsg">&#10007;<small> Please enter a qualification name</small></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 form-group">
+						<input type="number" id="minScore" name="minScore" placeholder="Minimum Score*" class = "form-control" onchange="minScoreSelect()">
+						<p class="msg errorMsg">&#10007;<small> Please enter minimum score</small></p>
+					</div>
+					<div class="col-lg-6 form-group">
+						<input type="number" id="maxScore" name="maxScore" placeholder="Maximum Score*" class = "form-control" onchange="maxScoreSelect()">
+						<p class="msg errorMsg">&#10007;<small> Please enter a maximum score</small></p>
+					</div>
+				</div>
+               <div class="row">
+					<div class="col-md-6 form-group">
+                      <select id="calculationType" name="calcDesc" class="form-control minimal" onchange="calculationTypeSelect()">
+                        <option value="">Type of Calculation*</option>
+                        <option value="Average of best subjects">Average of best subjects</option>
+                        <option value="Average of subjects">Average of subjects</option>
+						<option value="Total of best subjects">Total of best subjects</option>
+                        <option value="Total of subjects">Total of subjects</option>
                       </select>
-					  <p class="msg errorMsg">&#10007;<small> Please select Qualification Obtained</small></p>
+					  <p class="msg errorMsg">&#10007;<small> Please select a type of calculation</small></p>
+					</div>
+					<div class="col-md-6 form-group">
+                      <select id="numOfSubject" name="subjectNum" class="form-control minimal" onchange="numOfSubjectSelect()">
+                        <option value="">Number of Subjects</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+						<option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                      </select>
+					  <p class="msg errorMsg">&#10007;<small> Please select number of subjects</small></p>
 					</div>
                 </div>
-				<label>Enter all the subjects and the respective grade/score below</label>
-				<div class="row">
-					<div class="col-lg-6 form-group">
-						<input type="text" name="subject[]" placeholder="Subject*" class = "subject form-control">
-						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
-					</div>
-					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "grade form-control">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-6 form-group">
-						<input type="text" name="subject[]" placeholder="Subject*" class = "form-control subject">
-						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
-					</div>
-					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-6 form-group">
-						<input type="text" name="subject[]" placeholder="Subject*" class = "form-control subject">
-						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
-					</div>
-					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
-					</div>
-				</div>
+				<font size="5"><b>Grading System</b></font>
+				<p>Click on the button below to add grade. (eg: A = (4.00))</p>
 				<p class="msg errorMsg mb-2 p-1" style="text-transform: uppercase;"></p>
-				<input type="button" value="&#43; Add subject" class="btn px-2 py-2 mb-4" onclick="addSubject()">
+				<input type="button" value="&#43; Add grade" class="btn px-4 py-2 mb-4" onclick="addGrade()">
 				<p><small>* required</small></p>
                 <div class="row">
-                  <div class="col-md-6 form-group">
-                    <input type="submit" value="Create Account" class="btn btn-primary px-3 py-2">
-                  </div>
-				  <div class="col-md-6" style="text-align:right">
-					<a href="#"><b>Sign in instead</b></a>
+				  <div class="col-md-6" form-group>
+					<input type="submit" value="Next" class="btn btn-primary px-5 py-2">
 				  </div>
-                </div>
+                </div>		
               </form>
             </div>
           </div>
         </div>
       </div>
+	
     </section>
-<footer class="site-footer border-top">
+    
+    <footer class="site-footer border-top">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
@@ -262,93 +262,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
     <!-- END footer -->
     <?php
-		$findCalcFormula = $conn->prepare("SELECT resultCalcFormula FROM qualification WHERE qualificationName = ?;");
-		$findCalcFormula->bind_param("s", $_POST["qualificationType"]);
-		$findCalcFormula->execute();
-		$findCalcFormula->bind_result($formula);
-		$findCalcFormula->fetch();
-		$findCalcFormula->close();
-		$findScore = $conn->prepare("SELECT gradePoint FROM qualification, gradingSystem WHERE qualification.qualificationName = 
-		gradingsystem.qualification and qualificationName = ? and grade = ?;");
-		$findScore->bind_param("ss", $_POST["qualificationType"], $grade);
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$numOfSubject = substr_count($formula,"+")+1;
-			$str = "<script>var subject = document.getElementsByClassName(\"subject\");
-						var grade = document.getElementsByClassName(\"grade\");
-						var errorMsg = document.getElementsByTagName(\"p\");
-						var selectBox = document.getElementsByTagName(\"select\")
-						var inputBox = document.getElementsByTagName(\"input\");";
-			$userSubjectNum = count($_POST["subject"]); 
-			if ( $userSubjectNum < $numOfSubject){
-				$subjectIndex = $userSubjectNum-1;
-				$errorMsgIndex = $userSubjectNum*2+2;
-				$input = array();
-				for ($k = 0; $k < $userSubjectNum; $k++){
-					array_push($input, $_POST['subject'][$k]);
-					array_push($input, $_POST['grade'][$k]);
+			$insertQf = $conn->prepare("INSERT INTO Qualification(qualificationName, maxScore, minScore, resultCalcDesc, resultCalcFormula) VALUES(?,?,?,?,?);");
+			$insertQf->bind_param("sssss",$_POST["qfName"],$_POST["maxScore"],$_POST["minScore"],$_POST["calcDesc"], $formula);
+			$formula = "";
+			for ($k = 0; $k < (integer)$_POST["subjectNum"]; $k++){
+				$formula = $formula."Subj".($k+1)."+";
+			}
+			$formula = substr($formula, 0, strlen($formula)-1);
+			if (stripos($_POST["calcDesc"], 'Average') !== false) {
+				$formula = "(".$formula.")/".$_POST["subjectNum"];
+			}
+			$insertQf->execute();
+			$insertQf->close();
+			if (count($_POST["grade"]) > 0){
+				$insertGrade = $conn->prepare("INSERT INTO GradingSystem(qualification, grade, gradePoint) VALUES(?,?,?);");
+				$insertGrade->bind_param("sss",$_POST["qfName"],$grade,$gradePoint);
+				for ($i = 0; $i<count($_POST["grade"]); $i++){
+					$grade = $_POST["grade"][$i];
+					$gradePoint = $_POST["gradePoint"][$i];
+					if ($grade != "")
+						$insertGrade->execute();
 				}
-				$str2 = "";
-				$num = 0;
-				foreach($input as $value){
-					$str2 = $str2."inputBox[".$num."].value = \"".$value."\";";
-					$num++;
-				}
-				echo $str."errorMsg[".$errorMsgIndex."].innerHTML = \"&#10007;<small>Please enter at least "
-				.$numOfSubject." subjects for your qualification</small>\"; errorMsg["
-				.$errorMsgIndex."].style.background = \"red\";errorMsg["
-				.$errorMsgIndex."].style.color = \"white\";
-				errorMsg[".$errorMsgIndex."].style.display = \"block\";
-				selectBox[0].value = \"".$_POST['qualificationType']."\";".$str2."errorMsg["
-				.$errorMsgIndex."].scrollIntoView()</script>";
-			}else{
-				$overallScore = 0;
-				$scoreList = array();
-				$j = 0;
-				foreach($_POST["grade"] as $value){
-					if (!is_numeric($value)){
-						$grade = $value;
-						$findScore->execute();
-						$findScore->store_result();
-						if($findScore->num_rows == 1){
-							$findScore->bind_result($score);
-							$findScore->fetch();
-							$scoreList[$_POST["subject"][$j]] = $score;
-						}
-					}else
-						$scoreList[$_POST["subject"][$j]] = (double)$value;
-					$j++;
-				}
-				$findScore->close();
-				if (isset($scoreList)){
-					arsort($scoreList);
-					$scoreArray = array_values($scoreList);
-					if (isset($scoreArray) && $userSubjectNum>0 &&isset($overallScore)){
-						for ($i = 0 ; $i <= $userSubjectNum; $i++){
-							$overallScore = $overallScore + $scoreArray[$i];
-						}
-					}
-					if (substr_count($formula,"/") == 1)
-						$overallScore = $overallScore / $userSubjectNum;
-					$insertQfObtained = $conn->prepare("INSERT INTO QualificationObtained(applicantID,qualification,overallScore) VALUES(?,?,?);");
-					$insertQfObtained->bind_param("sss",$_SESSION["UserName"],$_POST["qualificationType"], $overallScore);
-					$insertQfObtained->execute();
-					$insertQfObtained->close();
-					$insertResult = $conn->prepare("INSERT INTO Result(applicantID, subjectName, score) VALUES (?,?,?);");
-					$insertResult->bind_param("sss",$_SESSION["UserName"],$subjectName, $subjectScore);
-					foreach ($scoreList as $key => $value){
-						$subjectName = $key;
-						$subjectScore = $value;
-						$insertResult->execute();
-					}
-					$insertResult->close();
-				}
+				$insertGrade->close();
 			}
 		}
 		$conn->close();
 	?>
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<script src="js/student-qualification.js"></script>
+	<script src="js/add-qualification.js"></script> 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>

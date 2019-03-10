@@ -1,11 +1,10 @@
-var i = 5;
 var qualiName = document.getElementById("qualiName");
 var minScore = document.getElementById("minScore");
 var maxScore = document.getElementById("maxScore");
 var calculationType = document.getElementById("calculationType");
 var numOfSubject = document.getElementById("numOfSubject");
 var errorMsg = document.getElementsByTagName("p");
-var invalidQualiName = invalidMinScore = invalidMaxScore = invalidCalculationType = invalidNumOfSubject = invaildNumOfGrade = false;			
+var invalidQualiName = invalidMinScore = invalidMaxScore = invalidCalculationType = invalidNumOfSubject = false;			
 
 qualiName.onkeyup = function(){
 	if (qualiName.value != ""){
@@ -46,12 +45,11 @@ function numOfSubjectSelect(){
 
 function addGrade(){
 	var parentBox = document.getElementsByTagName("Form")[0];
-	var addButton = document.getElementsByClassName("errorMsg")[i];
+	var addButton = document.getElementsByClassName("errorMsg")[5];
 	var div = document.createElement("div");
 	div.classList.add("row");
-	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="subject" name="subject[]" placeholder="Subject Grade*" class = "form-control"><p class="msg errorMsg">&#10007;<small> Please enter subject grade</small></p></div><div class="col-lg-6 form-group"><input type="text" id="grade" name="grade[]" placeholder="Subject Grade Point (SGP)*" class = "form-control"><p class="msg errorMsg">&#10007;<small> Please enter subject grade point</small></p></div>';
+	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="subject" name="grade[]" placeholder="Subject Grade*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="text" id="grade" name="gradePoint[]" placeholder="Subject Grade Point (SGP)*" class = "form-control"></div>';
 	parentBox.insertBefore(div,addButton);
-	i = i + 2;
 }
 
 //sign up function will be called when the sign up button clicked
@@ -92,13 +90,13 @@ function addQuali(){
 	if (numOfSubject.value == ""){
 		errorMsg[5].style.display = "block";
 		numOfSubject.style.border = "1px solid red";
-		invalidCalculationType = true;
+		invalidNumOfSubject = true;
 	}else
-		invalidCalculationType = false;
+		invalidNumOfSubject = false;
 
 	
 	//alert("a"+ invalidQualiName + "" + invalidMinScore + "" + invalidMaxScore + "" + invalidCalculationType + "" + invalidNumOfSubject + "" + invalidNumOfGrade + "");
-	invalid = [invalidQualiName, invalidMinScore, invalidMaxScore, invalidCalculationType, invalidNumOfSubject, invalidNumOfGrade];
+	invalid = [invalidQualiName, invalidMinScore, invalidMaxScore, invalidCalculationType, invalidNumOfSubject];
 	for ( i = 0 ; i < invalid.length; i++){
 		if (invalid[i]){
 			document.getElementsByClassName("form-control")[i].focus();

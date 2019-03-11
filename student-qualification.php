@@ -7,7 +7,7 @@
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$createQfObtainedTb = "CREATE TABLE qualificationObtained (applicantID VARCHAR(50), 
-	qualification VARCHAR(40), overallScore DOUBLE, PRIMARY KEY(applicantID, qualification),
+	qualification VARCHAR(50), overallScore DOUBLE, PRIMARY KEY(applicantID, qualification),
 	FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID), FOREIGN KEY(qualification) REFERENCES 
 	Qualification(qualificationName));";
 	$conn->query($createQfObtainedTb);

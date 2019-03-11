@@ -1,8 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['servername'] = "localhost";
-	$_SESSION['username'] = "root";
-	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -11,6 +8,8 @@
 	$conn->query($useDb);
 	$getAllQf = "SELECT qualificationName, resultCalcDesc from qualification;";
 	$allQf = $conn->query($getAllQf);
+	$getAllUni = "SELECT universityName from university;";
+	$getAllUni = $conn->query($getAllUni);
 ?>
 <!doctype html>
 <html lang="en">
@@ -47,10 +46,7 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
 			<ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="blog.html">All University</a>
+                <a class="nav-link invisible" href="index.php">Home</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -90,15 +86,12 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
-					<div class="row" style="text-align:right">
-						<button style="margin:10px;" onclick="window.location.href='add-qualification.php'" class="btn btn-primary px-5 py-2 mb-4">Add Qualification</button>
-						
-						<button style="margin:10px;" onclick="window.location.href='add-university.php'" class="btn btn-primary px-5 py-2 mb-4">Add University</button>
-					</div>
 					<div class="row">
+						<div class="col-md-6">
 						<div class="table-responsive">
 							<table class="table table-hover">
-							<h1>Qualification</h1>
+							<h1 class="mb-5">Qualification</h1>
+							<button onclick="window.location.href='add-qualification.php'" class="btn btn-primary px-5 py-2 mb-4">Add Qualification</button>
 								<thead>
 									<tr style="font-weight:500">
 										<td>Qualification</td>
@@ -113,11 +106,35 @@
 											<td>".$row["resultCalcDesc"]."</td>
 											</tr>";
 										}
+									?>
+								</tbody>
+							</table>
+						</div>
+						</div>
+					
+						<div class="col-md-6">
+						<div class="table-responsive">
+							<table class="table table-hover">
+							<h1 class="mb-5">University</h1>
+							<button onclick="window.location.href='add-university.php'" class="btn btn-primary px-5 py-2 mb-4">Add University</button>
+								<thead>
+									<tr style="font-weight:500">
+										<td>University Name</td>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										while($row = $getAllUni->fetch_assoc()){
+											echo "<tr>
+											<td>".$row["universityName"]."</td>
+											</tr>";
+										}
 										$conn->close();
 									?>
 								</tbody>
 							</table>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>

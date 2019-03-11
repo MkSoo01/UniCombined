@@ -30,7 +30,7 @@
 			$directPage = "loginUniAdmin.php";
 		}
 	}else{
-		$findUser = $conn->prepare("SELECT * FROM User,qualificationObtained WHERE user.username = qualificationObtained.applicantID
+		$findUser = $conn->prepare("SELECT * FROM User,applicant WHERE user.username = applicant.applicantID
 		AND username = ? and password = ?;");
 		$findUser->bind_param("ss",$_POST["username"],$_POST["password"]);
 		$findUser->execute();

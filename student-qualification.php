@@ -18,7 +18,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>UniCombined</title>
+    <title>Free Education Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -33,7 +33,6 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -168,7 +167,7 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
 					</div>
 				</div>
-				<p class="msg errorMsg mb-2 p-1" style="text-transform: uppercase;"></p>
+				<p class="msg errorMsg col-md-12 mb-2 p-1" style="text-transform: uppercase;"></p>
 				<input type="button" value="&#43; Add subject" class="btn px-2 py-2 mb-4" onclick="addSubject()">
 				<p><small>* required</small></p>
                 <div class="row">
@@ -272,31 +271,27 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$numOfSubject = substr_count($formula,"+")+1;
 			$str = "<script>var subject = document.getElementsByClassName(\"subject\");
 						var grade = document.getElementsByClassName(\"grade\");
-						var errorMsg = document.getElementsByTagName(\"p\");
+						var errorMsg = document.getElementsByClassName(\"errorMsg\");
 						var selectBox = document.getElementsByTagName(\"select\")
-						var inputBox = document.getElementsByTagName(\"input\");";
-			$userSubjectNum = count($_POST["subject"]); 
-			if ( $userSubjectNum < $numOfSubject){
-				$subjectIndex = $userSubjectNum-1;
-				$errorMsgIndex = $userSubjectNum*2+2;
-				$input = array();
-				for ($k = 0; $k < $userSubjectNum; $k++){
-					array_push($input, $_POST['subject'][$k]);
-					array_push($input, $_POST['grade'][$k]);
-				}
+						var inputBox = document.getElementsByTagName(\"input\");"; 
+			for ($count=0; $count < $numOfSubject; $count++)
+			{
+				if (empty($_POST["subject"][$count]))
+					$lessSubject = true;
+			}
+			if ($lessSubject){
 				$str2 = "";
 				$num = 0;
-				foreach($input as $value){
-					$str2 = $str2."inputBox[".$num."].value = \"".$value."\";";
-					$num++;
+				for ($k = 0; $k < 3; $k++){
+					$str2 = $str2."inputBox[".$num."].value = \"".$_POST['subject'][$k]."\";inputBox[".
+					($num+1)."].value = \"".$_POST['grade'][$k]."\";";
+					$num = $num + 2;
 				}
-				echo $str."errorMsg[".$errorMsgIndex."].innerHTML = \"&#10007;<small>Please enter at least "
-				.$numOfSubject." subjects for your qualification</small>\"; errorMsg["
-				.$errorMsgIndex."].style.background = \"red\";errorMsg["
-				.$errorMsgIndex."].style.color = \"white\";
-				errorMsg[".$errorMsgIndex."].style.display = \"block\";
-				selectBox[0].value = \"".$_POST['qualificationType']."\";".$str2."errorMsg["
-				.$errorMsgIndex."].scrollIntoView()</script>";
+				echo $str."errorMsg[7].innerHTML = \"&#10007;<small>Please enter at least "
+				.$numOfSubject." subjects for your qualification</small>\"; 
+				errorMsg[7].style.background = \"red\";errorMsg[7].style.color = \"white\";
+				errorMsg[7].style.display = \"block\";
+				selectBox[0].value = \"".$_POST['qualificationType']."\";".$str2."</script>";
 			}else{
 				$overallScore = 0;
 				$scoreList = array();
@@ -319,13 +314,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				if (isset($scoreList)){
 					arsort($scoreList);
 					$scoreArray = array_values($scoreList);
-					if (isset($scoreArray) && $userSubjectNum>0 &&isset($overallScore)){
-						for ($i = 0 ; $i <= $userSubjectNum; $i++){
+					if (isset($scoreArray) && isset($overallScore)){
+						for ($i = 0 ; $i <= $numOfSubject; $i++){
 							$overallScore = $overallScore + $scoreArray[$i];
 						}
 					}
 					if (substr_count($formula,"/") == 1)
-						$overallScore = $overallScore / $userSubjectNum;
+						$overallScore = $overallScore / $numOfSubject;
 					$insertQfObtained = $conn->prepare("INSERT INTO QualificationObtained(applicantID,qualification,overallScore) VALUES(?,?,?);");
 					$insertQfObtained->bind_param("sss",$_SESSION["UserName"],$_POST["qualificationType"], $overallScore);
 					$insertQfObtained->execute();

@@ -1,3 +1,16 @@
+<?php
+	session_start();
+	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$useDb = "USE unicombined";
+	$conn->query($useDb);
+	$getAllUni = "SELECT universityName from university;";
+	$getAllUni = $conn->query($getAllUni);
+	$getAllProg = "SELECT programmeName, closingDate from programme LIMIT 6;";
+	$getAllProg = $conn->query($getAllProg);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -81,159 +94,25 @@
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
             <div class="row">
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_1.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Bachelor of Information Technology (Hons)</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_2.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Bachelor of Information Technology (Hons) Business Information Management</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_3.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Bachelor of Information Technology (Hons) Mobile Computing</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_1.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Anglia Ruskin University, UK, Bachelor of Science (Honours) Business Information Systems</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_2.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Anglia Ruskin University, UK, Bachelor of Science (Honours) Computer Science</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_3.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Bachelor of Information Technology (Honours) (2U 1I) (Work-based learning)</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_1.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="blog-single.html"><img src="images/img_2.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="#"><img src="images/img_3.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 mb-5">
-                <div class="block-20 ">
-                  <figure>
-                    <a href="#"><img src="images/img_1.jpg" alt="" class="img-fluid"></a>
-                  </figure>
-                  <div class="text">
-                    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                    <div class="meta">
-                      <div><span class="ion-android-calendar"></span> Closing Date: 30/05/2019</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mb-5">
-              <div class="col-md-12 text-center">
-                <div class="block-27">
-                  <ul>
-                    <li><a href="#">&lt;</a></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
-                </div>
-              </div>
+				<?php
+					while($row = $getAllProg->fetch_assoc()){
+						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
+							<div class=\"block-20 \">
+							<figure><a href=\"blog-single.html\"><img src=\"images/img_1.jpg\" alt=\"\" class=\"img-fluid\"></a>
+							</figure>
+							<div class=\"text\">
+							<h3 class=\"heading\"><a href=\"#\">".$row["programmeName"].
+							"</a></h3>
+							<div class=\"meta\">
+							<div><span class=\"ion-android-calendar\"></span> Closing Date: ".$row["closingDate"].
+							"</a></div>
+							</div>
+							</div>
+							</div>
+							</div>";
+					}
+				?>
+              
             </div>
           </div>
           <!-- END content -->
@@ -242,25 +121,13 @@
             <div class="block-24 mb-5">
               <h3 class="heading">List of University</h3>
               <ul>
-				<li><a href="#">HELP University <span>10</span></a></li>
-                <li><a href="#">Taylor's University <span>43</span></a></li>
-                <li><a href="#">Sunway University <span>21</span></a></li>
-                <li><a href="#">APU University <span>65</span></a></li>
-                <li><a href="#">University <span>34</span></a></li>
-                <li><a href="#">University <span>45</span></a></li>
-                <li><a href="#">University <span>22</span></a></li>
-				<li><a href="#">University <span>34</span></a></li>
-                <li><a href="#">University <span>45</span></a></li>
-                <li><a href="#">University <span>22</span></a></li>
-				<li><a href="#">University <span>34</span></a></li>
-                <li><a href="#">University <span>45</span></a></li>
-                <li><a href="#">University <span>22</span></a></li>
-				<li><a href="#">University <span>34</span></a></li>
-                <li><a href="#">University <span>45</span></a></li>
-                <li><a href="#">University <span>22</span></a></li>
-				<li><a href="#">University <span>34</span></a></li>
-                <li><a href="#">University <span>45</span></a></li>
-                <li><a href="#">University <span>22</span></a></li>
+				<?php
+					while($row = $getAllUni->fetch_assoc()){
+						echo "<li>
+							<a href=\"#\">".$row["universityName"]."</a>
+							</li>";
+					}
+				?>
               </ul>
             </div>
           </div>

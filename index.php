@@ -51,10 +51,7 @@
                 <a class="nav-link active" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="show-programme.html">Programme</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="show-university.html">University</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
@@ -284,7 +281,7 @@
 					<img src=".$row["pictureURL"]." alt=\"uniImage\" class=\"img-fluid\">
 					</figure>
 					<div class = \"text\">
-					<h2 class=\"heading\"><a href='show-programme.php?university=\"".$row["universityName"]."\"'>".$row["universityName"]."</a></h2>
+					<h2 class=\"heading\"><a href='show-programme.php?university=".$row["universityName"]."'>".$row["universityName"]."</a></h2>
 					<p class=\"mb-4\">".$row["description"]."</p>
 					</div>
 					</div>
@@ -312,13 +309,12 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="progamme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

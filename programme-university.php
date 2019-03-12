@@ -7,9 +7,9 @@
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$getAllUni = "SELECT universityName from university;";
-	$getAllUni = $conn->query($getAllUni);
+	$allUni = $conn->query($getAllUni);
 	$getAllProg = "SELECT programmeName, closingDate from programme LIMIT 6;";
-	$getAllProg = $conn->query($getAllProg);
+	$allProg = $conn->query($getAllProg);
 ?>
 <!doctype html>
 <html lang="en">
@@ -39,7 +39,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -47,18 +47,18 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="programme-university.html">Programme &amp; University</a>
+			  <li class="nav-item">
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
-              <li class="nav-item">
+			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
               <li>
-                <a href="login-student.html">Login</a> / <a href="student-sign-up.php">Register</a>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>
             </ul>
             
@@ -95,7 +95,7 @@
 			</form>
             <div class="row">
 				<?php
-					while($row = $getAllProg->fetch_assoc()){
+					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
 							<figure><a href=\"blog-single.html\"><img src=\"images/img_1.jpg\" alt=\"\" class=\"img-fluid\"></a>
@@ -122,9 +122,9 @@
               <h3 class="heading">List of University</h3>
               <ul>
 				<?php
-					while($row = $getAllUni->fetch_assoc()){
+					while($row = $allUni->fetch_assoc()){
 						echo "<li>
-							<a href=\"#\">".$row["universityName"]."</a>
+							<a href=\"show-programme.php?university=".$row["universityName"]."\">".$row["universityName"]."</a>
 							</li>";
 					}
 				?>
@@ -148,14 +148,13 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+                  <li><a href="index.php">Home</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>
@@ -174,7 +173,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  

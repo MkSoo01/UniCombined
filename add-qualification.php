@@ -52,39 +52,13 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="courses.html">HTML</a>
-                  <a class="dropdown-item" href="courses.html">WordPress</a>
-                  <a class="dropdown-item" href="courses.html">Laravel</a>
-                  <a class="dropdown-item" href="courses.html">JavaScript</a>
-                  <a class="dropdown-item" href="courses.html">Python</a>
-                </div>
-
+			  <li class="nav-item">
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown05">
-                  <a class="dropdown-item" href="#">HTML</a>
-                  <a class="dropdown-item" href="#">WordPress</a>
-                  <a class="dropdown-item" href="#">Laravel</a>
-                  <a class="dropdown-item" href="#">JavaScript</a>
-                  <a class="dropdown-item" href="#">Python</a>
-                </div>
-
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+			  <li class="nav-item">
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>     
 			<ul class="navbar-nav absolute-right">
@@ -195,13 +169,12 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

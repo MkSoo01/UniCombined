@@ -46,7 +46,13 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
 			<ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link invisible" href="index.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -153,13 +159,12 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

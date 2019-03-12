@@ -1,19 +1,14 @@
 <?php
 	session_start();
-	$_SESSION['servername'] = "localhost";
-	$_SESSION['username'] = "root";
-	$_SESSION['password'] = "";
 	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$useDb = "USE unicombined";
-	$getUniProg = $conn->prepare("SELECT University.universityID FROM University, UniversityAdmin WHERE 
-		University.universityID = UniversityAdmin.universityID AND adminID = ?");
-	$getUniID->bind_param("s",$_SESSION["UserName"]);
-	$getUniID->execute();
-	$getUniID->bind_result($uniID);
-	$getUniID->fetch();
+	$conn->query($useDb);
+	$getUniProg = "SELECT programmeName, programme.description, closingDate FROM University, programme WHERE 
+	university.universityID = programme.universityID AND universityName = 'Sunway University'";
+	$uniProg = $conn->query($getUniProg);
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,7 +38,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -51,15 +46,12 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="show-programme.php">Programme</a>
+			  <li class="nav-item">
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="show-university.html">University</a>
-              </li>
-              <li class="nav-item">
+			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
@@ -98,43 +90,29 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
-					
-					<div class="row">
-						<!-- The form -->
-						<div class="col-md-12 mb-5">
-						<form class="search" action="action_page.php">
-							<input type="text" placeholder="Search Programme..." name="searchProgramme" class="form-control" style="border:none;">
-							<button type="submit"><i class="fa fa-search"></i></button>
-						</form>
-						</div>
-					</div>
-					<h2 class="mb-4">Programme</h2>
+					<?php
+						echo "<h2 class=\"mb-4\">".$_GET["university"]." Programmes</h2>";
+					?>
 					<div class="row">
 						<div class="table-responsive">
 							<table class="table table-hover">
 								<thead>
 									<tr style="font-weight:500">
 										<td>Programme Name</td>
-										<td>University Name</td>
+										<td>Description</td>
 										<td>Closing Date</td>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Bachelor of Information Technology (HONS)</td>
-										<td>HELP University</td>
-										<td>30/05/2019</td>
-									</tr>
-									<tr>
-										<td>Unified Examination Certificate (UEC)</td>
-										<td>Total of best 5 subjects</td>
-										<td>A1 – 1 point A2 – 2 points B3 – 3 points B4 – 4 points B5 – 5 points B6 – 6 points</td>
-									</tr>
-									<tr>
-										<td>Bachelor of Information Technology</td>
-										<td>sdkjf lsdkjf lsdkfj sldkf lkdf dlkf dlkfjd flkjdf dlkfjd fl lkdf dlkf dlkfjd flkjdf dlkfjd fl</td>
-										<td>30/05/2019</td>
-									</tr>
+									<?php
+										while($row = $uniProg->fetch_assoc()){
+											echo "<tr>
+												<td>".$row["programmeName"]."</td>
+												<td>".$row["description"]."</td>
+												<td>".$row["closingDate"]."</td>
+												</tr>";
+										}
+									?>
 								</tbody>
 							</table>
 						</div>
@@ -156,13 +134,12 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

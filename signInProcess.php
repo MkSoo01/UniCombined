@@ -41,7 +41,7 @@
 			$_SESSION['UserName'] = $_POST["username"];
 			$directPage = 'index.php';
 		}else{
-			$directPage = "loginStudent.php";
+			$directPage = "programme-university.php";
 		}
 	}
 	echo "<script>window.open('".$directPage."','_self')</script>";

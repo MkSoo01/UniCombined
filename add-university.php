@@ -7,7 +7,7 @@
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$createUniTb = "CREATE TABLE university (universityID INT PRIMARY KEY AUTO_INCREMENT, 
-	universityName VARCHAR(50), description VARCHAR(300), pictureURL VARCHAR(50));";
+	universityName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL, pictureURL VARCHAR(50) NOT NULL);";
 	$conn->query($createUniTb);
 ?>
 <!doctype html>

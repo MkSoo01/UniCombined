@@ -6,10 +6,10 @@
 		}
 		$useDb = "use unicombined";
 		$conn->query($useDb);
-	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(50), description VARCHAR(300),
-closingDate DATE, universityID INT, FOREIGN KEY(universityID) REFERENCES University(universityID));";
+	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL,
+closingDate DATE NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) REFERENCES University(universityID));";
 	$conn->query($createProgTb);
-	$createEntryTb = "CREATE TABLE entryRequirement (programmeID INT, qualificationType varchar(50), entryScore DOUBLE,
+	$createEntryTb = "CREATE TABLE entryRequirement (programmeID INT NOT NULL, qualificationType varchar(50) NOT NULL, entryScore DOUBLE NOT NULL,
 		PRIMARY KEY(programmeID, qualificationType), FOREIGN KEY(programmeID) REFERENCES Programme(programmeID),
 		FOREIGN KEY(qualificationType) REFERENCES Qualification(qualificationName));";
 		$conn->query($createEntryTb);

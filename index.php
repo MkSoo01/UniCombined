@@ -281,7 +281,7 @@
 					<img src=".$row["pictureURL"]." alt=\"uniImage\" class=\"img-fluid\">
 					</figure>
 					<div class = \"text\">
-					<h2 class=\"heading\"><a href='show-programme.php?university=".$row["universityName"]."'>".$row["universityName"]."</a></h2>
+					<h2 class=\"heading\"><a href=\"show-programme.php?university=".$row["universityName"]."\">".$row["universityName"]."</a></h2>
 					<p class=\"mb-4\">".$row["description"]."</p>
 					</div>
 					</div>

@@ -57,9 +57,17 @@
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
-              </li>
+              <?php
+					if (isset($_SESSION["loggedin"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
+						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
+					}else{
+						echo "<li>
+						<a href=\"loginStudent.php\">Login</a> / <a href=\"student-sign-up.php\">Register</a>
+						</li>";
+					}
+			  ?>
             </ul>
             
           </div>

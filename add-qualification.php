@@ -6,11 +6,11 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createQfTb = "CREATE TABLE Qualification (qualificationName VARCHAR(50) PRIMARY KEY, 
-	minScore INT, maxScore INT, resultCalcDesc VARCHAR(50), resultCalcFormula varchar(50));";
+	$createQfTb = "CREATE TABLE Qualification (qualificationName VARCHAR(50) PRIMARY KEY NOT NULL, 
+	minScore INT NOT NULL, maxScore INT NOT NULL, resultCalcDesc VARCHAR(50) NOT NULL, resultCalcFormula varchar(50) NOT NULL);";
 	$conn->query($createQfTb);
-	$createGradeTb = "CREATE TABLE GradingSystem (qualification VARCHAR(50), 
-	grade VARCHAR(5), gradePoint DOUBLE, PRIMARY KEY(qualification, grade), 
+	$createGradeTb = "CREATE TABLE GradingSystem (qualification VARCHAR(50) NOT NULL, 
+	grade VARCHAR(5)  NOT NULL, gradePoint DOUBLE NOT NULL, PRIMARY KEY(qualification, grade), 
 	FOREIGN KEY(qualification) REFERENCES qualification(qualificationName));";
 	$conn->query($createGradeTb);
 ?>

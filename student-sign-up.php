@@ -12,10 +12,10 @@
 	$conn->query($createDb);
 	$conn->query($useDb);
 	$createUserTb = "CREATE TABLE user (username VARCHAR(50) PRIMARY KEY, 
-	password VARCHAR(25), name VARCHAR(50), contactNo VARCHAR(20), email VARCHAR(40));";
+	password VARCHAR(25) NOT NULL, name VARCHAR(50) NOT NULL, contactNo VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL);";
 	$conn->query($createUserTb);
-	$createApplicantTb = "CREATE TABLE applicant (applicantID VARCHAR(50) PRIMARY KEY, IDtype VARCHAR(15), 
-	IDnum VARCHAR(50), dateOfBirth DATE, nationality VARCHAR(25), address VARCHAR (150), 
+	$createApplicantTb = "CREATE TABLE applicant (applicantID VARCHAR(50) PRIMARY KEY, IDtype VARCHAR(15) NOT NULL, 
+	IDnum VARCHAR(50) NOT NULL, dateOfBirth DATE NOT NULL, nationality VARCHAR(25) NOT NULL, address VARCHAR (150) NOT NULL, 
 	Foreign key(applicantID) references user(username));";
 	$conn->query($createApplicantTb);
 ?>

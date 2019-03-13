@@ -39,9 +39,9 @@
 			$findUser->close();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['UserName'] = $_POST["username"];
-			$directPage = 'index.php';
+			$directPage = 'programme-university.php';
 		}else{
-			$directPage = "programme-university.php";
+			$directPage = "loginStudent.php";
 		}
 	}
 	echo "<script>window.open('".$directPage."','_self')</script>";

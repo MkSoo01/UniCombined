@@ -10,6 +10,8 @@
 	$allUni = $conn->query($getAllUni);
 	$getAllProg = "SELECT programmeName, closingDate from programme LIMIT 6;";
 	$allProg = $conn->query($getAllProg);
+	$getSearchedProg = $conn->prepare("SELECT programmeName, closingDate from programme where programmeName LIKE ?;");
+	$getSearchedProg->bind_param("s",$searchedName);
 ?>
 <!doctype html>
 <html lang="en">
@@ -97,12 +99,38 @@
 	  
         <div class="row"> 
           <div class="col-md-6 col-lg-8 order-md-2">
-		  	<form class="search" action="action_page.php">
+		  	<form class="search" action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
 				<input type="text" placeholder="Search Programme..." name="searchProgramme">
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
             <div class="row">
 				<?php
+					if ($_SERVER["REQUEST_METHOD"] == "POST") {
+						$searchedName = "%".$_POST["searchProgramme"]."%";
+						$getSearchedProg->execute();
+						$getSearchedProg->store_result();
+						$progNum = $getSearchedProg->num_rows;
+						$getSearchedProg->bind_result($progName, $closingDate);
+						if ($progNum > 0){
+						while($getSearchedProg->fetch()){
+							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
+							<div class=\"block-20 \">
+							<figure><a href=\"blog-single.html\"><img src=\"images/img_1.jpg\" alt=\"\" class=\"img-fluid\"></a>
+							</figure>
+							<div class=\"text\">
+							<h3 class=\"heading\"><a href=\"#\">".$progName.
+							"</a></h3>
+							<div class=\"meta\">
+							<div><span class=\"ion-android-calendar\"></span> Closing Date: ".$closingDate.
+							"</a></div>
+							</div>
+							</div>
+							</div>
+							</div>";
+						}}else{
+							echo "<p class=\"ml-4\">No result is found</p>";
+						}
+					}else{
 					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
@@ -118,6 +146,7 @@
 							</div>
 							</div>
 							</div>";
+					}
 					}
 				?>
               

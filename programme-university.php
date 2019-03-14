@@ -100,7 +100,7 @@
         <div class="row"> 
           <div class="col-md-6 col-lg-8 order-md-2">
 		  	<form class="search" action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
-				<input type="text" placeholder="Search Programme..." name="searchProgramme">
+				<input type="text" placeholder="Search Programme..." name="searchProgramme" id="searchProgramme">
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
             <div class="row">
@@ -128,8 +128,9 @@
 							</div>
 							</div>";
 						}}else{
-							echo "<p class=\"ml-4\">No result is found</p>";
+							echo "<p class=\"ml-4\">Result related to\"".$_POST["searchProgramme"]."\" is not found</p>";
 						}
+						$getSearchedProg->close();
 					}else{
 					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
@@ -251,7 +252,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-
+	<?php
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			echo "<script>document.getElementById(\"searchProgramme\").focus();</script>";
+		}		
+	?>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>

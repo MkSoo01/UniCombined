@@ -16,7 +16,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Free Education Template by Colorlib</title>
+    <title>UniCombined</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -55,7 +55,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.html">Qualification</a>
+                <a class="nav-link" href="show-qualification.php">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -187,7 +187,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.html">Qualification</a></li>
+                  <li><a href="show-qualification.php">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

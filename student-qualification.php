@@ -18,7 +18,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>UniCombined</title>
+    <title>Free Education Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -33,7 +33,6 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -42,7 +41,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">University</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -56,7 +55,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.php">Qualification</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -111,15 +110,15 @@
 					  <p class="msg errorMsg">&#10007;<small> Please select Qualification Obtained</small></p>
 					</div>
                 </div>
-				<label>Enter all the subjects and the respective grade/score below</label>
+				<label>Enter all the subjects and the respective result below</label>
 				<div class="row">
 					<div class="col-lg-6 form-group">
 						<input type="text" name="subject[]" placeholder="Subject*" class = "subject form-control">
 						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "grade form-control">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+						<input type="text" name="grade[]" placeholder="Result*" class = "grade form-control">
+						<p class="msg errorMsg">&#10007;<small> Please enter result</small></p>
 					</div>
 				</div>
 				<div class="row">
@@ -128,8 +127,8 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+						<input type="text" name="grade[]" placeholder="Result*" class = "form-control grade">
+						<p class="msg errorMsg">&#10007;<small> Please enter result</small></p>
 					</div>
 				</div>
 				<div class="row">
@@ -138,8 +137,8 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter subject</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="text" name="grade[]" placeholder="Grade/Score*" class = "form-control grade">
-						<p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p>
+						<input type="text" name="grade[]" placeholder="Result*" class = "form-control grade">
+						<p class="msg errorMsg">&#10007;<small> Please enter result</small></p>
 					</div>
 				</div>
 				<p class="msg errorMsg col-md-12 mb-2 p-1" style="text-transform: uppercase;"></p>
@@ -169,7 +168,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.php">Qualification</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

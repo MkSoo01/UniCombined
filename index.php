@@ -7,6 +7,8 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
+	$createDb = "CREATE DATABASE unicombined";
+	$conn->query($createDb);
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
 	$getAllUni = "SELECT universityName, description, pictureURL from university;";
@@ -308,7 +310,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.php">Qualification</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

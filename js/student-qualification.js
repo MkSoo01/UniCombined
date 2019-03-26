@@ -1,4 +1,4 @@
-var i = 7;
+
 var qualification = document.getElementsByTagName("Select")[0];
 var subject = document.getElementsByClassName("subject");
 var grade = document.getElementsByClassName("grade");
@@ -6,12 +6,11 @@ var errorMsg = document.getElementsByTagName("p");
 var invalidQualification = invalidSubject = invalidResult = false;
 function addSubject(){
 	var parentBox = document.getElementsByTagName("Form")[0];
-	var addButton = document.getElementsByClassName("errorMsg")[i];
+	var addButton = document.getElementsByClassName("errorMsg")[8];
 	var div = document.createElement("div");
 	div.classList.add("row");
-	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="subject" name="subject[]" placeholder="Subject*" class = "form-control"><p class="msg errorMsg">&#10007;<small> Please enter subject</small></p></div><div class="col-lg-6 form-group"><input type="text" id="grade" name="grade[]" placeholder="Grade/Score*" class = "form-control"><p class="msg errorMsg">&#10007;<small> Please enter grade/score</small></p></div>';
+	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="subject" name="subject[]" placeholder="Subject*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="text" id="grade" name="grade[]" placeholder="Result*" class = "form-control"></div>';
 	parentBox.insertBefore(div,addButton);
-	i = i + 2;
 }
 		
 function qSelect(){
@@ -55,7 +54,6 @@ function signUp(){
 		if (subject[i].value == ""){
 			errorMsg[(i+1)*2].style.display = "block";
 			subject[i].style.border = "1px solid red";
-			invalidSubject = true;
 			invalidSubject = true;
 			if (focusNum == -1)
 				focusNum = focusNum + ((i+1)*2);

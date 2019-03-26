@@ -127,7 +127,7 @@
 				<p><small>* required</small></p>
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="submit" value="Next" class="btn btn-primary px-5 py-2">
+                    <input type="submit" value="Submit" class="btn btn-primary px-5 py-2">
                   </div>
 				  </div>
                 </div>

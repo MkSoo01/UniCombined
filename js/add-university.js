@@ -6,6 +6,15 @@ var uniAdminPassword = document.getElementById("uniAdminPassword");
 var errorMsg = document.getElementsByTagName("p");
 var invalidUniName = invalidDescription = invalidImg = invalidUniAdminUsername = invalidUniAdminPassword = false;
 			
+function addSubject(){
+	var parentBox = document.getElementsByTagName("Form")[0];
+	var addButton = document.getElementsByClassName("errorMsg")[8];
+	var div = document.createElement("div");
+	div.classList.add("row");
+	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="uniAdminUsername" name="subject[]" placeholder="University Admin Username*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="password" id="uniAdminPassword" name="grade[]" placeholder="University Admin Password*" class = "form-control"></div>';
+	parentBox.insertBefore(div,addButton);
+}
+
 uniName.onkeyup = function(){
 	if (uniName.value != ""){
 		errorMsg[1].style.display = "none";

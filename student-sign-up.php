@@ -7,9 +7,7 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$createDb = "CREATE DATABASE unicombined";
 	$useDb = "USE unicombined";
-	$conn->query($createDb);
 	$conn->query($useDb);
 	$createUserTb = "CREATE TABLE user (username VARCHAR(50) PRIMARY KEY, 
 	password VARCHAR(25) NOT NULL, name VARCHAR(50) NOT NULL, contactNo VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL);";
@@ -22,7 +20,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Free Education Template by Colorlib</title>
+    <title>UniCombined</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -47,7 +45,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.php">University</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -61,7 +59,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.php">Qualification</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -178,11 +176,11 @@
 
     </section>
 <?php
-	$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
-	$findUsername->bind_param("s", $_POST["username"]);
-	$findUsername->execute();
-	$findUsername->store_result();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$findUsername = $conn->prepare("SELECT username FROM User WHERE username = ?;");
+		$findUsername->bind_param("s", $_POST["username"]);
+		$findUsername->execute();
+		$findUsername->store_result();
 		if($findUsername->num_rows > 0){
 			$inputBox = array("username", "psw", "confirmPsw", "idType", "idNo", 
 			"name", "nationality", "date", "email", "mobileNo", "address");
@@ -228,7 +226,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.php">Qualification</a></li>
+                  <li><a href="show-qualification.html">Qualification</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

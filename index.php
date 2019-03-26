@@ -54,7 +54,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="show-qualification.php">Qualification</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -313,7 +313,7 @@
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="progamme-university.php">Programme &amp; University</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

@@ -9,6 +9,7 @@ foreign key(universityID) references University(universityID), foreign key(admin
 create table programme (programmeID int auto_increment primary key, programmeName varchar(50), description varchar(100),
 closingDate date, universityID int, foreign key(universityID) references University(universityID));
 
+
 insert into university values (1, "HELP University", "The best academy school");
 insert into universityAdmin values(1, "beep");
 insert into programme values (1, "Bachelor of Information Technology", "A degree for IT students!", '2019-01-22',1);
@@ -43,6 +44,7 @@ select subjectName, grade, result.score from gradelist, result, qualification wh
 gradelist.score = result.score;
 select * from result;
 select * from user;
+select * from universityadmin;
 Delete from user;
 delete from applicant;
 delete from qualificationObtained;

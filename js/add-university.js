@@ -1,8 +1,10 @@
 var uniName = document.getElementById("uniName");
 var description = document.getElementById("description");
 var img = document.getElementById("uniImg");
+var uniAdminUsername = document.getElementById("uniAdminUsername");
+var uniAdminPassword = document.getElementById("uniAdminPassword");
 var errorMsg = document.getElementsByTagName("p");
-var invalidUniName = invalidDescription = invalidImg = false;
+var invalidUniName = invalidDescription = invalidImg = invalidUniAdminUsername = invalidUniAdminPassword = false;
 			
 uniName.onkeyup = function(){
 	if (uniName.value != ""){
@@ -32,6 +34,20 @@ function imgValidation(){
 	}
 }
 
+uniAdminUsername.onkeyup = function(){
+	if (description.value != ""){
+		errorMsg[4].style.display = "none";
+		description.style.border = "1px solid lightgrey";
+	}
+}
+
+uniAdminPassword.onkeyup = function(){
+	if (description.value != ""){
+		errorMsg[5].style.display = "none";
+		description.style.border = "1px solid lightgrey";
+	}
+}
+
 //addUni function will be called when the next button is clicked
 function addUni(){
 	//check if the university name is blank, if it is, display error message
@@ -56,10 +72,25 @@ function addUni(){
 		errorMsg[3].style.display = "block";
 		img.style.border = "1px solid red";
 	}
+	
+	if (uniAdminUsername.value == ""){
+		errorMsg[4].style.display = "block";
+		uniAdminUsername.style.border = "1px solid red";
+		invalidUniAdminUsername = true;
+	}else
+		invalidUniAdminUsername = false;
+	
+	if (uniAdminPassword.value == ""){
+		errorMsg[5].style.display = "block";
+		uniAdminPassword.style.border = "1px solid red";
+		invalidUniAdminPassword = true;
+	}else
+		invalidUniAdminPassword = false;
+	
 	//alert("a"+ invalidUsername + "" + invalidPsw + "" + invalidCPsw + "" + invalidIDtype + "" + invalidIDno + "" + invalidName + "" +
 	//invalidNationality + "" + invalidDOB + "" + invalidEmail + "" + invalidPhoneNo + "" + invalidAddress);
 	//alert("" + invalidImg);
-	invalid = [invalidUniName, invalidDescription, invalidImg];
+	invalid = [invalidUniName, invalidDescription, invalidImg, invalidUniAdminUsername, invalidUniAdminPassword];
 	for ( i = 0 ; i < invalid.length; i++){
 		if (invalid[i]){
 			document.getElementsByClassName("form-control")[i].focus();

@@ -52,7 +52,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.php">Qualification</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -109,6 +109,19 @@
 						<label>Select an university image to upload*:</label>
 						<input type="file" name="uniImg" id="uniImg" class="form-control minimal" onchange="imgValidation()">
 						<p class="msg errorMsg">&#10007;<small> Please upload an university image</small></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Create a university admin user account:*</label>
+						<input type="text" id="uniAdminUsername" placeholder="University Admin Username*" class="form-control"></input>
+						<p class="msg errorMsg">&#10007;<small> Please enter university admin username</small></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<input type="password" id="uniAdminPassword" placeholder="University Admin Password*" class="form-control"></input>
+						<p class="msg errorMsg">&#10007;<small> Please enter university admin password</small></p>
 					</div>
 				</div>
 				<p><small>* required</small></p>

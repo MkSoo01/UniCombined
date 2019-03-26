@@ -58,7 +58,7 @@ closingDate DATE NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) 
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.php">Qualification</a>
+                <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
 			  <li class="nav-item">
                 <a class="nav-link" href="#">All Application</a>

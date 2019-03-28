@@ -9,6 +9,9 @@
 	$createUniTb = "CREATE TABLE university (universityID INT PRIMARY KEY AUTO_INCREMENT, 
 	universityName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL, pictureURL VARCHAR(50) NOT NULL);";
 	$conn->query($createUniTb);
+	$createUniAdminTb = "CREATE TABLE universityAdmin (adminID VARCHAR(50) PRIMARY KEY, password VARCHAR(50), universityID INT, 
+	FOREIGN KEY(universityID) REFERENCES University(universityID));";
+	$conn->query($createUniAdminTb);
 ?>
 <!doctype html>
 <html lang="en">
@@ -114,12 +117,12 @@
 				<label>Create a university admin user account:*</label>				
 				<div class="row">
 					<div class="col-lg-6 form-group">				
-						<input type="text" id="uniAdminUsername" placeholder="University Admin Username*" class="form-control"></input>
-						<p class="msg errorMsg">&#10007;<small> Please enter university admin username</small></p>
+						<input type="text" name="admin[]" id="uniAdminUsername" placeholder="Admin Username*" class="form-control"></input>
+						<p class="msg errorMsg">&#10007;<small> Please enter Admin username</small></p>
 					</div>
 					<div class="col-lg-6 form-group">
-						<input type="password" id="uniAdminPassword" placeholder="University Admin Password*" class="form-control"></input>
-						<p class="msg errorMsg">&#10007;<small> Please enter university admin password</small></p>
+						<input type="password" name="adminPsw[]" id="uniAdminPassword" placeholder="Admin Password*" class="form-control"></input>
+						<p class="msg errorMsg">&#10007;<small> Please enter Admin password</small></p>
 					</div>
 				</div>
 				<input type="button" value="&#43; Add Admin" class="btn px-2 py-2 mb-4" onclick="addAdmin()">
@@ -221,8 +224,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$insertUni = $conn->prepare("INSERT INTO University(universityName, description, pictureURL) VALUES(?,?,?);");
 			$insertUni->bind_param("sss",$_POST["uniName"],$_POST["description"],$uploadedImg);
 			$insertUni->execute();
+			$id = $insertUni->insert_id;
 			$insertUni->close();
-			echo "<script>var btn = document.getElementsByClassName(\"btn\")[0]; btn.value = \"Success Added\";
+			$inUniAdmin = $conn->prepare("INSERT INTO universityAdmin(adminID,password,universityID) VALUES(?,?,?);");
+			$inUniAdmin->bind_param("sss",$adminName, $adminPsw, $id);
+			for ($k = 0; $k < count($_POST["admin"]); $k++){
+				$adminName = $_POST["admin"][$k];
+				$adminPsw = $_POST["adminPsw"][$k];
+				$inUniAdmin->execute();
+			}
+			$inUniAdmin->close();
+			echo "<script>var btn = document.getElementsByClassName(\"btn\")[1]; btn.value = \"Success Added\";
 			btn.focus();
 			window.onclick = function(event) { btn.value = \"Submit\";}</script>";
 		}
@@ -230,7 +242,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	?>
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<script src="js/add-university.js"></script> 
+	<script src="js/addUniversity.js"></script> 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>

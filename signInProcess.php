@@ -16,8 +16,7 @@
 			$directPage = "login-sys-admin.php";
 		}
 	}else if ($_GET["loginType"] == "universityAdmin"){
-		$findUniAdmin = $conn->prepare("SELECT * FROM UniversityAdmin, User WHERE user.username = universityAdmin.adminID
-		AND username = ? and password = ?;");
+		$findUniAdmin = $conn->prepare("SELECT * FROM UniversityAdmin WHERE adminID = ? and password = ?;");
 		$findUniAdmin->bind_param("ss",$_POST["username"],$_POST["password"]);
 		$findUniAdmin->execute();
 		$findUniAdmin->store_result();

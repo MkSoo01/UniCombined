@@ -4,14 +4,15 @@ var img = document.getElementById("uniImg");
 var uniAdminUsername = document.getElementById("uniAdminUsername");
 var uniAdminPassword = document.getElementById("uniAdminPassword");
 var errorMsg = document.getElementsByTagName("p");
+var button = document.getElementsByClassName("btn");
 var invalidUniName = invalidDescription = invalidImg = invalidUniAdminUsername = invalidUniAdminPassword = false;
 			
-function addSubject(){
+function addAdmin(){
 	var parentBox = document.getElementsByTagName("Form")[0];
-	var addButton = document.getElementsByClassName("errorMsg")[8];
+	var addButton = button[0];
 	var div = document.createElement("div");
 	div.classList.add("row");
-	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="uniAdminUsername" name="subject[]" placeholder="University Admin Username*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="password" id="uniAdminPassword" name="grade[]" placeholder="University Admin Password*" class = "form-control"></div>';
+	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="uniAdminUsername" name="admin[]" placeholder="Admin Username*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="password" id="uniAdminPassword" name="adminPsw[]" placeholder="Admin Password*" class = "form-control"></div>';
 	parentBox.insertBefore(div,addButton);
 }
 
@@ -44,16 +45,16 @@ function imgValidation(){
 }
 
 uniAdminUsername.onkeyup = function(){
-	if (description.value != ""){
+	if (uniAdminUsername.value != ""){
 		errorMsg[4].style.display = "none";
-		description.style.border = "1px solid lightgrey";
+		uniAdminUsername.style.border = "1px solid lightgrey";
 	}
 }
 
 uniAdminPassword.onkeyup = function(){
-	if (description.value != ""){
+	if (uniAdminPassword.value != ""){
 		errorMsg[5].style.display = "none";
-		description.style.border = "1px solid lightgrey";
+		uniAdminPassword.style.border = "1px solid lightgrey";
 	}
 }
 

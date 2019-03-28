@@ -275,6 +275,7 @@
       <div class="container-fluid block-11 element-animate">
         <div class="nonloop-block-11 owl-carousel">
 			<?php
+				if(isset($allUni->num_rows) && $allUni->num_rows > 0){
 				while($row = $allUni->fetch_assoc()){
 					echo "<div class=\"item\">
 					<div class=\"block-19\">
@@ -287,6 +288,7 @@
 					</div>
 					</div>
 					</div>";
+				}
 				}
 				$conn->close();
 			?>

@@ -7,7 +7,7 @@
 		$useDb = "use unicombined";
 		$conn->query($useDb);
 	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL,
-closingDate DATE NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) REFERENCES University(universityID));";
+closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) REFERENCES University(universityID));";
 	$conn->query($createProgTb);
 	$createEntryTb = "CREATE TABLE entryRequirement (programmeID INT NOT NULL, qualificationType varchar(50) NOT NULL, entryScore DOUBLE NOT NULL,
 		PRIMARY KEY(programmeID, qualificationType), FOREIGN KEY(programmeID) REFERENCES Programme(programmeID),
@@ -100,7 +100,7 @@ closingDate DATE NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) 
           <div class="col-md-7">
             <div class="form-wrap">
               <h2 class="mb-4">Add Programme</h2>
-					<form action="<?php $_SERVER['PHP_SELF'];?>" method="post" onsubmit="return submitProgramme()">
+					<form action="<?php $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data" onsubmit="return submitProgramme()">
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<input type="text" id="progName" name="progName" placeholder="Programme Name*" class="form-control">
@@ -117,6 +117,13 @@ closingDate DATE NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) 
 							<div class="col-md-12 form-group">
 								<input type="date" id="closingDate" name="closingDate" placeholder="Closing Date*" class="form-control" onchange="selectDate()">
 								<p class = "msg errorMsg">&#10007;<small> Please enter Programme Closing Date</small></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<label>Select a programme image to upload*:</label>
+								<input type="file" name="progImg" id="progImg" class="form-control minimal" onchange="imgValidation()">
+								<p class="msg errorMsg">&#10007;<small> Please upload a programme image</small></p>
 							</div>
 						</div>
 						<label>Entry Requirement</label>
@@ -233,6 +240,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- END footer -->
     <?php
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$uploadedImg = "images/".$_FILES["progImg"]["name"];
+		move_uploaded_file($_FILES["progImg"]['tmp_name'],$uploadedImg);
 		$getUniID = $conn->prepare("SELECT University.universityID FROM University, UniversityAdmin WHERE 
 		University.universityID = UniversityAdmin.universityID AND adminID = ?");
 		$getUniID->bind_param("s",$_SESSION["UserName"]);
@@ -240,16 +249,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		$getUniID->bind_result($uniID);
 		$getUniID->fetch();
 		$getUniID->close();
-		$insertProg = $conn->prepare("INSERT INTO programme(programmeName, description, closingDate, universityID) VALUES(?,?,?,?);");
-		$insertProg->bind_param("ssss",$_POST["progName"],$_POST["progDesc"],$_POST["closingDate"],$uniID);
+		$insertProg = $conn->prepare("INSERT INTO programme(programmeName, description, closingDate, pictureURL, universityID) VALUES(?,?,?,?,?);");
+		$insertProg->bind_param("sssss",$_POST["progName"],$_POST["progDesc"],$_POST["closingDate"], $uploadedImg,$uniID);
 		$insertProg->execute();
+		$progID = $insertProg->insert_id;
 		$insertProg->close();
-		$getProgID = $conn->prepare("SELECT programmeID FROM programme WHERE programmeName = ? AND description = ?");
-		$getProgID->bind_param("ss",$_POST["progName"],$_POST["progDesc"]);
-		$getProgID->execute();
-		$getProgID->bind_result($progID);
-		$getProgID->fetch();
-		$getProgID->close();
 		$insertEntry = $conn->prepare("INSERT INTO entryRequirement(programmeID, qualificationType, entryScore) VALUES(?,?,?);");
 		$insertEntry->bind_param("sss",$progID,$q,$score);
 		for ($k = 0; $k < count($_POST["qualification"]); $k++){
@@ -266,7 +270,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	?>
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<script src="js/recordProgramme.js"></script> 
+	<script src="js/record-Programme.js"></script> 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>

@@ -8,9 +8,11 @@
 	$conn->query($useDb);
 	$getAllUni = "SELECT universityName from university;";
 	$allUni = $conn->query($getAllUni);
-	$getAllProg = "SELECT programmeName, closingDate from programme WHERE closindDate > now() LIMIT 6;";
+	$getAllProg = "SELECT programme.pictureURL, programmeName, closingDate,universityName from programme,university WHERE 
+	programme.universityID=university.universityID AND closingDate > now() LIMIT 6;";
 	$allProg = $conn->query($getAllProg);
-	$getSearchedProg = $conn->prepare("SELECT programmeName, closingDate from programme where programmeName LIKE ? AND closingDate > now();");
+	$getSearchedProg = $conn->prepare("SELECT programme.pictureURL, programmeName, closingDate,universityName from programme, university where 
+	programme.universityID = university.universityID AND programmeName LIKE ? AND closingDate > now();");
 	$getSearchedProg->bind_param("s",$searchedName);
 ?>
 <!doctype html>
@@ -110,19 +112,19 @@
 						$getSearchedProg->execute();
 						$getSearchedProg->store_result();
 						$progNum = $getSearchedProg->num_rows;
-						$getSearchedProg->bind_result($progName, $closingDate);
+						$getSearchedProg->bind_result($img, $progName, $closingDate, $uniName);
 						if ($progNum > 0){
 						while($getSearchedProg->fetch()){
 							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"blog-single.html\"><img src=\"images/img_1.jpg\" alt=\"\" class=\"img-fluid\"></a>
+							<figure><a href=\"blog-single.html\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
 							<h3 class=\"heading\"><a href=\"#\">".$progName.
 							"</a></h3>
 							<div class=\"meta\">
-							<div><span class=\"ion-android-calendar\"></span> Closing Date: ".$closingDate.
-							"</a></div>
+							<div><span class=\"ion-android-calendar\"></span> Closing at ".$closingDate.
+							"<br><span class=\"ion-android-pin\"></span> ".$uniName."</a></div>
 							</div>
 							</div>
 							</div>
@@ -135,14 +137,14 @@
 					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"blog-single.html\"><img src=\"images/img_1.jpg\" alt=\"\" class=\"img-fluid\"></a>
+							<figure><a href=\"blog-single.html\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
 							<h3 class=\"heading\"><a href=\"#\">".$row["programmeName"].
 							"</a></h3>
 							<div class=\"meta\">
-							<div><span class=\"ion-android-calendar\"></span> Closing Date: ".$row["closingDate"].
-							"</a></div>
+							<div><span class=\"ion-android-calendar\"></span> Closing at ".$row["closingDate"].
+							"<br><span class=\"ion-android-pin\"></span> ".$row["universityName"]."</a></div>
 							</div>
 							</div>
 							</div>

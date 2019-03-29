@@ -301,7 +301,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				}
 				$_SESSION['UserName'] = $_POST["username"];
 				$_SESSION["loggedin"] = true;
-				echo "<script>window.open('programme-university.php','_self')</script>";
+				if (isset($_SESSION["applyProg"]))
+					echo "<script>window.open('applyProg.php?progID=".$_SESSION["applyProg"]."','_self')</script>";
+				else
+					echo "<script>window.open('programme-university.php','_self')</script>";
 			}
 		}
 		$conn->close();

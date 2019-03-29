@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	if (!isset($_SESSION["loggedin"])){
+		$_SESSION['applyProg'] = $_GET["progID"];
 		header("location: loginStudent.php");
 		exit;
 	}else{
@@ -17,11 +18,16 @@
 	$checkEntryReq = "select * from qualificationObtained, entryRequirement WHERE qualificationObtained.applicantID = application.applicantID AND
 entryRequirement.programmeID = application.programmeID AND entryScore >= overallScore AND applicantion.applicantID = '".$_SESSION["UserName"]."';";
 	$checkEntryReq = $conn->query($checkEntryReq);
-	if ($checkEntryReq->num_rows == 0){
+	if (isset($checkEntryReq->num_rows) && $checkEntryReq->num_rows == 0){
 		$status = "REJECTED";
 	}
 	$insertApplication->execute();
 	$insertApplication->close();
+	$_SESSION["successApply"] = true;
+	$getProgName = "SELECT programmeName from programme WHERE programmeID = '".$_GET["progID"]."';";
+	$progName = $conn->query($getProgName);
+	$row = $progName->fetch_assoc();
+	header("location: programme-detail.php?prog=".$row["programmeName"]);
 	}
 
 ?>

@@ -117,10 +117,10 @@
 						while($getSearchedProg->fetch()){
 							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"blog-single.html\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							<figure><a href=\"programme-detail.php?prog=".$progName."\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"#\">".$progName.
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progName."\">".$progName.
 							"</a></h3>
 							<div class=\"meta\">
 							<div><span class=\"ion-android-calendar\"></span> Closing at ".$closingDate.
@@ -137,10 +137,10 @@
 					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"blog-single.html\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							<figure><a href=\"programme-detail.php?prog=".$row["programmeName"]."\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"#\">".$row["programmeName"].
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$row["programmeName"]."\">".$row["programmeName"].
 							"</a></h3>
 							<div class=\"meta\">
 							<div><span class=\"ion-android-calendar\"></span> Closing at ".$row["closingDate"].

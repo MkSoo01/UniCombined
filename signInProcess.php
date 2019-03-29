@@ -39,6 +39,8 @@
 			$_SESSION['loggedin'] = true;
 			$_SESSION['UserName'] = $_POST["username"];
 			$directPage = 'programme-university.php';
+			if (isset($_SESSION['applyProg']))
+				$directPage = "applyProg.php?progID=".$_SESSION["applyProg"];
 		}else{
 			$directPage = "loginStudent.php";
 		}

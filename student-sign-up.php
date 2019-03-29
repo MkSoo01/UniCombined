@@ -9,13 +9,6 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createUserTb = "CREATE TABLE user (username VARCHAR(50) PRIMARY KEY, 
-	password VARCHAR(25) NOT NULL, name VARCHAR(50) NOT NULL, contactNo VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL);";
-	$conn->query($createUserTb);
-	$createApplicantTb = "CREATE TABLE applicant (applicantID VARCHAR(50) PRIMARY KEY, IDtype VARCHAR(15) NOT NULL, 
-	IDnum VARCHAR(50) NOT NULL, dateOfBirth DATE NOT NULL, nationality VARCHAR(25) NOT NULL, address VARCHAR (150) NOT NULL, 
-	Foreign key(applicantID) references user(username));";
-	$conn->query($createApplicantTb);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -198,7 +191,6 @@
 			</script>";
 			echo $echoStr;
 		}else{
-			$_SESSION['UserName'] = $_POST["username"];
 			$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
 			$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
 			$insertUser->execute();

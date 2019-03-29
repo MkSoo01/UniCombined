@@ -6,14 +6,6 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createQfObtainedTb = "CREATE TABLE qualificationObtained (applicantID VARCHAR(50) NOT NULL, 
-	qualification VARCHAR(50) NOT NULL, overallScore DOUBLE NOT NULL, PRIMARY KEY(applicantID, qualification),
-	FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID), FOREIGN KEY(qualification) REFERENCES 
-	Qualification(qualificationName));";
-	$conn->query($createQfObtainedTb);
-	$createResultTb = "CREATE TABLE result (applicantID VARCHAR(50) NOT NULL, subjectName VARCHAR(50) NOT NULL, 
-	score DOUBLE NOT NULL, PRIMARY KEY(applicantID, subjectName), FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID));";
-	$conn->query($createResultTb);
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,13 +24,6 @@
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 435ac9a0e16236510da1ef92a122ebe1e341535a
->>>>>>> 0cdb05bc02bf73f5995bd86351e702c49a3cc85f
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
@@ -314,6 +299,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					}
 					$insertResult->close();
 				}
+				$_SESSION['UserName'] = $_POST["username"];
+				$_SESSION["loggedin"] = true;
 				echo "<script>window.open('programme-university.php','_self')</script>";
 			}
 		}

@@ -162,10 +162,12 @@
               <h3 class="heading">List of University</h3>
               <ul>
 				<?php
+					if(isset($allUni->num_rows) && $allUni->num_rows > 0){
 					while($row = $allUni->fetch_assoc()){
 						echo "<li>
 							<a href=\"show-programme.php?university=".$row["universityName"]."\">".$row["universityName"]."</a>
 							</li>";
+					}
 					}
 				?>
               </ul>

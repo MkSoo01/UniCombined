@@ -106,11 +106,13 @@
 								</thead>
 								<tbody>
 									<?php
+										if (isset($allQf->num_rows) && $allQf->num_rows >0){
 										while($row = $allQf->fetch_assoc()){
 											echo "<tr>
 											<td>".$row["qualificationName"]."</td>
 											<td>".$row["resultCalcDesc"]."</td>
 											</tr>";
+										}
 										}
 									?>
 								</tbody>
@@ -130,10 +132,12 @@
 								</thead>
 								<tbody>
 									<?php
+										if (isset($getAllUni->num_rows) && $getAllUni->num_rows >0){
 										while($row = $getAllUni->fetch_assoc()){
 											echo "<tr>
 											<td>".$row["universityName"]."</td>
 											</tr>";
+										}
 										}
 										$conn->close();
 									?>

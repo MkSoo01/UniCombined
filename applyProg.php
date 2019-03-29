@@ -10,14 +10,16 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createApplyTb = "CREATE TABLE application (applicationID INT AUTO_INCREMENT PRIMARY KEY, date DATE NOT NULL,
-	status VARCHAR(25) NOT NULL, applicantID VARCHAR(50) NOT NULL, programmeID INT NOT NULL,
-	FOREIGN KEY(applicantID) REFERENCES applicant(applicantID), FOREIGN KEY(programmeID) REFERENCES programme(programmeID));";
-	$conn->query($createApplyTb);
 	$insertApplication = $conn->prepare("INSERT INTO application(date, status, applicantID, programmeID) VALUES(?,?,?,?);");
 	$insertApplication->bind_param("ssss",$date,$status,$_SESSION["UserName"],$_GET["progID"]);
 	$date = date("Y-m-d");
 	$status = "PENDING";
+	$checkEntryReq = "select * from qualificationObtained, entryRequirement WHERE qualificationObtained.applicantID = application.applicantID AND
+entryRequirement.programmeID = application.programmeID AND entryScore >= overallScore AND applicantion.applicantID = '".$_SESSION["UserName"]."';";
+	$checkEntryReq = $conn->query($checkEntryReq);
+	if ($checkEntryReq->num_rows == 0){
+		$status = "REJECTED";
+	}
 	$insertApplication->execute();
 	$insertApplication->close();
 	}

@@ -11,6 +11,45 @@
 	$conn->query($createDb);
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
+	$createUserTb = "CREATE TABLE user (username VARCHAR(50) PRIMARY KEY, 
+	password VARCHAR(25) NOT NULL, name VARCHAR(50) NOT NULL, contactNo VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL);";
+	$conn->query($createUserTb);
+	$createApplicantTb = "CREATE TABLE applicant (applicantID VARCHAR(50) PRIMARY KEY, IDtype VARCHAR(15) NOT NULL, 
+	IDnum VARCHAR(50) NOT NULL, dateOfBirth DATE NOT NULL, nationality VARCHAR(25) NOT NULL, address VARCHAR (150) NOT NULL, 
+	Foreign key(applicantID) references user(username));";
+	$conn->query($createApplicantTb);
+	$createQfObtainedTb = "CREATE TABLE qualificationObtained (applicantID VARCHAR(50) NOT NULL, 
+	qualification VARCHAR(50) NOT NULL, overallScore DOUBLE NOT NULL, PRIMARY KEY(applicantID, qualification),
+	FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID), FOREIGN KEY(qualification) REFERENCES 
+	Qualification(qualificationName));";
+	$conn->query($createQfObtainedTb);
+	$createResultTb = "CREATE TABLE result (applicantID VARCHAR(50) NOT NULL, subjectName VARCHAR(50) NOT NULL, 
+	score DOUBLE NOT NULL, PRIMARY KEY(applicantID, subjectName), FOREIGN KEY(applicantID) REFERENCES Applicant(applicantID));";
+	$conn->query($createResultTb);
+	$createQfTb = "CREATE TABLE Qualification (qualificationName VARCHAR(50) PRIMARY KEY NOT NULL, 
+	minScore INT NOT NULL, maxScore INT NOT NULL, resultCalcDesc VARCHAR(50) NOT NULL, resultCalcFormula varchar(50) NOT NULL);";
+	$conn->query($createQfTb);
+	$createGradeTb = "CREATE TABLE GradingSystem (qualification VARCHAR(50) NOT NULL, 
+	grade VARCHAR(5)  NOT NULL, gradePoint DOUBLE NOT NULL, PRIMARY KEY(qualification, grade), 
+	FOREIGN KEY(qualification) REFERENCES qualification(qualificationName));";
+	$conn->query($createGradeTb);
+	$createUniTb = "CREATE TABLE university (universityID INT PRIMARY KEY AUTO_INCREMENT, 
+	universityName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL, pictureURL VARCHAR(50) NOT NULL);";
+	$conn->query($createUniTb);
+	$createUniAdminTb = "CREATE TABLE universityAdmin (adminID VARCHAR(50) PRIMARY KEY, password VARCHAR(50), universityID INT, 
+	FOREIGN KEY(universityID) REFERENCES University(universityID));";
+	$conn->query($createUniAdminTb);
+	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL,
+closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) REFERENCES University(universityID));";
+	$conn->query($createProgTb);
+	$createEntryTb = "CREATE TABLE entryRequirement (programmeID INT NOT NULL, qualificationType varchar(50) NOT NULL, entryScore DOUBLE NOT NULL,
+		PRIMARY KEY(programmeID, qualificationType), FOREIGN KEY(programmeID) REFERENCES Programme(programmeID),
+		FOREIGN KEY(qualificationType) REFERENCES Qualification(qualificationName));";
+	$conn->query($createEntryTb);
+	$createApplyTb = "CREATE TABLE application (applicationID INT AUTO_INCREMENT PRIMARY KEY, date DATE NOT NULL,
+	status VARCHAR(25) NOT NULL, applicantID VARCHAR(50) NOT NULL, programmeID INT NOT NULL,
+	FOREIGN KEY(applicantID) REFERENCES applicant(applicantID), FOREIGN KEY(programmeID) REFERENCES programme(programmeID));";
+	$conn->query($createApplyTb);
 	$getAllUni = "SELECT universityName, description, pictureURL from university;";
 	$allUni = $conn->query($getAllUni);
 ?>

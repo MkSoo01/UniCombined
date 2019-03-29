@@ -6,12 +6,6 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$createUniTb = "CREATE TABLE university (universityID INT PRIMARY KEY AUTO_INCREMENT, 
-	universityName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL, pictureURL VARCHAR(50) NOT NULL);";
-	$conn->query($createUniTb);
-	$createUniAdminTb = "CREATE TABLE universityAdmin (adminID VARCHAR(50) PRIMARY KEY, password VARCHAR(50), universityID INT, 
-	FOREIGN KEY(universityID) REFERENCES University(universityID));";
-	$conn->query($createUniAdminTb);
 ?>
 <!doctype html>
 <html lang="en">

@@ -8,9 +8,9 @@
 	$conn->query($useDb);
 	$getAllUni = "SELECT universityName from university;";
 	$allUni = $conn->query($getAllUni);
-	$getAllProg = "SELECT programmeName, closingDate from programme LIMIT 6;";
+	$getAllProg = "SELECT programmeName, closingDate from programme WHERE closindDate > now() LIMIT 6;";
 	$allProg = $conn->query($getAllProg);
-	$getSearchedProg = $conn->prepare("SELECT programmeName, closingDate from programme where programmeName LIKE ?;");
+	$getSearchedProg = $conn->prepare("SELECT programmeName, closingDate from programme where programmeName LIKE ? AND closingDate > now();");
 	$getSearchedProg->bind_param("s",$searchedName);
 ?>
 <!doctype html>

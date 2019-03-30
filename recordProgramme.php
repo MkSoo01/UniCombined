@@ -53,8 +53,14 @@
 			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
-			  <li class="nav-item">
-                <a class="nav-link" href="#">All Application</a>
+			 <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" href="uniAdminPage.php">View Programmes</a>
+                  <a class="dropdown-item" href="recordProgramme.php">Add Programme</a>
+                  <a class="dropdown-item" href="review-application.php">View Application</a>
+                </div>
+
               </li>
             </ul>     
 			<ul class="navbar-nav absolute-right">

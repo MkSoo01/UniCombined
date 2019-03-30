@@ -6,20 +6,19 @@
 		}
 		$useDb = "use unicombined";
 		$conn->query($useDb);
-		$getUniName = "SELECT universityName FROM university, universityAdmin WHERE university.universityID = universityAdmin.universityID
+		$getUniName = "SELECT university.universityID, universityName FROM university, universityAdmin WHERE university.universityID = universityAdmin.universityID
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
 		$row = $uniName->fetch_assoc();
-		$getAllProg = $conn->prepare("SELECT programmeName, programme.description, closingDate from university, universityAdmin, programme where university.universityID=universityAdmin.universityID
-		AND university.universityID = programme.universityID AND adminID = ?;");
-		$getAllProg->bind_param("s", $_SESSION['UserName']);
-		$getAllProg->execute();
-		$getAllProg->store_result();
+		$getAllApply = $conn->prepare("SELECT application.applicantID, programmeName, qualification, overallScore FROM programme, qualificationObtained, application 
+		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID
+		AND universityID = ? AND status = 'PENDING';");
+		$getAllApply->bind_param("s", $row["universityID"]);
+		$getAllApply->execute();
+		$getAllApply->store_result();
 		$rowNum = 0;
-		if(isset($getAllProg->num_rows))
-			$rowNum = $getAllProg->num_rows;
-		if ($rowNum >0)
-			$getAllProg->bind_result($progName,$progDesc, $closingDate);
+		if(isset($getAllApply->num_rows))
+			$rowNum = $getAllApply->num_rows;
 ?>
 <!doctype html>
 <html lang="en">
@@ -115,33 +114,34 @@
 						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$row['universityName']." admin</h3></div>";
 						if ($rowNum == 0){
 							echo "<div class=\"row mb-4\">
-							<h2>Your university currently do not have any programme open for application</h2>
+							<h2>Your university currently do not have any application for programmes</h2>
 							</div>";
 						}
 					?>
-					<div class="row" style="text-align:right">
-						<a href="recordProgramme.php"><button class="btn btn-primary px-5 py-2 mb-4">Add Programme</button></a>
-					</div>
 					<div class="row">
 						<div class="table-responsive">
 							<table class="table table-hover">
 								<thead>
 									<tr style="font-weight:500">
-										<td>Name</td>
-										<td>Description</td>
-										<td>Closing date</td>
+										<td>Applicant</td>
+										<td>Applied Programme</td>
+										<td>Obtained Qualification</td>
+										<td>Overall Score</td>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-										while($getAllProg->fetch()){
-											echo "<tr class='clickable-row' data-href='programme-detail.php?prog=".$progName."'>
-											<td>".$progName."</td>
-											<td>".$progDesc."</td>
-											<td>".$closingDate."</td>
-											</tr>";
-										}
-										$getAllProg->close();
+										if ($rowNum >0){
+											$getAllApply->bind_result($applicant,$programme, $QUAL, $score);
+											while($getAllApply->fetch()){
+												echo "<tr class='clickable-row' data-href='applicant-detail.php?applicantID=".$applicant."'>
+												<td>".$applicant."</td>
+												<td>".$programme."</td>
+												<td>".$QUAL."</td>
+												<td>".$score."</td>
+												</tr>";
+										}}
+											$getAllApply->close();
 										$conn->close();
 									?>
 								</tbody>

@@ -84,7 +84,7 @@
             <div class="form-wrap">
               <h5><?php echo $_SESSION['UserName']; ?>, welcome to UniCombined</h5>
 			  <h2 class="mb-4">Academic Qualification</h2>
-              <form action="<?php $_SERVER['PHP_SELF'];?>" method="post" onsubmit="return signUp()">
+              <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" onsubmit="return signUp()">
 				<div class="row">
 					<div class="col-md-12 form-group">
                       <select name="qualificationType" id="qualificationType" class="form-control minimal" onchange="qSelect()">

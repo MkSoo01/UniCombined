@@ -9,16 +9,13 @@
 		$getUniName = "SELECT university.universityID, universityName FROM university, universityAdmin WHERE university.universityID = universityAdmin.universityID
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
-		$row = $uniName->fetch_assoc();
-		$getAllApply = $conn->prepare("SELECT application.applicantID, programmeName, qualification, overallScore FROM programme, qualificationObtained, application 
-		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID
-		AND universityID = ? AND status = 'PENDING';");
-		$getAllApply->bind_param("s", $row["universityID"]);
-		$getAllApply->execute();
-		$getAllApply->store_result();
-		$rowNum = 0;
-		if(isset($getAllApply->num_rows))
-			$rowNum = $getAllApply->num_rows;
+		$uniRow = $uniName->fetch_assoc();
+		$getApplicant = "SELECT name, IDtype, IDnum, nationality, address, qualification, overallScore 
+		FROM user,applicant, qualificationObtained WHERE user.username = applicant.applicantID AND applicant.applicantID= '".$_GET["applicantID"]."';";
+		$applicant = $conn->query($getApplicant);
+		$row = $applicant->fetch_assoc();
+		$getResult = "SELECT subjectName, score FROM result WHERE applicantID = '".$_GET["applicantID"]."';";
+		$results = $conn->query($getResult);
 ?>
 <!doctype html>
 <html lang="en">
@@ -111,38 +108,59 @@
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
 					<?php
-						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$row['universityName']." admin</h3></div>";
-						if ($rowNum == 0){
-							echo "<div class=\"row mb-4\">
-							<h2>Your university currently do not have any pending application for programmes</h2>
-							</div>";
-						}
+						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$uniRow['universityName']." admin</h3></div>";
 					?>
+					<div class="row">
+						<h2 class="mb-4"><?php echo $row["name"];?> (Applied <?php echo $_GET["applyProg"]; ?>)</h2>
+					</div>
+					<div class="row">
+						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn btn-primary px-5 py-2 mb-4">Approve</a></p>
+						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4">Reject</a></p>
+					</div>
 					<div class="row">
 						<div class="table-responsive">
 							<table class="table table-hover">
+								<h2>Personal Details</h2>
+								<tbody>
+									<tr>
+										<th style="font-weight:500"><?php echo $row["IDtype"]; ?></th>
+										<td><?php echo $row["IDnum"]; ?></td>
+									</tr>
+									<tr>
+										<th style="font-weight:500">Nationality</th>
+										<td><?php echo $row["nationality"]; ?></td>
+									</tr>
+									<tr>
+										<th style="font-weight:500">Address</th>
+										<td><?php echo $row["address"]; ?></td>
+									</tr>
+									<tr>
+										<th style="font-weight:500">Obtained Qualification</th>
+										<td><?php echo $row["qualification"]; ?></td>
+									</tr>
+									<tr>
+										<th style="font-weight:500">Overall Score</th>
+										<td><?php echo $row["overallScore"]; ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="table-responsive">
+							<h2>Academic Qualification</h2>
+							<table class="table table-hover">
 								<thead>
 									<tr style="font-weight:500">
-										<td>Applicant</td>
-										<td>Applied Programme</td>
-										<td>Obtained Qualification</td>
-										<td>Overall Score</td>
+										<td>Subject</td>
+										<td>Result</td>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-										if ($rowNum >0){
-											$getAllApply->bind_result($applicant,$programme, $QUAL, $score);
-											while($getAllApply->fetch()){
-												echo "<tr class='clickable-row' data-href='applicant-detail.php?applicantID=".$applicant."&applyProg=".$programme."'>
-												<td>".$applicant."</td>
-												<td>".$programme."</td>
-												<td>".$QUAL."</td>
-												<td>".$score."</td>
-												</tr>";
-										}}
-											$getAllApply->close();
-										$conn->close();
+										while ($resultRow = $results->fetch_assoc()){
+											echo "<tr><td>".$resultRow["subjectName"]."</td><td>".$resultRow["score"]."</td></tr>";
+										}
 									?>
 								</tbody>
 							</table>
@@ -231,8 +249,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
 	<?php
-		if ($rowNum == 0 )
-			echo "<script>document.getElementsByClassName(\"table\")[0].style.display = \"none\";</script>";
+		if (isset($_GET["status"])){
+			if ($_GET["status"] === "approve"){
+				$updateApplication = "UPDATE application SET status = 'APPROVED' WHERE applicantID = '".$_GET["applicantID"]."';";
+			}else{
+				$updateApplication = "UPDATE application SET status = 'REJECTED' WHERE applicantID = '".$_GET["applicantID"]."';";
+			}
+			$conn->query($updateApplication);
+			echo "<script>window.open('review-application.php','_self')</script>";
+		}
 	?>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>

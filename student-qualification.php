@@ -51,9 +51,11 @@
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
-              </li>
+              <?php
+					if (isset($_SESSION["UserName"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link\" href=\"#\">".$_SESSION['UserName']."</a>
+					</li>";}
+			  ?>
             </ul>
             
           </div>
@@ -299,7 +301,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					}
 					$insertResult->close();
 				}
-				$_SESSION['UserName'] = $_POST["username"];
 				$_SESSION["loggedin"] = true;
 				if (isset($_SESSION["applyProg"]))
 					echo "<script>window.open('applyProg.php?progID=".$_SESSION["applyProg"]."','_self')</script>";

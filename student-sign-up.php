@@ -53,9 +53,9 @@
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
-              </li>
+			<li>
+                <a href="login.php">Login</a> / <a href="sign-up.php">Register</a>
+              </li>			
             </ul>
             
           </div>
@@ -188,6 +188,7 @@
 			</script>";
 			echo $echoStr;
 		}else{
+			$_SESSION['UserName'] = $_POST["username"];
 			$insertUser = $conn->prepare("INSERT INTO User(username, password, name, contactNo, email) VALUES(?,?,?,?,?);");
 			$insertUser->bind_param("sssss",$_POST["username"],$_POST["psw"],$_POST["name"],$_POST["mobileNo"],$_POST["email"]);
 			$insertUser->execute();

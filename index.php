@@ -39,7 +39,7 @@
 	$createUniAdminTb = "CREATE TABLE universityAdmin (adminID VARCHAR(50) PRIMARY KEY, password VARCHAR(50), universityID INT, 
 	FOREIGN KEY(universityID) REFERENCES University(universityID));";
 	$conn->query($createUniAdminTb);
-	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(50) NOT NULL, description VARCHAR(300) NOT NULL,
+	$createProgTb = "CREATE TABLE programme (programmeID INT AUTO_INCREMENT PRIMARY KEY, programmeName VARCHAR(150) NOT NULL, description VARCHAR(300) NOT NULL,
 closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT NULL, FOREIGN KEY(universityID) REFERENCES University(universityID));";
 	$conn->query($createProgTb);
 	$createEntryTb = "CREATE TABLE entryRequirement (programmeID INT NOT NULL, qualificationType varchar(50) NOT NULL, entryScore DOUBLE NOT NULL,

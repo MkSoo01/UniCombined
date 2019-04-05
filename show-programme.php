@@ -6,7 +6,7 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$getUniProg = "SELECT programmeID, programmeName, programme.description, closingDate FROM University, programme WHERE 
+	$getUniProg = "SELECT * FROM University, programme WHERE 
 	university.universityID = programme.universityID AND universityName = '".$_GET["university"]."' AND closingDate > now();";
 	$uniProg = $conn->query($getUniProg);
 ?>
@@ -123,31 +123,28 @@
 						echo "<h2 class=\"mb-4\">".$_GET["university"]." Programmes</h2>";
 					?>
 					<div class="row">
-						<div class="table-responsive">
-							<table class="table table-hover">
-								<thead>
-									<tr style="font-weight:500">
-										<td>Programme Name</td>
-										<td>Description</td>
-										<td>Closing Date</td>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										while($row = $uniProg->fetch_assoc()){
-											echo "<tr class='clickable-row' data-href='programme-detail.php?prog=".$row["programmeID"]."'>
-												<td>".$row["programmeName"]."</td>
-												<td>".$row["description"]."</td>
-												<td>".$row["closingDate"]."</td>
-												</tr>";
-										}
-									?>
-								</tbody>
-							</table>
-						</div>
+					<?php
+						while($row = $uniProg->fetch_assoc()){
+							echo "<div class=\"col-md-6 col-lg-4 mb-5\">
+							<div class=\"block-20 \">
+							<figure><a href=\"programme-detail.php?prog=".$row["programmeID"]."\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							</figure>
+							<div class=\"text\">
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$row["programmeID"]."\">".$row["programmeName"].
+							"</a></h3>
+							<div class=\"meta\">
+							<div><span class=\"ion-android-calendar\"></span> Closing at ".$row["closingDate"].
+							"</a></div>
+							</div>
+							</div>
+							</div>
+							</div>";
+						}
+					?>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
     </section>
     <footer class="site-footer border-top">

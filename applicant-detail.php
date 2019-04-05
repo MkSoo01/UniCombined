@@ -114,7 +114,6 @@
 						<h2 class="mb-4">Application for <?php echo $_GET["applyProg"]; ?></h2>
 					</div>
 					<div class="row">
-						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4">Reject</a></p>
 						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn btn-primary px-5 py-2 mb-4"
 						 style="background:white; border: 2px solid #11cbd7;color:black;">Approve</a></p>
 						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4"

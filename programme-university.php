@@ -8,10 +8,10 @@
 	$conn->query($useDb);
 	$getAllUni = "SELECT universityName from university;";
 	$allUni = $conn->query($getAllUni);
-	$getAllProg = "SELECT programme.pictureURL, programmeName, closingDate,universityName from programme,university WHERE 
-	programme.universityID=university.universityID AND closingDate > now() LIMIT 6;";
+	$getAllProg = "SELECT programmeID, programme.pictureURL, programmeName, closingDate,universityName from programme,university WHERE 
+	programme.universityID=university.universityID AND closingDate > now();";
 	$allProg = $conn->query($getAllProg);
-	$getSearchedProg = $conn->prepare("SELECT programme.pictureURL, programmeName, closingDate,universityName from programme, university where 
+	$getSearchedProg = $conn->prepare("SELECT programmeID, programme.pictureURL, programmeName, closingDate,universityName from programme, university where 
 	programme.universityID = university.universityID AND programmeName LIKE ? AND closingDate > now();");
 	$getSearchedProg->bind_param("s",$searchedName);
 ?>
@@ -54,11 +54,32 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link active" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
+			  <?php
+				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
+					echo "<li class=\"nav-item dropdown\">
+                <a class=\"nav-link dropdown-toggle\" href=\"uniAdminPage.php\" id=\"dropdown04\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">What You Can Do</a>
+                <div class=\"dropdown-menu\" aria-labelledby=\"dropdown04\">
+                  <a class=\"dropdown-item\" href=\"uniAdminPage.php\">View Programmes</a>
+                  <a class=\"dropdown-item\" href=\"recordProgramme.php\">Add Programme</a>
+                  <a class=\"dropdown-item\" href=\"review-application.php\">View Application</a>
+                </div>
+
+              </li>";
+				}else if (isset($_SESSION['sysAdmin']) && $_SESSION["sysAdmin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"systemAdminPage.php\">Admin</a>
+              </li>";
+				}else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"myApplication.php\">My Application</a>
+              </li>";
+				}
+			  ?>
             </ul>
             <ul class="navbar-nav absolute-right">
               <?php
@@ -101,10 +122,14 @@
 	  
         <div class="row"> 
           <div class="col-md-6 col-lg-8 order-md-2">
+			<div class="row mb-5">
+				<div class="col-md-12">
 		  	<form class="search" action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
 				<input type="text" placeholder="Search Programme..." name="searchProgramme" id="searchProgramme">
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
+			</div>
+			</div>
             <div class="row">
 				<?php
 					if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -112,15 +137,15 @@
 						$getSearchedProg->execute();
 						$getSearchedProg->store_result();
 						$progNum = $getSearchedProg->num_rows;
-						$getSearchedProg->bind_result($img, $progName, $closingDate, $uniName);
+						$getSearchedProg->bind_result($progID, $img, $progName, $closingDate, $uniName);
 						if ($progNum > 0){
 						while($getSearchedProg->fetch()){
 							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"programme-detail.php?prog=".$progName."\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							<figure><a href=\"programme-detail.php?prog=".$progID."\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progName."\">".$progName.
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progID."\">".$progName.
 							"</a></h3>
 							<div class=\"meta\">
 							<div><span class=\"ion-android-calendar\"></span> Closing at ".$closingDate.
@@ -137,10 +162,10 @@
 					while($row = $allProg->fetch_assoc()){
 						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"programme-detail.php?prog=".$row["programmeName"]."\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							<figure><a href=\"programme-detail.php?prog=".$row["programmeID"]."\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$row["programmeName"]."\">".$row["programmeName"].
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$row["programmeID"]."\">".$row["programmeName"].
 							"</a></h3>
 							<div class=\"meta\">
 							<div><span class=\"ion-android-calendar\"></span> Closing at ".$row["closingDate"].
@@ -207,7 +232,7 @@
 			<div class="text">
                 <h3 class="heading mb-0">System Admin Login</h3>
                 <div class="meta">
-				    <a href="login-sys-admin.html"><small>Click here to login</small></a>
+				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
                 </div>
             </div>  
 			</div>

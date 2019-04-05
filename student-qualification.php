@@ -51,11 +51,9 @@
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <?php
-					if (isset($_SESSION["UserName"])){
-						echo "<li class = \"dropdown\"><a class=\"nav-link\" href=\"#\">".$_SESSION['UserName']."</a>
-					</li>";}
-			  ?>
+              <li>
+                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
+              </li>
             </ul>
             
           </div>
@@ -135,7 +133,10 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter result</small></p>
 					</div>
 				</div>
-				<p class="msg errorMsg col-md-12 mb-2 p-1" style="text-transform: uppercase;"></p>
+				 <div class="alert alert-danger alert-dismissible pb-0">
+					<button type = "button" class="close" data-dismiss="alert">&times;</button>
+					<p style="text-transform: uppercase;" class="errorMsg">&#10007;<small> Invalid username or password ! Please try again</small></p>
+                </div>
 				<input type="button" value="&#43; Add subject" class="btn px-2 py-2 mb-4" onclick="addSubject()">
 				<p><small>* required</small></p>
                 <div class="row">
@@ -224,6 +225,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       </div>
     </footer>
     <!-- END footer -->
+	<script>
+	document.getElementsByClassName("alert-danger")[0].style.display = "none";
+	</script>
     <?php
 		$findCalcFormula = $conn->prepare("SELECT resultCalcFormula FROM qualification WHERE qualificationName = ?;");
 		$findCalcFormula->bind_param("s", $_POST["qualificationType"]);
@@ -256,8 +260,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				}
 				echo $str."errorMsg[7].innerHTML = \"&#10007;<small>Please enter at least "
 				.$numOfSubject." subjects for your qualification</small>\"; 
-				errorMsg[7].style.background = \"red\";errorMsg[7].style.color = \"white\";
-				errorMsg[7].style.display = \"block\";
+				errorMsg[7].style.display = \"block\";document.getElementsByClassName(\"alert-danger\")[0].style.display = \"block\";
 				selectBox[0].value = \"".$_POST['qualificationType']."\";".$str2."</script>";
 			}else{
 				$overallScore = 0;
@@ -305,7 +308,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				if (isset($_SESSION["applyProg"]))
 					echo "<script>window.open('applyProg.php?progID=".$_SESSION["applyProg"]."','_self')</script>";
 				else
-					echo "<script>window.open('programme-university.php','_self')</script>";
+					echo "<script>window.open('myApplication.php','_self')</script>";
 			}
 		}
 		$conn->close();

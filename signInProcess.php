@@ -11,6 +11,7 @@
 		if ($_POST["username"] == "SystemAdmin" && $_POST["password"] == "SystemAdmin"){
 			$_SESSION['loggedin'] = true;
 			$_SESSION['UserName'] = $_POST["username"];
+			$_SESSION['sysAdmin'] = true;
 			$directPage = "systemAdminPage.php";
 		}else{
 			$directPage = "login-sys-admin.php";
@@ -23,6 +24,7 @@
 		if ($findUniAdmin->num_rows == 1){
 			$findUniAdmin->close();
 			$_SESSION['loggedin'] = true;
+			$_SESSION['uniAdmin'] = true;
 			$_SESSION['UserName'] = $_POST["username"];
 			$directPage = "uniAdminPage.php";
 		}else{
@@ -38,7 +40,7 @@
 			$findUser->close();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['UserName'] = $_POST["username"];
-			$directPage = 'programme-university.php';
+			$directPage = 'myApplication.php';
 			if (isset($_SESSION['applyProg']))
 				$directPage = "applyProg.php?progID=".$_SESSION["applyProg"];
 		}else{

@@ -111,17 +111,24 @@
 						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$uniRow['universityName']." admin</h3></div>";
 					?>
 					<div class="row">
-						<h2 class="mb-4"><?php echo $row["name"];?> (Applied <?php echo $_GET["applyProg"]; ?>)</h2>
+						<h2 class="mb-4">Application for <?php echo $_GET["applyProg"]; ?></h2>
 					</div>
 					<div class="row">
-						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn btn-primary px-5 py-2 mb-4">Approve</a></p>
 						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4">Reject</a></p>
+						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn btn-primary px-5 py-2 mb-4"
+						 style="background:white; border: 2px solid #11cbd7;color:black;">Approve</a></p>
+						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4"
+						>Reject</a></p>
 					</div>
-					<div class="row">
+					<div class="row mb-3">
 						<div class="table-responsive">
 							<table class="table table-hover">
 								<h2>Personal Details</h2>
 								<tbody>
+									<tr>
+										<th style="font-weight:500">Name</th>
+										<td><?php echo $row["name"];?></td>
+									</tr>
 									<tr>
 										<th style="font-weight:500"><?php echo $row["IDtype"]; ?></th>
 										<td><?php echo $row["IDnum"]; ?></td>

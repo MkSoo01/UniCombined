@@ -10,8 +10,8 @@
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
 		$row = $uniName->fetch_assoc();
-		$getAllProg = $conn->prepare("SELECT programmeName, programme.description, closingDate from university, universityAdmin, programme where university.universityID=universityAdmin.universityID
-		AND university.universityID = programme.universityID AND adminID = ?;");
+		$getAllProg = $conn->prepare("SELECT programmeID, programmeName, programme.description, closingDate from university, universityAdmin, programme where university.universityID=universityAdmin.universityID
+		AND university.universityID = programme.universityID AND adminID = ? ORDER BY programmeID DESC;");
 		$getAllProg->bind_param("s", $_SESSION['UserName']);
 		$getAllProg->execute();
 		$getAllProg->store_result();
@@ -19,7 +19,7 @@
 		if(isset($getAllProg->num_rows))
 			$rowNum = $getAllProg->num_rows;
 		if ($rowNum >0)
-			$getAllProg->bind_result($progName,$progDesc, $closingDate);
+			$getAllProg->bind_result($progID, $progName,$progDesc, $closingDate);
 ?>
 <!doctype html>
 <html lang="en">
@@ -64,7 +64,7 @@
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
 			  <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
+                <a class="nav-link active dropdown-toggle" href="uniAdminPage.php" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="uniAdminPage.php">View Programmes</a>
                   <a class="dropdown-item" href="recordProgramme.php">Add Programme</a>
@@ -135,7 +135,7 @@
 								<tbody>
 									<?php
 										while($getAllProg->fetch()){
-											echo "<tr class='clickable-row' data-href='programme-detail.php?prog=".$progName."'>
+											echo "<tr class='clickable-row' data-href='programme-detail.php?prog=".$progID."'>
 											<td>".$progName."</td>
 											<td>".$progDesc."</td>
 											<td>".$closingDate."</td>

@@ -97,11 +97,40 @@ closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT
               <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
+			  <?php
+				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
+					echo "<li class=\"nav-item dropdown\">
+                <a class=\"nav-link dropdown-toggle\" href=\"uniAdminPage.php\" id=\"dropdown04\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">What You Can Do</a>
+                <div class=\"dropdown-menu\" aria-labelledby=\"dropdown04\">
+                  <a class=\"dropdown-item\" href=\"uniAdminPage.php\">View Programmes</a>
+                  <a class=\"dropdown-item\" href=\"recordProgramme.php\">Add Programme</a>
+                  <a class=\"dropdown-item\" href=\"review-application.php\">View Application</a>
+                </div>
+
+              </li>";
+				}else if (isset($_SESSION['sysAdmin']) && $_SESSION["sysAdmin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"systemAdminPage.php\">Admin</a>
+              </li>";
+				}else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"myApplication.php\">My Application</a>
+              </li>";
+				}
+			  ?>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
-              </li>
+              <?php
+					if (isset($_SESSION["loggedin"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
+						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
+					}else{
+						echo "<li>
+						<a href=\"loginStudent.php\">Login</a> / <a href=\"student-sign-up.php\">Register</a>
+						</li>";
+					}
+			  ?>
             </ul>
             
           </div>
@@ -150,11 +179,14 @@ closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT
             
           </div>
         </div>
+		<div id="scrollDown" class="text-center">
+					<a href="#content" style="color:white;"><span></span>View More</a>
+			</div>
       </div>
     </section>
     <!-- END section -->
 
-    <section class="site-section element-animate">
+    <section class="site-section element-animate" id="content">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-6 order-md-2">
@@ -182,7 +214,6 @@ closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT
           </div>
           
         </div>
-
       </div>
     </section>
     <!-- END section -->

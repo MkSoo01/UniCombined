@@ -6,8 +6,8 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$getUniProg = "SELECT programmeName, programme.description, closingDate FROM University, programme WHERE 
-	university.universityID = programme.universityID AND universityName = '".$_GET["university"]."'";
+	$getUniProg = "SELECT programmeID, programmeName, programme.description, closingDate FROM University, programme WHERE 
+	university.universityID = programme.universityID AND universityName = '".$_GET["university"]."' AND closingDate > now();";
 	$uniProg = $conn->query($getUniProg);
 ?>
 <!doctype html>
@@ -54,6 +54,27 @@
 			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
               </li>
+			  <?php
+				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
+					echo "<li class=\"nav-item dropdown\">
+                <a class=\"nav-link dropdown-toggle\" href=\"uniAdminPage.php\" id=\"dropdown04\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">What You Can Do</a>
+                <div class=\"dropdown-menu\" aria-labelledby=\"dropdown04\">
+                  <a class=\"dropdown-item\" href=\"uniAdminPage.php\">View Programmes</a>
+                  <a class=\"dropdown-item\" href=\"recordProgramme.php\">Add Programme</a>
+                  <a class=\"dropdown-item\" href=\"review-application.php\">View Application</a>
+                </div>
+
+              </li>";
+				}else if (isset($_SESSION['sysAdmin']) && $_SESSION["sysAdmin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"systemAdminPage.php\">Admin</a>
+              </li>";
+				}else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+					echo "<li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"myApplication.php\">My Application</a>
+              </li>";
+				}
+			  ?>
             </ul>
             <ul class="navbar-nav absolute-right">
               <?php
@@ -114,7 +135,7 @@
 								<tbody>
 									<?php
 										while($row = $uniProg->fetch_assoc()){
-											echo "<tr>
+											echo "<tr class='clickable-row' data-href='programme-detail.php?prog=".$row["programmeID"]."'>
 												<td>".$row["programmeName"]."</td>
 												<td>".$row["description"]."</td>
 												<td>".$row["closingDate"]."</td>
@@ -207,7 +228,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>
@@ -218,5 +238,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.animateNumber.min.js"></script>
 
     <script src="js/main.js"></script>
+	<script>
+		 $(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+	</script>
   </body>
 </html>

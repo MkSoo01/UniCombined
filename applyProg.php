@@ -27,7 +27,7 @@ entryRequirement.programmeID = application.programmeID AND entryScore >= overall
 	$getProgName = "SELECT programmeName from programme WHERE programmeID = '".$_GET["progID"]."';";
 	$progName = $conn->query($getProgName);
 	$row = $progName->fetch_assoc();
-	header("location: programme-detail.php?prog=".$row["programmeName"]);
+	header("location: myApplication.php");
 	}
 
 ?>

@@ -6,9 +6,9 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$getAllQf = "SELECT qualificationName, resultCalcDesc from qualification;";
+	$getAllQf = "SELECT qualificationName, resultCalcDesc from qualification ORDER BY qualificationName;";
 	$allQf = $conn->query($getAllQf);
-	$getAllUni = "SELECT universityName from university;";
+	$getAllUni = "SELECT universityName from university ORDER BY universityID DESC;";
 	$getAllUni = $conn->query($getAllUni);
 ?>
 <!doctype html>
@@ -53,6 +53,9 @@
               </li>
 			  <li class="nav-item">
                 <a class="nav-link" href="show-qualification.html">Qualification</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link active" href="systemAdminPage">Admin</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">

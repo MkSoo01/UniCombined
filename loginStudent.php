@@ -92,7 +92,10 @@
 					<p class="msg errorMsg">&#10007;<small> Please enter password</small></p>
                   </div>
                 </div>
-                <p class = "msg errorMsg p-1" style="text-transform: uppercase;">&#10007;<small> Invalid username or password ! Please try again</small></p>
+                <div class="alert alert-danger alert-dismissible pb-0">
+					<button type = "button" class="close" data-dismiss="alert">&times;</button>
+					<p style="text-transform: uppercase;">&#10007;<small> Invalid username or password ! Please try again</small></p>
+                </div>
                 <div class="row mt-4">
                   <div class="col-md-6 form-group">
                     <input type="submit" value="Login" class="btn btn-primary px-5 py-2">
@@ -186,16 +189,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-    <?php
+    <script>
+	document.getElementsByClassName("alert-danger")[0].style.display = "none";
+	</script>
+	<?php
 	
 		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true){
 			echo "<script>var inputBox = document.getElementsByTagName(\"input\");
-			var errorMsg = document.getElementsByClassName(\"errorMsg\");
 			inputBox[0].style.border = \"1px solid red\";
 			inputBox[1].style.border = \"1px solid red\";
-			errorMsg[2].style.display = \"block\";
-			errorMsg[2].style.background = \"red\";
-			errorMsg[2].style.color = \"white\";
+			document.getElementsByClassName(\"alert-danger\")[0].style.display = \"block\";
 			inputBox[0].focus();</script>";
 		}
 		unset($_SESSION["loggedin"]);

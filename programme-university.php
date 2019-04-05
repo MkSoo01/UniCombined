@@ -117,7 +117,7 @@
     <!-- END section -->
 
 	
-    <div class="site-section bg-light">
+    <div class="site-section bg-light" id="content">
       <div class="container">
 	  
         <div class="row"> 
@@ -132,6 +132,14 @@
 			</div>
             <div class="row">
 				<?php
+					$count = 0;
+					$progA = array();
+					$progGroup = array();
+					$currentPage = 1;
+					$hasProg = true;
+					if (isset($_GET["page"]))
+						$currentPage = $_GET["page"];
+					$showProg = (int)$currentPage*6;
 					if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						$searchedName = "%".$_POST["searchProgramme"]."%";
 						$getSearchedProg->execute();
@@ -140,42 +148,58 @@
 						$getSearchedProg->bind_result($progID, $img, $progName, $closingDate, $uniName);
 						if ($progNum > 0){
 						while($getSearchedProg->fetch()){
-							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
-							<div class=\"block-20 \">
-							<figure><a href=\"programme-detail.php?prog=".$progID."\"><img src=\"".$img."\" alt=\"programme image\" class=\"img-fluid\"></a>
-							</figure>
-							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progID."\">".$progName.
-							"</a></h3>
-							<div class=\"meta\">
-							<div><span class=\"ion-android-calendar\"></span> Closing at ".$closingDate.
-							"<br><span class=\"ion-android-pin\"></span> ".$uniName."</a></div>
-							</div>
-							</div>
-							</div>
-							</div>";
-						}}else{
+							$progA["progID"] = $progID;
+							$progA["progImg"] = $img;
+							$progA["progName"] = $progName;
+							$progA["closingDate"] = $closingDate;
+							$progA["uniName"] = $uniName;
+							array_push($progGroup, $progA);
+							$progA = array();
+							$count++;
+						}
+						$count = 0;
+						}else{
+							$hasProg = false;
 							echo "<p class=\"ml-4\">Result related to\"".$_POST["searchProgramme"]."\" is not found</p>";
 						}
 						$getSearchedProg->close();
 					}else{
+						$progNum = $allProg->num_rows;
 					while($row = $allProg->fetch_assoc()){
-						echo "<div class=\"col-md-12 col-lg-6 mb-5\">
+						$progA["progID"] = $row["programmeID"];
+						$progA["progImg"] = $row["pictureURL"];
+						$progA["progName"] = $row["programmeName"];
+						$progA["closingDate"] = $row["closingDate"];
+						$progA["uniName"] = $row["universityName"];
+						array_push($progGroup, $progA);
+						$progA = array();
+						$count++;
+					}
+					$count = 0;
+					}
+					$showProg = (int)$currentPage * 6;
+					$progIndex = $showProg - 6;
+					if($progNum < $showProg)
+						$showProg = $progNum;
+					if ($hasProg){
+						for ($i = $progIndex; $i<$showProg; $i++){
+							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
 							<div class=\"block-20 \">
-							<figure><a href=\"programme-detail.php?prog=".$row["programmeID"]."\"><img src=\"".$row["pictureURL"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
+							<figure><a href=\"programme-detail.php?prog=".$progGroup[$i]["progID"]."\"><img src=\"".$progGroup[$i]["progImg"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
 							</figure>
 							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$row["programmeID"]."\">".$row["programmeName"].
+							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progGroup[$i]["progID"]."\">".$progGroup[$i]["progName"].
 							"</a></h3>
 							<div class=\"meta\">
-							<div><span class=\"ion-android-calendar\"></span> Closing at ".$row["closingDate"].
-							"<br><span class=\"ion-android-pin\"></span> ".$row["universityName"]."</a></div>
+							<div><span class=\"ion-android-calendar\"></span> Closing at ".$progGroup[$i]["closingDate"].
+							"<br><span class=\"ion-android-pin\"></span> ".$progGroup[$i]["uniName"]."</a></div>
 							</div>
 							</div>
 							</div>
 							</div>";
+						}
 					}
-					}
+					
 				?>
               
             </div>
@@ -198,8 +222,33 @@
               </ul>
             </div>
           </div>
-          <!-- END Sidebar -->
-        </div>
+		  </div>
+          <div class="row mb-5">
+              <div class="col-md-12 text-center">
+                <div class="block-27">
+                  <ul>
+					<?php
+						if ($_SERVER["REQUEST_METHOD"] != "POST") {
+							$progNum = $allProg->num_rows;
+						}
+						$pageNum = (int)($progNum / 6);
+						if ($progNum / 6 > 1.0){
+							if ($progNum % 6 > 0)
+								$pageNum++;
+						}
+						$str = "";
+						for ($k = 0; $k < $pageNum; $k++){
+							if ($currentPage == $k+1)
+								$str = " class = \"active\"";
+							echo "<li".$str."><a href=\"programme-university.php?page=".($k+1)."#content\">".($k+1)."</a></li>";
+							$str = "";
+						}
+					?>
+                  </ul>
+                </div>
+              </div>
+            </div>
+        
       </div>
     </div>
   

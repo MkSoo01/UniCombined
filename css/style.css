@@ -249,14 +249,14 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .site-hero.site-sm-hero {
-  min-height: 950px;
+  min-height: 250px;
   height: 50vh;
 }
 
 
 
 .site-hero .site-hero-sm-inner {
-  min-height: 550px;
+  min-height: 380px;
   height: 50vh;
 }
 

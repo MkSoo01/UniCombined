@@ -6,7 +6,7 @@ var errorMsg = document.getElementsByTagName("p");
 var invalidQualification = invalidSubject = invalidResult = false;
 function addSubject(){
 	var parentBox = document.getElementsByTagName("Form")[0];
-	var addButton = document.getElementsByClassName("errorMsg")[8];
+	var addButton = document.getElementsByClassName("btn")[0];
 	var div = document.createElement("div");
 	div.classList.add("row");
 	div.innerHTML = '<div class="col-lg-6 form-group"><input type="text" id="subject" name="subject[]" placeholder="Subject*" class = "form-control"></div><div class="col-lg-6 form-group"><input type="text" id="grade" name="grade[]" placeholder="Result*" class = "form-control"></div>';

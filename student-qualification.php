@@ -133,11 +133,11 @@
 						<p class="msg errorMsg">&#10007;<small> Please enter result</small></p>
 					</div>
 				</div>
-				 <div class="alert alert-danger alert-dismissible pb-0">
-					<button type = "button" class="close" data-dismiss="alert">&times;</button>
-					<p style="text-transform: uppercase;" class="errorMsg">&#10007;<small> Invalid username or password ! Please try again</small></p>
-                </div>
 				<input type="button" value="&#43; Add subject" class="btn px-2 py-2 mb-4" onclick="addSubject()">
+				<div class="alert alert-danger alert-dismissible pb-0">
+					<button type = "button" class="close" data-dismiss="alert">&times;</button>
+					<p style="text-transform: uppercase;" class="errorMsg">&#10007;<small></small></p>
+                </div>
 				<p><small>* required</small></p>
                 <div class="row">
                   <div class="col-md-6 form-group">
@@ -245,11 +245,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 						var errorMsg = document.getElementsByClassName(\"errorMsg\");
 						var selectBox = document.getElementsByTagName(\"select\")
 						var inputBox = document.getElementsByTagName(\"input\");"; 
+			$lessSubject = false;
+			if($numOfSubject <= count($_POST["subject"])){
 			for ($count=0; $count < $numOfSubject; $count++)
 			{
 				if (empty($_POST["subject"][$count]))
 					$lessSubject = true;
 			}
+			}else
+				$lessSubject = true;
 			if ($lessSubject){
 				$str2 = "";
 				$num = 0;
@@ -285,7 +289,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					arsort($scoreList);
 					$scoreArray = array_values($scoreList);
 					if (isset($scoreArray) && isset($overallScore)){
-						for ($i = 0 ; $i <= $numOfSubject; $i++){
+						for ($i = 0 ; $i < $numOfSubject; $i++){
 							$overallScore = $overallScore + $scoreArray[$i];
 						}
 					}

@@ -101,9 +101,9 @@
     </header>
     <!-- END header -->
 
-    <section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
+    <section class="site-hero sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
       <div class="container">
-        <div class="row align-items-center justify-content-center site-hero-sm-inner">
+        <div class="row align-items-center justify-content-center sm-inner">
           <div class="col-md-7 text-center">
   
             <div class="mb-5 element-animate">

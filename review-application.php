@@ -10,8 +10,8 @@
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
 		$row = $uniName->fetch_assoc();
-		$getAllApply = $conn->prepare("SELECT application.applicantID, programmeName, qualification, overallScore FROM programme, qualificationObtained, application 
-		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID
+		$getAllApply = $conn->prepare("SELECT name, programmeName, qualification, overallScore FROM programme, qualificationObtained, application, user 
+		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID AND application.applicantID = user.username  
 		AND universityID = ? AND status = 'PENDING';");
 		$getAllApply->bind_param("s", $row["universityID"]);
 		$getAllApply->execute();
@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">

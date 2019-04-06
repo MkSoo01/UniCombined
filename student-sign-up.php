@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -49,7 +50,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.html">Qualification</a>
+                <a class="nav-link" href="about-us.html">About Us</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -216,7 +217,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.html">Qualification</a></li>
+                  <li><a href="about-us.html">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

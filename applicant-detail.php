@@ -20,7 +20,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Free Education Template by Colorlib</title>
+    <title>UniCombined</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
+	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -57,7 +58,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="show-qualification.html">Qualification</a>
+                <a class="nav-link" href="about-us.html">About Us</a>
               </li>
 			  <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
@@ -189,7 +190,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
 				  <li><a href="index.php">Home</a></li>
-                  <li><a href="show-qualification.php">Qualification</a></li>
+                  <li><a href="about-us.html">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

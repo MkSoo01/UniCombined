@@ -44,7 +44,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.html">UniCombined</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -58,7 +58,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="show-qualification.html">Qualification</a>
+                <a class="nav-link" href="about-us.html">About Us</a>
               </li>
 			  <?php
 				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
@@ -172,14 +172,13 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Programme</a></li>
+				  <li><a href="index.php">Home</a></li>
+                  <li><a href="about-us.html">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="#">University</a></li>
-                  <li><a href="#">Qualification</a></li>
+                  <li><a href="programme-university.php">Programme &amp; University</a></li>
                 </ul>
               </div>
             </div>

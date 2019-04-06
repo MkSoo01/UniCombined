@@ -10,7 +10,7 @@
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
 		$row = $uniName->fetch_assoc();
-		$getAllApply = $conn->prepare("SELECT name, programmeName, qualification, overallScore FROM programme, qualificationObtained, application, user 
+		$getAllApply = $conn->prepare("SELECT username, name, programmeName, qualification, overallScore FROM programme, qualificationObtained, application, user 
 		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID AND application.applicantID = user.username  
 		AND universityID = ? AND status = 'PENDING';");
 		$getAllApply->bind_param("s", $row["universityID"]);
@@ -57,10 +57,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
@@ -117,6 +117,15 @@
 							<h2>Your university currently do not have any pending application for programmes</h2>
 							</div>";
 						}
+						if (isset($_SESSION["approveApply"])){
+							if ($_SESSION["approveApply"])
+								$msg = "approved";
+							else
+								$msg = "rejected";
+							unset($_SESSION["approveApply"]);
+							echo "<div class=\"alert alert-success alert-dismissible pb-0\"><button type = \"button\" class=\"close\" data-dismiss=\"alert\">&times;</button><p style=\"text-transform: uppercase;\">You have ".$msg." an application</p></div>";
+						}
+						
 					?>
 					<div class="row">
 						<div class="table-responsive">
@@ -132,10 +141,10 @@
 								<tbody>
 									<?php
 										if ($rowNum >0){
-											$getAllApply->bind_result($applicant,$programme, $QUAL, $score);
+											$getAllApply->bind_result($applicantID, $applicantName,$programme, $QUAL, $score);
 											while($getAllApply->fetch()){
-												echo "<tr class='clickable-row' data-href='applicant-detail.php?applicantID=".$applicant."&applyProg=".$programme."'>
-												<td>".$applicant."</td>
+												echo "<tr class='clickable-row' data-href='applicant-detail.php?applicantID=".$applicantID."&applyProg=".$programme."'>
+												<td>".$applicantName."</td>
 												<td>".$programme."</td>
 												<td>".$QUAL."</td>
 												<td>".$score."</td>
@@ -165,7 +174,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
 				  <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

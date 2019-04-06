@@ -33,10 +33,20 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+	<style>
+	#approveBtn{
+		background:white; 
+		border: 2px solid #11cbd7;
+		color:black;
+	}
+	#approveBtn:hover{
+		background: #11cbd7;
+		color:white;
+	}
+	</style>
   </head>
   <body>
     
@@ -55,10 +65,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
@@ -115,8 +125,8 @@
 						<h2 class="mb-4">Application for <?php echo $_GET["applyProg"]; ?></h2>
 					</div>
 					<div class="row">
-						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn btn-primary px-5 py-2 mb-4"
-						 style="background:white; border: 2px solid #11cbd7;color:black;">Approve</a></p>
+						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn px-5 py-2 mb-4"
+						 id="approveBtn">Approve</a></p>
 						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4"
 						>Reject</a></p>
 					</div>
@@ -190,7 +200,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
 				  <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
@@ -259,8 +269,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		if (isset($_GET["status"])){
 			if ($_GET["status"] === "approve"){
 				$updateApplication = "UPDATE application SET status = 'APPROVED' WHERE applicantID = '".$_GET["applicantID"]."';";
+				$_SESSION["approveApply"] = true; 
 			}else{
 				$updateApplication = "UPDATE application SET status = 'REJECTED' WHERE applicantID = '".$_GET["applicantID"]."';";
+				$_SESSION["approveApply"] = false;
 			}
 			$conn->query($updateApplication);
 			echo "<script>window.open('review-application.php','_self')</script>";

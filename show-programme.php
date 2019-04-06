@@ -49,10 +49,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <?php
 				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
@@ -147,7 +147,7 @@
 		</div>
 		</div>
     </section>
-    <footer class="site-footer border-top">
+    <footer class="site-footer border-top bg-light">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
@@ -160,7 +160,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

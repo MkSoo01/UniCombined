@@ -91,11 +91,11 @@ closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT
               <li class="nav-item">
                 <a class="nav-link active" href="index.php">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+			  <li class="nav-item">
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <?php
 				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
@@ -382,7 +382,7 @@ closingDate DATE NOT NULL, pictureURL VARCHAR(70) NOT NULL, universityID INT NOT
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

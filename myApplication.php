@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
@@ -48,10 +47,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
                 <a class="nav-link active" href="myApplication.php">My Application</a>
@@ -129,7 +128,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
 				  <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

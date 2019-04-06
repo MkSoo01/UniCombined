@@ -49,10 +49,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
                 <a class="nav-link active" href="systemAdminPage">Admin</a>
@@ -166,7 +166,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">
@@ -190,7 +190,7 @@
               <div class="text">
                 <h3 class="heading mb-0">University Admin Login</a></h3>
                 <div class="meta">
-					<a href="login-uni-admin.html"><small>Click here to login</small></a>	
+					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
               </div>
             </div>  

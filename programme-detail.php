@@ -10,12 +10,15 @@
 	programme.universityID=university.universityID AND programmeID = '".$_GET["prog"]."';";
 	$allProg = $conn->query($getProg);
 	$row = $allProg->fetch_assoc();
+	if (isset($_SESSION["UserName"])){
 	$getApplication = "SELECT * FROM application WHERE programmeID = '".$_GET["prog"]."' AND 
 	applicantID = '".$_SESSION["UserName"]."';";
 	$applicantApply = $conn->query($getApplication);
+	}
 	$haveApplied = 0;
 	if (isset($applicantApply->num_rows) && $applicantApply->num_rows > 0)
 		$haveApplied = 1;
+	
 ?>
 <!doctype html>
 <html lang="en">
@@ -52,13 +55,13 @@
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
+              </li>
+			  <li class="nav-item">
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
               </li>
 			  <?php
 				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
@@ -100,24 +103,19 @@
         </div>
       </nav>
     </header>
-    <!-- END header -->
-
-    <section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
+    <!-- END header -->      
+    
+	<section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
       <div class="container">
         <div class="row align-items-center justify-content-center site-hero-sm-inner">
           <div class="col-md-7 text-center">
-  
-            <div class="mb-5 element-animate">
-              <h1 class="mb-2">Log in</h1>
-              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
-            </div>
             
           </div>
         </div>
       </div>
     </section>
     <!-- END section -->
-    
+	
     <section class="site-section">
       <div class="container">
         <div class="row justify-content-center">
@@ -127,9 +125,9 @@
                 <div class="row">
                   <div class="col-md-12">
 					<figure><img src="<?php echo $row["pictureURL"]; ?>" alt="programme picture" class="img-fluid"></figure>
-					<p class="mb-2"><span class="ion-ios-information"></span> <?php echo $row["description"]; ?></p>
 					<p class="mb-2"><span class="ion-android-calendar"></span> Closing at <?php echo $row["closingDate"]; ?></p>
-					<p><span class="ion-android-pin"></span> <?php echo $row["universityName"]; ?></p>
+					<p class="mb-3"><span class="ion-android-pin"></span> <?php echo $row["universityName"]; ?></p>
+					<p class="mb-4 ml-5 mr-5"><?php echo $row["description"]; ?></p>
                   </div>
                 </div>
                 <div class="row mb-4">
@@ -146,8 +144,8 @@
                 </div>
                 
                 <div class="row">
-				  <div class="col-md-8 bg-light p-4 <?php if($haveApplied == 0) echo "d-none";?> ">
-					<p>You have applied this programme on <?php if($haveApplied > 0) echo $applicantApply->fetch_assoc()["date"];?></p>
+				  <div class="col-md-8 bg-light p-4 <?php if(isset($haveApplied) && $haveApplied == 0) echo "d-none";?> ">
+					<p>You have applied this programme on <?php if (isset($haveApplied) && $haveApplied > 0) echo $applicantApply->fetch_assoc()["date"];?></p>
 				  </div>
                   <div class="col-md-12 <?php if ((isset($_SESSION['uniAdmin']) && $_SESSION['uniAdmin'] === true) || $haveApplied > 0) echo "d-none"; ?>" >
                     <p><a href="applyProg.php?progID=<?php echo $row["programmeID"]; ?>" class="btn btn-primary px-5 py-2" style="float: right;">
@@ -159,7 +157,6 @@
         </div>
       </div>
     </section>
-    
     <footer class="site-footer border-top">
       <div class="container">
         <div class="row mb-5">
@@ -173,7 +170,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
 				  <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

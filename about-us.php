@@ -1,19 +1,5 @@
-<?php
+<?php 
 	session_start();
-	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-	$useDb = "USE unicombined";
-	$conn->query($useDb);
-	$getAllUni = "SELECT universityName from university;";
-	$allUni = $conn->query($getAllUni);
-	$getAllProg = "SELECT programmeID, programme.pictureURL, programmeName, closingDate,universityName from programme,university WHERE 
-	programme.universityID=university.universityID AND closingDate > now();";
-	$allProg = $conn->query($getAllProg);
-	$getSearchedProg = $conn->prepare("SELECT programmeID, programme.pictureURL, programmeName, closingDate,universityName from programme, university where 
-	programme.universityID = university.universityID AND programmeName LIKE ? AND closingDate > now();");
-	$getSearchedProg->bind_param("s",$searchedName);
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,8 +17,8 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
@@ -54,10 +40,10 @@
                 <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link" href="about-us.php">About Us</a>
+                <a class="nav-link active" href="about-us.php">About Us</a>
               </li>
-			  <li class="nav-item">
-                <a class="nav-link active" href="programme-university.php">Programme &amp; University</a>
+              <li class="nav-item">
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <?php
 				if(isset($_SESSION["uniAdmin"]) && $_SESSION["uniAdmin"] === true){
@@ -82,7 +68,7 @@
 			  ?>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <?php
+				<?php
 					if (isset($_SESSION["loggedin"])){
 						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
 						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
@@ -107,7 +93,7 @@
           <div class="col-md-7 text-center">
   
             <div class="mb-5 element-animate">
-              <h1 class="mb-2">Programme &amp; University</h1>
+              <h1 class="mb-2">About Us</h1>
             </div>
             
           </div>
@@ -115,140 +101,64 @@
       </div>
     </section>
     <!-- END section -->
+	
+	<section class="site-section element-animate">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-md-2">
+            <div class="block-16" id="content">
+              <figure>
+                <img src="images/about-us.jpg" alt="Image placeholder" class="img-fluid">
+
+                <!-- <a href="https://vimeo.com/45830194" class="button popup-vimeo" data-aos="fade-right" data-aos-delay="700"><span class="ion-ios-play"></span></a> -->
+
+              </figure>
+            </div>
+          </div>
+          <div class="col-md-6 order-md-1">
+
+            <div class="block-15">
+              <div class="heading">
+                <h2>About Us</h2>
+              </div>
+              <div class="text mb-5">
+              <p class="mb-4">UniCombined website is established in 2019. The main purposes of this website is to help school leaver especially fresh graduate 
+			  to enroll for a university from various university choices. We combine top and trusted universities in one website.</p>
+              </div>              
+            </div>
+
+          </div>
+          
+        </div>
+
+      </div>
+    </section>
 
 	
-    <div class="site-section bg-light" id="content">
+    <div class="site-section bg-light">
       <div class="container">
-	  
+		<div class="row">
+			<div class = "col-md-8">
+				<h2 class="heading">Have Various Universities to Choose From</h2>
+				<div class="text mb-5">
+					<p>UniCombined website is established in 2019. The main purposes of this website is to help school leaver especially fresh graduate 
+			  to enroll for a university from various university choices. We combine top and trusted universities in one website.</p>
+				</div>
+			</div>
+			<div class = "col-md-8">
+				<h3 class="heading">Our Mission</h3>
+				<div class="text mb-5">
+					<p>To provide a platform where fresh graduates can pick their desire university in one website.</p>
+				</div>
+			</div>
+		</div>
         <div class="row"> 
-          <div class="col-md-6 col-lg-8 order-md-2">
-			<div class="row mb-5">
-				<div class="col-md-12">
-		  	<form class="search" action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
-				<input type="text" placeholder="Search Programme..." name="searchProgramme" id="searchProgramme">
-				<button type="submit"><i class="fa fa-search"></i></button>
-			</form>
-			</div>
-			</div>
-            <div class="row">
-				<?php
-					$count = 0;
-					$progA = array();
-					$progGroup = array();
-					$currentPage = 1;
-					$hasProg = true;
-					if (isset($_GET["page"]))
-						$currentPage = $_GET["page"];
-					$showProg = (int)$currentPage*6;
-					if ($_SERVER["REQUEST_METHOD"] == "POST") {
-						$searchedName = "%".$_POST["searchProgramme"]."%";
-						$getSearchedProg->execute();
-						$getSearchedProg->store_result();
-						$progNum = $getSearchedProg->num_rows;
-						$getSearchedProg->bind_result($progID, $img, $progName, $closingDate, $uniName);
-						if ($progNum > 0){
-						while($getSearchedProg->fetch()){
-							$progA["progID"] = $progID;
-							$progA["progImg"] = $img;
-							$progA["progName"] = $progName;
-							$progA["closingDate"] = $closingDate;
-							$progA["uniName"] = $uniName;
-							array_push($progGroup, $progA);
-							$progA = array();
-							$count++;
-						}
-						$count = 0;
-						}else{
-							$hasProg = false;
-							echo "<p class=\"ml-4\">Result related to\"".$_POST["searchProgramme"]."\" is not found</p>";
-						}
-						$getSearchedProg->close();
-					}else{
-						$progNum = $allProg->num_rows;
-					while($row = $allProg->fetch_assoc()){
-						$progA["progID"] = $row["programmeID"];
-						$progA["progImg"] = $row["pictureURL"];
-						$progA["progName"] = $row["programmeName"];
-						$progA["closingDate"] = $row["closingDate"];
-						$progA["uniName"] = $row["universityName"];
-						array_push($progGroup, $progA);
-						$progA = array();
-						$count++;
-					}
-					$count = 0;
-					}
-					$showProg = (int)$currentPage * 6;
-					$progIndex = $showProg - 6;
-					if($progNum < $showProg)
-						$showProg = $progNum;
-					if ($hasProg){
-						for ($i = $progIndex; $i<$showProg; $i++){
-							echo "<div class=\"col-md-12 col-lg-6 mb-5\">
-							<div class=\"block-20 \">
-							<figure><a href=\"programme-detail.php?prog=".$progGroup[$i]["progID"]."\"><img src=\"".$progGroup[$i]["progImg"]."\" alt=\"programme image\" class=\"img-fluid\"></a>
-							</figure>
-							<div class=\"text\">
-							<h3 class=\"heading\"><a href=\"programme-detail.php?prog=".$progGroup[$i]["progID"]."\">".$progGroup[$i]["progName"].
-							"</a></h3>
-							<div class=\"meta\">
-							<div><span class=\"ion-android-calendar\"></span> Closing at ".$progGroup[$i]["closingDate"].
-							"<br><span class=\"ion-android-pin\"></span> ".$progGroup[$i]["uniName"]."</a></div>
-							</div>
-							</div>
-							</div>
-							</div>";
-						}
-					}
-					
-				?>
-              
+          <div class="col-md-12">
+            <div class="row">              
             </div>
           </div>
           <!-- END content -->
-          <div class="col-md-6 col-lg-4 order-md-1">
-
-            <div class="block-24 mb-5">
-              <h3 class="heading">List of University</h3>
-              <ul>
-				<?php
-					if(isset($allUni->num_rows) && $allUni->num_rows > 0){
-					while($row = $allUni->fetch_assoc()){
-						echo "<li>
-							<a href=\"show-programme.php?university=".$row["universityName"]."\">".$row["universityName"]."</a>
-							</li>";
-					}
-					}
-				?>
-              </ul>
-            </div>
-          </div>
-		  </div>
-          <div class="row mb-5">
-              <div class="col-md-12 text-center">
-                <div class="block-27">
-                  <ul>
-					<?php
-						if ($_SERVER["REQUEST_METHOD"] != "POST") {
-							$progNum = $allProg->num_rows;
-						}
-						$pageNum = (int)($progNum / 6);
-						if ($progNum / 6 > 1.0){
-							if ($progNum % 6 > 0)
-								$pageNum++;
-						}
-						$str = "";
-						for ($k = 0; $k < $pageNum; $k++){
-							if ($currentPage == $k+1)
-								$str = " class = \"active\"";
-							echo "<li".$str."><a href=\"programme-university.php?page=".($k+1)."#content\">".($k+1)."</a></li>";
-							$str = "";
-						}
-					?>
-                  </ul>
-                </div>
-              </div>
-            </div>
-        
+        </div>
       </div>
     </div>
   
@@ -264,7 +174,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="index.php">Home</a></li>
+                  <li><a href="index.html">Home</a></li>
                   <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
@@ -330,11 +240,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<?php
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			echo "<script>document.getElementById(\"searchProgramme\").focus();</script>";
-		}		
-	?>
+
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>
@@ -343,6 +249,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.waypoints.min.js"></script>
     <script src="js/jquery.stellar.min.js"></script>
     <script src="js/jquery.animateNumber.min.js"></script>
+    
+    <script src="js/jquery.magnific-popup.min.js"></script>
 
     <script src="js/main.js"></script>
   </body>

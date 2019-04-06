@@ -38,11 +38,11 @@
               <li class="nav-item">
                 <a class="nav-link active" href="index.php">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+			  <li class="nav-item">
+                <a class="nav-link" href="about-us.php">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about-us.html">About Us</a>
+                <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -121,7 +121,7 @@
               <div class="col-md-6">
                 <ul class="list-unstyled">
                   <li><a href="index.php">Home</a></li>
-                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
               <div class="col-md-6">

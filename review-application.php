@@ -89,7 +89,7 @@
             <ul class="navbar-nav absolute-right">
 			  <?php
 					if (isset($_SESSION["loggedin"])){
-						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"icon ion-person mr-1\"></span>".$_SESSION['UserName']."</a>
 						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
 						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
 					}
@@ -188,7 +188,7 @@
 			</div>
 		</div>
     </section>
-    <footer class="site-footer border-top">
+    <footer class="site-footer border-top bg-light">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">

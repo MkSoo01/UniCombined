@@ -204,17 +204,17 @@
             <h3 class="heading">Permission Sign In</h3>
             <div class="block-21 d-flex mb-4">
 			<div class="text">
-                <h3 class="heading mb-0">System Admin Login</h3>
-                <div class="meta">
-				    <a href="login-sys-admin.php"><small>Click here to login</small></a>
-                </div>
-            </div>  
-			</div>
-            <div class="block-21 d-flex mb-4">
-              <div class="text">
-                <h3 class="heading mb-0">University Admin Login</a></h3>
+                <h3 class="heading mb-0">University Admin Login</h3>
                 <div class="meta">
 					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
+                </div>
+              </div>
+            </div>  
+            <div class="block-21 d-flex mb-4">
+              <div class="text">
+                <h3 class="heading mb-0">University Admin Register</h3>
+                <div class="meta">
+					<small>Please contact our admin via email</small>
                 </div>
               </div>
             </div>  

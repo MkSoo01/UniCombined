@@ -77,7 +77,7 @@
             <ul class="navbar-nav absolute-right">
 			  <?php
 					if (isset($_SESSION["loggedin"])){
-						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"icon ion-person mr-1\"></span>".$_SESSION['UserName']."</a>
 						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
 						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
 					}
@@ -120,7 +120,7 @@
 							</div>";
 						}else{
 							echo "<div class=\"row mb-2\">
-							<h2>Offered Programme <span style=\"font-size:25px\">(".$rowNum.")</span></h2>
+							<h2>Programmes Offered <span style=\"font-size:25px\">(".$rowNum.")</span></h2>
 							</div>";
 						}
 					?>
@@ -157,7 +157,7 @@
 			</div>
 		</div>
     </section>
-    <footer class="site-footer border-top">
+    <footer class="site-footer border-top bg-light">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
@@ -192,7 +192,7 @@
 			</div>
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0">University Admin Login</a></h3>
+                <h3 class="heading mb-0">University Admin Login</h3>
                 <div class="meta">
 					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
@@ -200,9 +200,9 @@
             </div>  
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0">University Admin Register</a></h3>
+                <h3 class="heading mb-0">University Admin Register</h3>
                 <div class="meta">
-					<small>Please contact our admin via email</small></a>
+					<small>Please contact our admin via email</small>
                 </div>
               </div>
             </div>  

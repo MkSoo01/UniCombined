@@ -6,7 +6,7 @@
 	}
 	$useDb = "USE unicombined";
 	$conn->query($useDb);
-	$getAllQf = "SELECT qualificationName, resultCalcDesc from qualification ORDER BY qualificationName;";
+	$getAllQf = "SELECT qualificationName, maxScore from qualification ORDER BY qualificationName;";
 	$allQf = $conn->query($getAllQf);
 	$getAllUni = "SELECT universityName from university ORDER BY universityID DESC;";
 	$getAllUni = $conn->query($getAllUni);
@@ -104,7 +104,7 @@
 								<thead>
 									<tr style="font-weight:500">
 										<td>Qualification</td>
-										<td>Calculation of overall result</td>
+										<td>Maximum Score</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -113,7 +113,7 @@
 										while($row = $allQf->fetch_assoc()){
 											echo "<tr>
 											<td>".$row["qualificationName"]."</td>
-											<td>".$row["resultCalcDesc"]."</td>
+											<td>".$row["maxScore"]."</td>
 											</tr>";
 										}
 										}
@@ -188,7 +188,7 @@
 			</div>
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0">University Admin Login</a></h3>
+               <h3 class="heading mb-0">University Admin Login</h3>
                 <div class="meta">
 					<a href="loginUniAdmin.php"><small>Click here to login</small></a>	
                 </div>
@@ -196,9 +196,9 @@
             </div>  
             <div class="block-21 d-flex mb-4">
               <div class="text">
-                <h3 class="heading mb-0">University Admin Register</a></h3>
+                <h3 class="heading mb-0">University Admin Register</h3>
                 <div class="meta">
-					<small>Please contact our admin via email</small></a>
+					<small>Please contact our admin via email</small>
                 </div>
               </div>
             </div>  

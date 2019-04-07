@@ -28,7 +28,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand absolute" href="index.php">University</a>
+          <a class="navbar-brand absolute" href="index.php">UniCombined</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -61,11 +61,6 @@
       <div class="container">
         <div class="row align-items-center justify-content-center site-hero-sm-inner">
           <div class="col-md-7 text-center">
-  
-            <div class="mb-5 element-animate">
-              <h1 class="mb-2">Log in</h1>
-              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Log in</span></p>
-            </div>
             
           </div>
         </div>

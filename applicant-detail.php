@@ -10,8 +10,9 @@
 		AND adminID = '".$_SESSION['UserName']."';";
 		$uniName = $conn->query($getUniName);
 		$uniRow = $uniName->fetch_assoc();
-		$getApplicant = "SELECT name, IDtype, IDnum, nationality, address, qualification, overallScore 
-		FROM user,applicant, qualificationObtained WHERE user.username = applicant.applicantID AND applicant.applicantID= '".$_GET["applicantID"]."';";
+		$getApplicant = "SELECT name, IDtype, IDnum, nationality, address, qualification, overallScore,status 
+		FROM user,applicant, qualificationObtained,application WHERE user.username = applicant.applicantID AND applicant.applicantID= '".$_GET["applicantID"]."'
+		 AND applicant.applicantID = application.applicantID;";
 		$applicant = $conn->query($getApplicant);
 		$row = $applicant->fetch_assoc();
 		$getResult = "SELECT subjectName, score FROM result WHERE applicantID = '".$_GET["applicantID"]."';";
@@ -124,10 +125,11 @@
 					<div class="row">
 						<h2 class="mb-4">Application for <?php echo $_GET["applyProg"]; ?></h2>
 					</div>
-					<div class="row">
-						<p class="mr-4"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn px-5 py-2 mb-4"
+					<div class="row <?php if($row["status"] !== "PENDING") echo "bg-light p-2 mb-2";?>">
+						<p <?php if($row["status"] === "PENDING") echo "class=\"d-none\"" ?>>This application has been approved</p>
+						<p class="mr-4 <?php if($row["status"] !== "PENDING") echo "d-none" ?>"><a href="<?php echo $_SERVER['REQUEST_URI']."&status=approve";?>" class="btn px-5 py-2 mb-4"
 						 id="approveBtn">Approve</a></p>
-						<p><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4"
+						<p <?php if($row["status"] !== "PENDING") echo "class=\"d-none\"" ?>><a href="<?php echo $_SERVER['REQUEST_URI']."&status=reject";?>" class="btn btn-primary px-5 py-2 mb-4"
 						>Reject</a></p>
 					</div>
 					<div class="row mb-3">

@@ -55,7 +55,7 @@
             </ul>
             <ul class="navbar-nav absolute-right">
 			<li>
-                <a href="login.php">Login</a> / <a href="sign-up.php">Register</a>
+                <a href="login.php">Login</a> / <a href="student-sign-up.php">Register</a>
               </li>			
             </ul>
             
@@ -68,10 +68,6 @@
       <div class="container">
         <div class="row align-items-center justify-content-center site-hero-sm-inner">
           <div class="col-md-7 text-center">
-  
-            <div class="mb-5 element-animate">
-              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Register</span></p>
-            </div>
             
           </div>
         </div>

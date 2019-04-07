@@ -118,6 +118,10 @@
 							echo "<div class=\"row mb-4\">
 							<h2>Your university currently do not have any programme open for application</h2>
 							</div>";
+						}else{
+							echo "<div class=\"row mb-2\">
+							<h2>Offered Programme <span style=\"font-size:25px\">(".$rowNum.")</span></h2>
+							</div>";
 						}
 					?>
 					<div class="row" style="text-align:right">

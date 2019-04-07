@@ -66,10 +66,6 @@
       <div class="container">
         <div class="row align-items-center justify-content-center site-hero-sm-inner">
           <div class="col-md-7 text-center">
-  
-            <div class="mb-5 element-animate">
-              <p class="bcrumb"><a href="index.php">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Student qualification</span></p>
-            </div>
             
           </div>
         </div>

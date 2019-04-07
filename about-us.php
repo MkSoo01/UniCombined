@@ -135,7 +135,7 @@
     </section>
 
 	
-    <div class="site-section bg-light">
+    <div class="site-section bg-light pb-5">
       <div class="container">
 		<div class="row">
 			<div class = "col-md-8">
@@ -174,7 +174,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="index.html">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>

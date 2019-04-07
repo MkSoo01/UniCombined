@@ -53,6 +53,9 @@
 			  <li class="nav-item">
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
+			  <li class="nav-item">
+                <a class="nav-link" href="systemAdminPage.php">Admin</a>
+              </li>
             </ul>     
 			<ul class="navbar-nav absolute-right">
 			  <?php

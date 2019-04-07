@@ -1,5 +1,24 @@
 <?php
 	session_start();
+	$conn = new mysqli($_SESSION['servername'], $_SESSION['username'], $_SESSION['password']);
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		}
+		$useDb = "use unicombined";
+		$conn->query($useDb);
+		$getUniName = "SELECT university.universityID, universityName FROM university, universityAdmin WHERE university.universityID = universityAdmin.universityID
+		AND adminID = '".$_SESSION['UserName']."';";
+		$uniName = $conn->query($getUniName);
+		$row = $uniName->fetch_assoc();
+		$getAllApply = $conn->prepare("SELECT username, name, programmeName, qualification, overallScore FROM programme, qualificationObtained, application, user 
+		WHERE programme.programmeID = application.programmeID AND application.applicantID = qualificationObtained.applicantID AND application.applicantID = user.username  
+		AND universityID = ? AND status = 'APPROVED';");
+		$getAllApply->bind_param("s", $row["universityID"]);
+		$getAllApply->execute();
+		$getAllApply->store_result();
+		$rowNum = 0;
+		if(isset($getAllApply->num_rows))
+			$rowNum = $getAllApply->num_rows;
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,10 +36,23 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+	<style>
+		.btn{
+			background: #f0f0f0;
+			color:#11cbd7;
+		}
+		.btn:hover{
+			background:#11cbd7;
+			color:white;
+		}
+		.btn.active{
+			background:#11cbd7;
+			color:white;
+		}
+	</style>
   </head>
   <body>
     
@@ -34,21 +66,34 @@
           </button>
 
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
-            <ul class="navbar-nav mx-auto">
+			<ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
 			  <li class="nav-item">
                 <a class="nav-link" href="about-us.php">About Us</a>
               </li>
-              <li class="nav-item">
+			  <li class="nav-item">
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
+              </li>
+			  <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">What You Can Do</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" href="uniAdminPage.php">View Programmes</a>
+                  <a class="dropdown-item" href="recordProgramme.php">Add Programme</a>
+                  <a class="dropdown-item" href="review-application.php">View Application</a>
+                </div>
+
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
-              <li>
-                <a href="loginStudent.php">Login</a> / <a href="student-sign-up.php">Register</a>
-              </li>
+			  <?php
+					if (isset($_SESSION["loggedin"])){
+						echo "<li class = \"dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdown05\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['UserName']."</a>
+						<div class=\"dropdown-menu\" aria-labelledby=\"dropdown05\"> 
+						<a class=\"dropdown-item\" href=\"logout.php\">Logout</a></div></li>";
+					}
+			  ?>
             </ul>
             
           </div>
@@ -57,52 +102,81 @@
     </header>
     <!-- END header -->
 
-    <section class="site-hero site-sm-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(images/big_image_2.jpg);">
-      <div class="container">
-        <div class="row align-items-center justify-content-center site-hero-sm-inner">
-          <div class="col-md-7 text-center">
-            
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END section -->
-    
     <section class="site-section">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7">
-            <div class="form-wrap">
-              <h2 class="mb-4">System Admin Login</h2>
-              <form action="signInProcess.php?loginType=systemAdmin" method="post" onsubmit="return signIn()">
-                <div class="row mb-2">
-                  <div class="col-md-12 form-group">
-                    <input type="text" id="username" name="username" placeholder="Username" class="form-control py-2">
-					<p class="msg errorMsg">&#10007;<small> Please enter username</small></p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control py-2">
-					<p class="msg errorMsg">&#10007;<small> Please enter password</small></p>
-                  </div>
-                </div>
-                <div class="alert alert-danger alert-dismissible pb-0">
-					<button type = "button" class="close" data-dismiss="alert">&times;</button>
-					<p style="text-transform: uppercase;">&#10007;<small> Invalid username or password ! Please try again</small></p>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-md-6 form-group">
-                    <input type="submit" value="Login" class="btn btn-primary px-5 py-2">
-                  </div>
-                </div>
-              </form>
+        <!--<div class="row">
+          <!--
+          <div class="wrapper">
+            <div class="block-24 mb-5">
+				
+				<nav id="sidebar">
+					<h3 class="navbar-brand absolute mt-3 ml-4 mb-5">UniCombined</h3>
+					<button class="btn btn-primary px-5 py-2 ml-3 mb-3">Add Programme</button>
+					<ul>
+						<li><a href="#" class="pt-1 pb-1 active">All Programme </a></li>
+						<li><a href="#" class="pt-1 pb-1">All Application </a></li>
+					</ul>
+				</nav>
             </div>
           </div>
-        </div>
-      </div>
+          <!-- END Sidebar -->
+        <!--</div>-->
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<div class="mb-3 p-5">
+					<?php
+						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$row['universityName']." admin</h3></div>";
+						if ($rowNum == 0){
+							echo "<div class=\"row mb-4\">
+							<h2>Your university currently do not have any approved application for programmes</h2>
+							</div>";
+						}else{
+							echo "<div class=\"row mb-4\">
+							<h2>Approved Application <span style=\"font-size:25px\">(".$rowNum.")</span></h2>
+							</div>";
+							
+						}
+
+						echo "<div class=\"row mb-4\">
+							<span class=\"mr-2\"><a href=\"review-application.php\" class=\"btn px-3 py-2 mb-4\">Pending</a></span>
+							<span><a href=\"approved-application.php\" class=\"btn active px-3 py-2 mb-4\">Approved</a></span>
+							</div>";
+						
+					?>
+					<div class="row">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr style="font-weight:500">
+										<td>Applicant</td>
+										<td>Applied Programme</td>
+										<td>Obtained Qualification</td>
+										<td>Overall Score</td>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										if ($rowNum >0){
+											$getAllApply->bind_result($applicantID, $applicantName,$programme, $QUAL, $score);
+											while($getAllApply->fetch()){
+												echo "<tr class='clickable-row' data-href='applicant-detail.php?applicantID=".$applicantID."&applyProg=".$programme."'>
+												<td>".$applicantName."</td>
+												<td>".$programme."</td>
+												<td>".$QUAL."</td>
+												<td>".$score."</td>
+												</tr>";
+										}}
+											$getAllApply->close();
+										$conn->close();
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </section>
-    
     <footer class="site-footer border-top">
       <div class="container">
         <div class="row mb-5">
@@ -115,7 +189,7 @@
             <div class="row">
               <div class="col-md-6">
                 <ul class="list-unstyled">
-                  <li><a href="index.php">Home</a></li>
+				  <li><a href="index.php">Home</a></li>
                   <li><a href="about-us.php">About Us</a></li>
                 </ul>
               </div>
@@ -181,21 +255,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
-	<script>
-	document.getElementsByClassName("alert-danger")[0].style.display = "none";
-	</script>
 	<?php
-	
-		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true){
-			echo "<script>var inputBox = document.getElementsByTagName(\"input\");
-			inputBox[0].style.border = \"1px solid red\";
-			inputBox[1].style.border = \"1px solid red\";
-			document.getElementsByClassName(\"alert-danger\")[0].style.display = \"block\";
-			inputBox[0].focus();</script>";
-		}
-		unset($_SESSION["loggedin"]);
+		if ($rowNum == 0 )
+			echo "<script>document.getElementsByClassName(\"table\")[0].style.display = \"none\";</script>";
 	?>
-	<script src="js/login.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
     <script src="js/popper.min.js"></script>
@@ -206,5 +269,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.animateNumber.min.js"></script>
 
     <script src="js/main.js"></script>
+	<script>
+		 $(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+	</script>
   </body>
 </html>

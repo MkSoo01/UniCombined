@@ -55,7 +55,7 @@
                 <a class="nav-link" href="programme-university.php">Programme &amp; University</a>
               </li>
 			  <li class="nav-item">
-                <a class="nav-link active" href="systemAdminPage">Admin</a>
+                <a class="nav-link active" href="systemAdminPage.php">Admin</a>
               </li>
             </ul>
             <ul class="navbar-nav absolute-right">
@@ -99,7 +99,7 @@
 						<div class="col-md-6">
 						<div class="table-responsive">
 							<table class="table table-hover">
-							<h1 class="mb-5">Qualification</h1>
+							<h1 class="mb-5">Qualification <span style="font-size:25px">(<?php echo $allQf->num_rows; ?>)<span></h1>
 							<button onclick="window.location.href='add-qualification.php'" class="btn btn-primary px-5 py-2 mb-4">Add Qualification</button>
 								<thead>
 									<tr style="font-weight:500">
@@ -126,7 +126,7 @@
 						<div class="col-md-6">
 						<div class="table-responsive">
 							<table class="table table-hover">
-							<h1 class="mb-5">University</h1>
+							<h1 class="mb-5">University <span style="font-size:25px">(<?php echo $getAllUni->num_rows; ?>)</span></h1>
 							<button onclick="window.location.href='add-university.php'" class="btn btn-primary px-5 py-2 mb-4">Add University</button>
 								<thead>
 									<tr style="font-weight:500">

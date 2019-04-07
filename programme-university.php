@@ -124,7 +124,7 @@
           <div class="col-md-6 col-lg-8 order-md-2">
 			<div class="row mb-5">
 				<div class="col-md-12">
-		  	<form class="search" action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
+		  	<form class="search" action="<?php echo $_SERVER['PHP_SELF']."#content";?>" method="POST">
 				<input type="text" placeholder="Search Programme..." name="searchProgramme" id="searchProgramme">
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>

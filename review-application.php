@@ -39,6 +39,20 @@
 	<link rel="icon" href="icons/icon.png"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+	<style>
+		.btn{
+			background: #f0f0f0;
+			color:#11cbd7;
+		}
+		.btn:hover{
+			background:#11cbd7;
+			color:white;
+		}
+		.btn.active{
+			background:#11cbd7;
+			color:white;
+		}
+	</style>
   </head>
   <body>
     
@@ -112,19 +126,32 @@
 				<div class="mb-3 p-5">
 					<?php
 						echo "<div class=\"row mb-3\"><h3 class=\"text-primary\">".$row['universityName']." admin</h3></div>";
-						if ($rowNum == 0){
-							echo "<div class=\"row mb-4\">
-							<h2>Your university currently do not have any pending application for programmes</h2>
-							</div>";
-						}
 						if (isset($_SESSION["approveApply"])){
 							if ($_SESSION["approveApply"])
 								$msg = "approved";
 							else
 								$msg = "rejected";
 							unset($_SESSION["approveApply"]);
-							echo "<div class=\"alert alert-success alert-dismissible pb-0\"><button type = \"button\" class=\"close\" data-dismiss=\"alert\">&times;</button><p style=\"text-transform: uppercase;\">You have ".$msg." an application</p></div>";
+							echo "<div class=\"row\"><div class=\"col-md-12 pl-0\"><div class=\"alert alert-success alert-dismissible pb-0\">
+							<button type = \"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+							<p style=\"text-transform: uppercase;\">You have ".$msg." an application</p></div>
+							</div></div>";
 						}
+						if ($rowNum == 0){
+							echo "<div class=\"row mb-4\">
+							<h2>Your university currently do not have any pending application for programmes</h2>
+							</div>";
+						}else{
+							echo "<div class=\"row mb-4\">
+							<h2>Pending Application <span style=\"font-size:25px\">(".$rowNum.")</span></h2>
+							</div>";
+							
+						}
+							echo "<div class=\"row mb-4\">
+							<span class=\"mr-2\"><a href=\"review-application.php\" class=\"btn active px-3 py-2 mb-4\">Pending</a></span>
+							<span><a href=\"approved-application.php\" class=\"btn px-3 py-2 mb-4\">Approved</a></span>
+							</div>";
+						
 						
 					?>
 					<div class="row">

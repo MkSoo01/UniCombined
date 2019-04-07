@@ -120,7 +120,7 @@
 			<div class="col-md-12">
 				<div class="mb-3 p-5">
 					<?php
-						echo "<h2 class=\"mb-4\">".$_GET["university"]." Programmes</h2>";
+						echo "<h2 class=\"mb-5\">".$_GET["university"]." Programmes</h2>";
 					?>
 					<div class="row">
 					<?php

@@ -15,10 +15,13 @@
 	$insertApplication->bind_param("ssss",$date,$status,$_SESSION["UserName"],$_GET["progID"]);
 	$date = date("Y-m-d");
 	$status = "PENDING";
-	$checkEntryReq = "select * from qualificationObtained, entryRequirement WHERE qualificationObtained.applicantID = application.applicantID AND
-entryRequirement.programmeID = application.programmeID AND entryScore >= overallScore AND applicantion.applicantID = '".$_SESSION["UserName"]."';";
-	$checkEntryReq = $conn->query($checkEntryReq);
-	if (isset($checkEntryReq->num_rows) && $checkEntryReq->num_rows == 0){
+	$getEntryReq = "select entryScore from entryRequirement WHERE programmeID = '".$_GET["progID"]."'; ";
+	$checkEntryReq = $conn->query($getEntryReq);
+	$getOverallScore = "select overallScore from qualificationObtained WHERE applicantID = '".$_SESSION["UserName"]."';";
+	$checkOverallScore = $conn->query($getOverallScore);
+	$entryScore = $checkEntryReq->fetch_assoc()["entryScore"];
+	$overallScore = $checkOverallScore->fetch_assoc()["overallScore"];
+	if ($entryScore > $overallScore){
 		$status = "REJECTED";
 	}
 	$insertApplication->execute();
@@ -27,7 +30,7 @@ entryRequirement.programmeID = application.programmeID AND entryScore >= overall
 	$getProgName = "SELECT programmeName from programme WHERE programmeID = '".$_GET["progID"]."';";
 	$progName = $conn->query($getProgName);
 	$row = $progName->fetch_assoc();
-	header("location: myApplication.php");
+	header('Location: myApplication.php');
 	}
 
 ?>
